@@ -15,6 +15,9 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
+    def __str__(self):
+        return self.category_name
+
 
 class Attribute_type(models.Model):
     attribute_name = models.CharField(_('Attribute'), max_length=45, unique=True)
@@ -22,6 +25,9 @@ class Attribute_type(models.Model):
     class Meta:
         verbose_name = _('Attribute')
         verbose_name_plural = _('Attributes')
+
+    def __str__(self):
+        return self.attribute_name
 
 
 class Attribute(models.Model):
@@ -32,13 +38,16 @@ class Attribute(models.Model):
         unique_together = ('category', 'attribute_type')
 
 
-class Attribute_value(models.Model):
+class Attribute_Value(models.Model):
     value = models.CharField(_('Value'), max_length=45)
     attribute = models.ForeignKey(Attribute, verbose_name=_('Attribute'), on_delete=models.PROTECT)
 
     class Meta:
-        verbose_name = _('Attribute')
-        verbose_name_plural = _('Attributes')
+        verbose_name = _('Value')
+        verbose_name_plural = _('Values')
+
+    def __str__(self):
+        return self.value
 
 
 class Product(models.Model):
