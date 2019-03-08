@@ -5,8 +5,6 @@ procurement/migrations/
 media/
 .idea/
 smartmed/settings.py
-smartmed/wsgi.py
-manage.py
 
 # Windows image file caches
 Thumbs.db
