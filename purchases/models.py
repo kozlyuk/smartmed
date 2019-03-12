@@ -33,6 +33,7 @@ class Company(models.Model):
     class Meta:
         verbose_name = _('Company')
         verbose_name_plural = _('Companies')
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -55,6 +56,7 @@ class Partner(models.Model):
     class Meta:
         verbose_name = _('Partner')
         verbose_name_plural = _('Partners')
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -79,7 +81,8 @@ class Deal(models.Model):
                                               max_upload_size=26214400,
                                               blank=True, null=True)
     # Creator and Date information
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='deals_creator', on_delete=models.PROTECT)
+    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='deals_creator',
+                                on_delete=models.PROTECT, null=True)
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
@@ -90,7 +93,7 @@ class Deal(models.Model):
         ordering = ['-date_created', 'partner', '-number']
 
     def __str__(self):
-        return self.number + ' ' + self.customer.name
+        return self.number + ' ' + self.partner.name
 
     def save(self, *args, **kwargs):
         if not self.pk:

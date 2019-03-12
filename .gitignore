@@ -1,10 +1,9 @@
 __pycache__
 venv/
-catalogue/migrations/
-procurement/migrations/
+*/migrations/
 media/
 .idea/
-smartmed/settings.py
+*/settings.py
 
 # Windows image file caches
 Thumbs.db
