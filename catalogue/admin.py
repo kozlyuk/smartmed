@@ -68,7 +68,7 @@ class AttributeInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'upc', 'category', 'group', 'brand', 'is_active']
+    list_display = ['title', 'upc', 'brand', 'category', 'group', 'is_active']
     fieldsets = [
         (None, {'fields': [('title', 'upc'),
                            ('category', 'group', 'brand'),

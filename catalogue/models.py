@@ -56,7 +56,7 @@ class Product(models.Model):
     group = models.ForeignKey(Group, verbose_name=_('Product Group'), on_delete=models.PROTECT)
     brand = models.ForeignKey(Brand, verbose_name=_('Product Brand'), on_delete=models.PROTECT)
     description = models.TextField(_('Product description'), blank=True)
-    warranty_terms = models.PositiveSmallIntegerField(_('Warranty terms, months'), blank=True)
+    warranty_terms = models.PositiveSmallIntegerField(_('Warranty terms, months'), blank=True, null=True)
     default_uom = models.CharField(_('Default units of measurement'), max_length=8, default=_('pcs.'))
     pack_size = models.PositiveSmallIntegerField(_('Pack size'), default=10)
     min_store_quantity = models.IntegerField(_('Minimal store quantity'), default=10)
