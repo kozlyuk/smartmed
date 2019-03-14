@@ -6,6 +6,8 @@ from django.utils.timezone import now
 from crum import get_current_user
 from warehouse.models import Stock
 from stdimage.models import StdImageField
+from django_webix.models import GenericModelWebix
+
 
 
 def image_directory_path(instance, filename):
@@ -49,7 +51,7 @@ class Brand(models.Model):
         return self.name
 
 
-class Product(models.Model):
+class Product(GenericModelWebix):
     title = models.CharField(_('Product title'), max_length=255)
     upc = models.CharField(_('Product UPC'), max_length=32, unique=True)
     category = models.ForeignKey(Category, verbose_name=_('Product Category'), on_delete=models.PROTECT)
@@ -73,6 +75,12 @@ class Product(models.Model):
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
         ordering = ['-date_created', 'title']
+
+    class WebixMeta:
+        url_list = 'product_list'
+        url_create = 'product_create'
+        url_update = 'product_update'
+        url_delete = 'product_delete'
 
     def __str__(self):
         return self.title
