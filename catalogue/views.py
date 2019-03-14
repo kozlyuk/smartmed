@@ -6,7 +6,7 @@ from django_webix.formsets import WebixTabularInlineFormSet, WebixStackedInlineF
 from django_webix.views import WebixCreateWithInlinesView, WebixUpdateWithInlinesView, WebixDeleteView
 
 from catalogue.forms import ProductForm
-from catalogue.models import Product, PriceRecord
+from catalogue.models import Product, PriceRecord, Attribute, Image
 
 
 class HomeView(TemplateView):
@@ -15,6 +15,16 @@ class HomeView(TemplateView):
 
 class PriceRecordInline(WebixStackedInlineFormSet):
     model = PriceRecord
+    fields = '__all__'
+
+
+class AttributeInline(WebixStackedInlineFormSet):
+    model = Attribute
+    fields = '__all__'
+
+
+class ImageInline(WebixStackedInlineFormSet):
+    model = Image
     fields = '__all__'
 
 
@@ -32,13 +42,13 @@ class ProductListView(TemplateView):
 
 class ProductCreateView(WebixCreateWithInlinesView):
     model = Product
-    inlines = [PriceRecordInline]
+    inlines = [PriceRecordInline, AttributeInline, ImageInline]
     form_class = ProductForm
 
 
 class ProductUpdateView(WebixUpdateWithInlinesView):
     model = Product
-    inlines = [PriceRecordInline]
+    inlines = [PriceRecordInline, AttributeInline, ImageInline]
     form_class = ProductForm
 
 
