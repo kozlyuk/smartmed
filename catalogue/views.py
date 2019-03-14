@@ -34,9 +34,13 @@ class ProductListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
         context['datalist'] = json.dumps([{
-            'id': i.pk,
-            'title': i.title
-        } for i in Product.objects.all()])
+            'id': product.pk,
+            'title': product.title,
+            'upc': product.upc,
+            'brand': product.brand.name,
+            'category': product.category.name,
+            'group': product.group.name,
+        } for product in Product.objects.all()])
         return context
 
 
