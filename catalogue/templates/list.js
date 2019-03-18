@@ -13,6 +13,26 @@ $$("{{ view.webix_view_id|default:"content_right" }}").addView({
                     id: "title",
                     header: "title",
                     fillspace: true
+                },
+                {
+                    id: "upc",
+                    header: "upc",
+                    fillspace: true
+                },
+                {
+                    id: "brand",
+                    header: "brand",
+                    fillspace: true
+                },
+                {
+                    id: "category",
+                    header: "category",
+                    fillspace: true
+                },
+                {
+                    id: "group",
+                    header: "group",
+                    fillspace: true
                 }
             ],
             on: {
