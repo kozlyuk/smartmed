@@ -16,7 +16,6 @@ class WarehouseAdmin(admin.ModelAdmin):
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
     list_display = ['product', 'warehouse', 'quantity_in_hand']
-#test
     fieldsets = [
         (None, {'fields': ['product',
                            'warehouse',
