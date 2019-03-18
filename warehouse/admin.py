@@ -17,6 +17,7 @@ class WarehouseAdmin(admin.ModelAdmin):
 class StockAdmin(admin.ModelAdmin):
     list_display = ['product', 'warehouse', 'quantity_in_hand']
     fieldsets = [
+#test
         (None, {'fields': ['product',
                            'warehouse',
                            'quantity_in_hand'
