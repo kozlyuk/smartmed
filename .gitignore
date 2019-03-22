@@ -1,5 +1,4 @@
 __pycache__
-myvenv/
 venv/
 */migrations/
 media/
@@ -53,4 +52,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-
