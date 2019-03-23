@@ -122,15 +122,18 @@ input {
 input::-moz-focus-inner { 
   border: 0; 
 }
-#submit {
+#submit, #registration {
   color: #707075;
-  margin-top: 40px;
+  margin-top: 20px;
   transition: color 300ms;
+  cursor: pointer;
 }
-#submit:focus {
+#submit:focus,
+#registration:focus{
   color: #f2f2f2;
 }
-#submit:active {
+#submit:active,
+#registration:active{
   color: #d0d0d2;
 }
 
@@ -141,7 +144,7 @@ input::-moz-focus-inner {
   height: 137px;
   left: 30%;
   margin-left: -11%;
-  background-image: url(/logo.png);
+  background-image: url(img/logo.png);
   background-repeat: no-repeat;
   background-color: white;
   border-radius: 10% 10% 0% 0%;
@@ -150,7 +153,11 @@ input::-moz-focus-inner {
   .logo {
     top: 180px;
     left: 25%;
-    background-color: rgba(255, 255, 255, 0.055);
+    background-color: rgba(255, 255, 255, 0.025);
     border-radius: 50%;
+    z-index: 20;
+  }
+  .login {
+    font-size: 40px;
   }
 }
