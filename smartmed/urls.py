@@ -22,6 +22,8 @@ from django.conf.urls import url, include
 from catalogue.views import HomeView, ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
 
 
+from django.views.generic import TemplateView #delete in production#
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^django-webix/', include('django_webix.urls')),
@@ -31,6 +33,8 @@ urlpatterns = [
     url(r'^product/create$', ProductCreateView.as_view(), name='product_create'),
     url(r'^product/update/(?P<pk>\d+)$', ProductUpdateView.as_view(), name='product_update'),
     url(r'^product/delete/(?P<pk>\d+)$', ProductDeleteView.as_view(), name='product_delete'),
+    
+    url(r'^login/$', TemplateView.as_view(template_name="auth.html"), name='auth'), #change in production#
 
 ]
 
