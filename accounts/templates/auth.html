@@ -56,12 +56,14 @@
                       h 168.57143" />
                     </svg>
                     <div class="form">
-                      <label for="email">Email</label>
-                      <input type="email" id="email">
-                      <label for="password">Password</label>
-                      <input type="password" id="password">
-                      <input type="submit" id="submit" value="Вхід">
-                      <input type="submit" id="registration" value="Реєстрація">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" id="submit" value="Вхід">
+
+                            <a href="{% url "password_reset" %}">Зкинути пароль</a>
+                            <a href="{% url "password_reset" %}">Реєстрація</a>
+                        </form>
                     </div>
                   </div>
                 </div>
