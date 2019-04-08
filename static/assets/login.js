@@ -30,7 +30,7 @@
 
 window.onload=function(){
 var current = null;
-document.querySelector('#email').addEventListener('focus', function(e) {
+document.querySelector('#id_username').addEventListener('focus', function(e) {
   if (current) current.pause();
   current = anime({
     targets: 'path',
@@ -46,7 +46,7 @@ document.querySelector('#email').addEventListener('focus', function(e) {
     }
   });
 });
-document.querySelector('#password').addEventListener('focus', function(e) {
+document.querySelector('#id_password').addEventListener('focus', function(e) {
 if (current) current.pause();
   current = anime({
     targets: 'path',
