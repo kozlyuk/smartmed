@@ -110,7 +110,10 @@ class Image(models.Model):
 class PriceRecord(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     from_date = models.DateField(_('Actual from'), default=now)
-    price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
+    regular_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
+    discount1_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
+    discount2_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
+    discount3_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
     creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='price_records_creator',
                                 on_delete=models.PROTECT, null=True)
     date_created = models.DateField(_('Created'), auto_now_add=True)
