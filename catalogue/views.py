@@ -38,14 +38,15 @@ class ProductList(ListView):
         brand = self.request.GET.get('brand', '0')
         order = self.request.GET.get('o', '0')
         for word in search_string:
-            products = products.filter(Q(number__icontains=word) |
-                                 Q(value__icontains=word))
+            products = products.filter(Q(title__icontains=word) |
+                                       Q(upc__icontains=word) |
+                                       Q(description__icontains=word))
         if category != '0':
-            products = products.filter(customer=category)
+            products = products.filter(category=category)
         if group != '0':
-            products = products.filter(company=group)
+            products = products.filter(group=group)
         if brand != '0':
-            products = products.filter(act_status=brand)
+            products = products.filter(brand=brand)
         if order != '0':
             products = products.order_by(order)
         return products
