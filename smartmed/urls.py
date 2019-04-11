@@ -17,22 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import url, include
+from django.conf.urls import include
 
-from catalogue.views import HomeView, ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView
+#from smartmed.views import Home
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^django-webix/', include('django_webix.urls')),
-    url(r'^', include('accounts.urls')),
+    path('', include('accounts.urls')),
+    path('product/', include('catalogue.urls')),
 
-    url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^product/list$', ProductListView.as_view(), name='product_list'),
-    url(r'^product/create$', ProductCreateView.as_view(), name='product_create'),
-    url(r'^product/update/(?P<pk>\d+)$', ProductUpdateView.as_view(), name='product_update'),
-    url(r'^product/delete/(?P<pk>\d+)$', ProductDeleteView.as_view(), name='product_delete'),
-    
+#    path('', Home.as_view(), name='home'),
 ]
 
 if settings.DEBUG:
