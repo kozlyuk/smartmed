@@ -7,13 +7,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{% static 'assets/listview.css' %}">
 
-<!--<body class="dark-edition">-->
+<body class="dark-edition">
 <div class="content">
+ 
+
+                        
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-primary">
+                <div class="card-header card-header-info">
                   <h4 class="card-title ">Список товарів</h4>
                   <!--<p class="card-category"> some text</p>-->
                 </div>
@@ -21,22 +24,25 @@
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead class=" text-primary">
-                          <th><a href="?{% url_replace request 'o' 'Product_id' %}"> ID </a></th>
                           <th><a href="?{% url_replace request 'o' 'Product_title' %}"> НАЗВА ТОВАРУ </a></th>
                           <th><a href="?{% url_replace request 'o' 'Product_UPC' %}"> UPC </a></th>
-                          <th><a href="?{% url_replace request 'o' 'Product_category' %}"> КАТЕГОРІЯ </a></th>
+                          <th><a href="?{% url_replace request 'o' 'Product_brand' %}"> БРЕНД </a></th>
+                          <th><a href="?{% url_replace request 'o' 'Product_category' %}"> КАТЕГОРІЯ {{ title }}</a></th>
                           <th><a href="?{% url_replace request 'o' 'Product_group' %}"> ГРУППА </a></th>
+                          <th><a href="?{% url_replace request 'o' 'Product_is_active' %}"> АКТИВНИЙ </a></th>
                           </thead>
                       <tbody>
-                           {% for product in catalogue %}
+                          {% for product in products %}
                            <tr>
-                               <td>
-                                   <input type="checkbox" name="ids" value="{{ product.id }}" />
-                               </td>
-                               <td> {{ product.title }}</td>>
-                               <td> {{ product.UPC }}</td>>
-                               <td> {{ product.category }}</td>>
-                               <td> {{ product.group }}</td>>
+                               <!--<td>-->
+                               <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
+                               <!--</td>-->
+                               <td> {{ product.title }}</td>
+                               <td> {{ product.UPC }}</td>
+                               <td> {{ product.brand }}</td>
+                               <td> {{ product.category }}</td>
+                               <td> {{ product.group }}</td>
+                               <td> {{ product.is_active }}</td>
                            </tr>
                            {% endfor %}
                       </tbody>
