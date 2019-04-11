@@ -63,20 +63,16 @@ class ProductList(ListView):
 
 
 
-#@method_decorator(login_required, name='dispatch')
-#class ProductCreateView(CreateView):
-#    model = Product
-#    inlines = [PriceRecordInline, AttributeInline, ImageInline]
-#    form_class = ProductForm
+@method_decorator(login_required, name='dispatch')
+class ProductCreate(CreateView):
+    model = Product
 
 
-#@method_decorator(login_required, name='dispatch')
-#class ProductUpdateView(UpdateView):
-#    model = Product
-#    inlines = [PriceRecordInline, AttributeInline, ImageInline]
-#    form_class = ProductForm
+@method_decorator(login_required, name='dispatch')
+class ProductUpdate(UpdateView):
+    model = Product
 
 
-#@method_decorator(login_required, name='dispatch')
-#class ProductDeleteView(DeleteView):
-#    model = Product
+@method_decorator(login_required, name='dispatch')
+class ProductDelete(DeleteView):
+    model = Product
