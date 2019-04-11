@@ -19,15 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
 
-#from smartmed.views import Home
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
-    path('product/', include('catalogue.urls')),
-
-#    path('', Home.as_view(), name='home'),
+    path('', include('catalogue.urls')),
 ]
 
 if settings.DEBUG:
