@@ -32,7 +32,7 @@
                                             {% endfor %}
 
                                             <table width="100%" style="display:block; float: left"><tr style="display:block">
-                                            {% for field in filter_form.visible_fields|slice:":4" %}
+                                            {% for field in filter_form.visible_fields|slice:":3" %}
                                                 <td style="float:left; margin: 5px">
                                                     {{ field.label_tag }}
                                                     {{ field }}
