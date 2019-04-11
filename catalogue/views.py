@@ -14,7 +14,7 @@ from catalogue.models import Product, PriceRecord, Attribute, Image
 
 @method_decorator(login_required, name='dispatch')
 class Home(TemplateView):
-    template_name = 'main.html'
+    template_name = 'base.html'
 
 
 @method_decorator(login_required, name='dispatch')
