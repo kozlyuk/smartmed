@@ -1,5 +1,5 @@
 from django import forms
-from catalogue.models import Product
+from catalogue.models import Product, Category, Group, Brand
 from django.utils.translation import gettext_lazy as _
 
 
@@ -7,13 +7,13 @@ class ProductFilterForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(ProductFilterForm, self).__init__(*args, **kwargs)
 
-        category = [(category.id, category.name) for category in Product.objects.all()]
+        category = [(category.id, category.name) for category in Category.objects.all()]
         category.insert(0, (0, "Всі"))
 
-        group = [(group.id, group.name) for group in Product.objects.all()]
+        group = [(group.id, group.name) for group in Group.objects.all()]
         group.insert(0, (0, "Всі"))
 
-        brand = [(brand.id, brand.name) for brand in Product.objects.all()]
+        brand = [(brand.id, brand.name) for brand in Brand.objects.all()]
         brand.insert(0, (0, "Всі"))
 
         self.fields['category'].choices = category
