@@ -14808,6 +14808,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+
 .sidebar[data-image]:after,
 .sidebar.has-image:after {
   opacity: .77;
@@ -21140,6 +21141,12 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
 .dark-edition .alert .close:focus {
   color: #fff;
   opacity: 1;
+}
+
+
+#logo {
+  position: relative;
+  left: 50px;
 }
 
 @keyframes heartbeat {
