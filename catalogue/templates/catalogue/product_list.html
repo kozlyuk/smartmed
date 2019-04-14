@@ -1,9 +1,59 @@
 {% extends 'base.html' %}
 {% load ita_template_tags %}
 {% load staticfiles %}
+{% block sidebar %}
+{% endblock %}
 {% block context %}
 <div class="content">
- 
+ <div class="panel-group accordion" id="accordion1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                {% if perms.smartmed.add_product %}
+                                    <a href="{% url 'product_create' %}" class="btn btn-sm btn-success uppercase"
+                                       style="float:right; margin-right: 5px; margin-bottom: 5px; margin-top: 5px">
+                                       <i class="fa fa-plus"></i> Додати товар </a>
+                                {% endif %}
+                                    <div class="panel-title">
+                                        <a class="accordion-toggle theme-font bold uppercase"
+                                           data-toggle="collapse" data-parent="#accordion1"
+                                           href="#collapse_1" aria-expanded="false"> Договори </a>
+                                    </div>
+                                    <div style="height:30px; bottom: 0px; float: right">
+                                    </div>
+                                </div>
+                                <div id="collapse_1" class="panel-collapse collapse in" aria-expanded="false">
+                                    <div class="container-fluid " style="display:block">
+                                        <form action="{% url 'product_list' %}" method="get">
+                                            {% for hidden_field in filter_form.hidden_fields %}
+                                                {{ hidden_field }}
+                                            {% endfor %}
+
+                                            <table width="100%" style="display:block; float: left"><tr style="display:block">
+                                            {% for field in filter_form.visible_fields|slice:":3" %}
+                                                <td style="float:left; margin: 5px">
+                                                    {{ field.label_tag }}
+                                                    {{ field }}
+                                                    {% if field.help_text %}
+                                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                                    {% endif %}
+                                                </td>
+                                            {% endfor %}
+                                            <td style="float: left; margin: 0px">
+                                                {{ filter_form.filter.label_tag }}
+                                                {{ filter_form.filter }}
+                                                {% if field.help_text %}
+                                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                                {% endif %}
+                                                <button type="submit" class="btn btn-sm btn-primary uppercase"
+                                                    style="margin-right: 5px; margin-bottom: 5px; margin-top: 2px">
+                                                <i class="fa fa-search"></i>Пошук</button>
+                                            </td>
+                                            </tr></table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         
         <div class="container">
