@@ -21143,6 +21143,11 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
   opacity: 1;
 }
 
+.content {
+    margin-top: 70px;
+    padding: 30px 15px;
+    min-height: calc(100vh - 123px);
+}
 
 #logo {
   position: relative;
