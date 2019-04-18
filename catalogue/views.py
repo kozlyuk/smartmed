@@ -9,7 +9,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from catalogue.forms import *
-from catalogue.models import Product, PriceRecord, Attribute, Image
+from catalogue.models import Product
 
 
 @method_decorator(login_required, name='dispatch')
@@ -77,3 +77,90 @@ class ProductUpdate(UpdateView):
 @method_decorator(login_required, name='dispatch')
 class ProductDelete(DeleteView):
     model = Product
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductCreate(CreateView):
+    model = Product
+    form_class = ProductForm
+    context_object_name = 'product'
+
+    def get_success_url(self):
+        self.success_url = reverse_lazy('product_list') + '?' + self.request.session.get('product_query_string')
+        return self.success_url
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductCreate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST, instance=self.object)
+            context['price_records_formset'] = PriceRecordsFormSet(self.request.POST, instance=self.object)
+            context['attribute_formset'] = AttributeFormSet(self.request.POST, instance=self.object)
+        else:
+            context['image_formset'] = ImageFormSet(instance=self.object)
+            context['price_records_formset'] = PriceRecordsFormSet(instance=self.object)
+            context['attribute_formset'] = AttributeFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        price_records_formset = context['price_records_formset']
+        attribute_formset = context['attribute_formset']
+        if image_formset.is_valid() and price_records_formset.is_valid() and attribute_formset.is_valid():
+            image_formset.instance = self.object
+            image_formset.save()
+            price_records_formset.instance = self.object
+            price_records_formset.save()
+            attribute_formset.instance = self.object
+            attribute_formset.save()
+            return super(ProductCreate, self).form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductUpdate(UpdateView):
+    model = Product
+    form_class = ProductForm
+    context_object_name = 'product'
+
+    def get_success_url(self):
+        self.success_url = reverse_lazy('product_list') + '?' + self.request.session.get('product_query_string')
+        return self.success_url
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductUpdate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST, instance=self.object)
+            context['price_records_formset'] = PriceRecordsFormSet(self.request.POST, instance=self.object)
+            context['attribute_formset'] = AttributeFormSet(self.request.POST, instance=self.object)
+        else:
+            context['image_formset'] = ImageFormSet(instance=self.object)
+            context['price_records_formset'] = PriceRecordsFormSet(instance=self.object)
+            context['attribute_formset'] = AttributeFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        price_records_formset = context['price_records_formset']
+        attribute_formset = context['attribute_formset']
+        if image_formset.is_valid() and price_records_formset.is_valid() and attribute_formset.is_valid():
+            image_formset.instance = self.object
+            image_formset.save()
+            price_records_formset.instance = self.object
+            price_records_formset.save()
+            attribute_formset.instance = self.object
+            attribute_formset.save()
+            return super(ProductUpdate, self).form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductDelete(DeleteView):
+    model = Product
+
+    def get_success_url(self):
+        self.success_url = reverse_lazy('product_list') + '?' + self.request.session.get('product_query_string')
+        return self.success_url
