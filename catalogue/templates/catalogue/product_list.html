@@ -68,12 +68,12 @@
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead class=" text-primary">
-                          <th><a href="?{% url_replace request 'o' 'Product_title' %}"> НАЗВА ТОВАРУ </a></th>
-                          <th><a href="?{% url_replace request 'o' 'Product_UPC' %}"> UPC </a></th>
-                          <th><a href="?{% url_replace request 'o' 'Product_brand' %}"> БРЕНД </a></th>
-                          <th><a href="?{% url_replace request 'o' 'Product_category' %}"> КАТЕГОРІЯ {{ title }}</a></th>
-                          <th><a href="?{% url_replace request 'o' 'Product_group' %}"> ГРУППА </a></th>
-                          <th><a href="?{% url_replace request 'o' 'Product_is_active' %}"> АКТИВНИЙ </a></th>
+                          <th><a href="?{% url_replace request 'o' 'title' %}"> НАЗВА ТОВАРУ </a></th>
+                          <th><a href="?{% url_replace request 'o' 'upc' %}"> UPC </a></th>
+                          <th><a href="?{% url_replace request 'o' 'brand' %}"> БРЕНД </a></th>
+                          <th><a href="?{% url_replace request 'o' 'category' %}"> КАТЕГОРІЯ {{ title }}</a></th>
+                          <th><a href="?{% url_replace request 'o' 'group' %}"> ГРУППА </a></th>
+                          <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th>
                           </thead>
                       <tbody>
                           {% for product in products %}
