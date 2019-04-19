@@ -60,7 +60,8 @@ class PurchaseAdmin(admin.ModelAdmin):
         (None, {'fields': ['deal',
                            ('invoice_number', 'invoice_date'),
                            ('value', 'currency'),
-                           ('in_stock', 'upload')
+                           ('warehouse', 'in_stock'),
+                           'upload'
                            ]}),
         ]
     inlines = [InvoiceLineInline]

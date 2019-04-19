@@ -81,8 +81,7 @@ class Deal(models.Model):
                                               max_upload_size=26214400,
                                               blank=True, null=True)
     # Creator and Date information
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='deals_creator',
-                                on_delete=models.PROTECT, null=True)
+    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='deals_creator', on_delete=models.PROTECT)
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
@@ -156,7 +155,7 @@ class Purchase(models.Model):
         ordering = ['-date_created', '-invoice_number']
 
     def __str__(self):
-        return self.invoice_number + ' ' + self.deal.customer.name
+        return self.invoice_number + ' ' + self.deal.partner.name
 
     def value_wc(self):
         return str(self.value) + ' ' + self.currency
