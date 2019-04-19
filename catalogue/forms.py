@@ -47,7 +47,7 @@ ImageFormSet = inlineformset_factory(Product, Image, form=ImageInlineForm, extra
 class PriceRecordsInlineForm(forms.ModelForm):
     class Meta:
         model = PriceRecord
-        fields = ['from_date', 'regular_price', 'discount1_price', 'discount2_price', 'discount3_price']
+        fields = ['from_date', 'regular_price', 'discount_price_1', 'discount_price_2', 'discount_price_3']
 
 
 PriceRecordsFormSet = inlineformset_factory(Product, PriceRecord, form=PriceRecordsInlineForm, extra=1)

@@ -104,9 +104,9 @@ class PriceRecord(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     from_date = models.DateField(_('Actual from'), default=now)
     regular_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
-    discount1_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
-    discount2_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
-    discount3_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
+    discount_price_1 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)
+    discount_price_2 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)
+    discount_price_3 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)
     creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='price_records_creator',
                                 on_delete=models.PROTECT, null=True)
     date_created = models.DateField(_('Created'), auto_now_add=True)
@@ -117,7 +117,7 @@ class PriceRecord(models.Model):
         verbose_name_plural = _('Price Records')
 
     def __str__(self):
-        return str(self.price) + ' ' + settings.DEFAULT_CURRENCY
+        return str(self.regular_price) + ' ' + settings.DEFAULT_CURRENCY
 
     def save(self, *args, **kwargs):
         if not self.pk:

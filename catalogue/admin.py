@@ -56,7 +56,8 @@ class ImageInline(admin.TabularInline):
 
 class PriceRecordInline(admin.TabularInline):
     model = PriceRecord
-    fields = ['price', 'from_date']
+    fields = ['from_date', 'regular_price',
+              'discount_price_1', 'discount_price_2', 'discount_price_3']
     extra = 0
 
 
