@@ -4,7 +4,7 @@ myvenv/
 */migrations/
 media/
 .idea/
-*/local_settings
+*/local_settings.py
 
 # Windows image file caches
 Thumbs.db
