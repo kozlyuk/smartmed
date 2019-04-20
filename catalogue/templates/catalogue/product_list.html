@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load ita_template_tags %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 {% block sidebar %}
 {% endblock %}
 {% block context %}
@@ -8,22 +9,22 @@
  <div class="panel-group accordion" id="accordion1">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                {% if perms.smartmed.add_product %}
-                                    <a href="{% url 'product_create' %}" class="btn btn-sm btn-success uppercase"
-                                       style="float:right; margin-right: 5px; margin-bottom: 5px; margin-top: 5px">
-                                       <i class="fa fa-plus"></i> Додати товар </a>
-                                {% endif %}
                                     <div class="panel-title">
-                                        <a class="accordion-toggle theme-font bold uppercase"
-                                           data-toggle="collapse" data-parent="#accordion1"
-                                           href="#collapse_1" aria-expanded="false"> Товари </a>
+                                        <a class="accordion"
+                                           data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapse_1" aria-expanded="false" style="
+                                            display: inline-block;
+                                            position: relative;
+                                            left: 50%;
+                                            top: 50%;
+                                            transform: translate(-50%, -50%);"> Фільтр </a>
                                     </div>
                                     <div style="height:30px; bottom: 0px; float: right">
                                     </div>
                                 </div>
-                                <div id="collapse_1" class="panel-collapse collapse in" aria-expanded="false">
-                                    <div class="container-fluid " style="display:block">
-                                        <form action="{% url 'product_list' %}" method="get">
+                                <div id="collapse_1" class="collapse" aria-expanded="false">
+                                    <div class="card-body " style="display:block">
+                                        <form action="{% url 'product_list' %}" style="display: block;height: 104px;padding: inherit;" method="get">
                                             {% for hidden_field in filter_form.hidden_fields %}
                                                 {{ hidden_field }}
                                             {% endfor %}
@@ -32,7 +33,7 @@
                                             {% for field in filter_form.visible_fields|slice:":3" %}
                                                 <td style="float:left; margin: 5px">
                                                     {{ field.label_tag }}
-                                                    {{ field }}
+                                                    {{ field|add_class:"form-control form-control-sm" }}
                                                     {% if field.help_text %}
                                                         <small class="form-text text-muted">{{ field.help_text }}</small>
                                                     {% endif %}
@@ -40,7 +41,7 @@
                                             {% endfor %}
                                             <td style="float: left; margin: 0px">
                                                 {{ filter_form.filter.label_tag }}
-                                                {{ filter_form.filter }}
+                                                {{ filter_form.filter|attr:"type:text"|attr:"placeholder=Пошук..."|add_class:"form-control" }}
                                                 {% if field.help_text %}
                                                     <small class="form-text text-muted">{{ field.help_text }}</small>
                                                 {% endif %}
@@ -48,6 +49,13 @@
                                                     style="margin-right: 5px; margin-bottom: 5px; margin-top: 2px">
                                                 <i class="fa fa-search"></i>Пошук</button>
                                             </td>
+                                            <td style="float: left; margin: 0px">
+                                                                            {% if perms.smartmed.add_product %}
+                                    <a href="{% url 'product_create' %}" class="btn btn-sm btn-success uppercase"
+                                       style="float:right; margin-right: 5px; margin-bottom: 5px; margin-top: 5px">
+                                       <i class="fa fa-plus"></i> Додати товар </a>
+                                {% endif %}
+                                </td>
                                             </tr></table>
                                         </form>
                                     </div>

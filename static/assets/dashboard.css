@@ -21153,47 +21153,10 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
   position: relative;
   left: 50px;
 }
-#id_filter:not(:last-child) {
-    display: block;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    background-image: linear-gradient(to top, #9c27b0 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, rgba(180, 180, 180, 0.1) 1px, rgba(180, 180, 180, 0) 1px);
-    color: #fff;
-    line-height: 1.1;
-    position: relative;
-    flex: 1 1 auto;
-    width: 1%;
-    margin-bottom: 0;
-    background: no-repeat center bottom, center calc(100% - 1px);
-    background-size: 0 100%, 100% 100%;
-    border: 0;
-    height: 36px;
-    transition: background 0s ease-out;
-    padding: 0.4375rem 0;
-    padding-left: 0;
-    padding-right: 0;
-    border-radius: 0;
-    font-size: 14px;
-    font-weight: 400;
-    box-shadow: none;
-    overflow: visible;
-    margin: 0;
-    font-family: inherit;
-    -webkit-appearance: textfield;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    padding: 1px;
-    text-rendering: auto;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    text-align: start;
-    font: 400 13.3333px Arial;
-  
-}
 
+.container{
+  display:inline-block;
+}
 @keyframes heartbeat {
   0% {
     transform: scale(0.75);
