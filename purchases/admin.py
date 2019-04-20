@@ -1,5 +1,6 @@
 from django.contrib import admin
-from purchases.models import Company, Partner, Deal, Purchase, InvoiceLine
+from purchases.models import Company, Deal, Purchase, InvoiceLine
+from accounts.models import Partner
 
 
 @admin.register(Company)
@@ -32,7 +33,7 @@ class PartnerAdmin(admin.ModelAdmin):
 
 @admin.register(Deal)
 class DealAdmin(admin.ModelAdmin):
-    list_display = ['type', 'number', 'partner', 'company', 'expire_date']
+    list_display = ['type', 'number', 'company', 'expire_date']
     fieldsets = [
         (None, {'fields': [('number', 'date'),
                            ('partner', 'company'),

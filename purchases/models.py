@@ -7,6 +7,7 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from crum import get_current_user
 from catalogue.models import Product
+#from accounts.models import Partner
 from warehouse.models import Warehouse
 
 
@@ -39,29 +40,6 @@ class Company(models.Model):
         return self.name
 
 
-class Partner(models.Model):
-    TAXATION_CHOICES = (
-        ('wvat', _('With VAT')),
-        ('wovat', _('Without VAT')),
-    )
-    name = models.CharField(_('Name'), max_length=45)
-    fullname = models.CharField(_('Full name'), max_length=255)
-    address = models.CharField(_('Legal address'), max_length=255, blank=True)
-    requisites = models.CharField(_('Requisites'), max_length=255, blank=True)
-    bank_requisites = models.CharField(_('Bank details'), max_length=255, blank=True)
-    chief = models.CharField(_('Chief'), max_length=45, blank=True)
-    phone = models.CharField(_('Phone'), max_length=13, blank=True)
-    tax_system = models.CharField(_('Tax system'), max_length=5, choices=TAXATION_CHOICES, default='wvat')
-
-    class Meta:
-        verbose_name = _('Partner')
-        verbose_name_plural = _('Partners')
-        ordering = ['name']
-
-    def __str__(self):
-        return self.name
-
-
 class Deal(models.Model):
     DEAL_CHOICES = (
         ('sa', _('Sale')),
@@ -71,7 +49,7 @@ class Deal(models.Model):
     number = models.CharField(_('Deal number'), max_length=45)
     date = models.DateField(_('Deal date'), default=now)
     expire_date = models.DateField(_('Deal expire date'))
-    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT)
+#    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT)
     company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
     comment = models.TextField(_('Comment'), blank=True)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
@@ -86,10 +64,10 @@ class Deal(models.Model):
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
     class Meta:
-        unique_together = ('number', 'partner')
+#        unique_together = ('number', 'partner')
         verbose_name = _('Deal')
         verbose_name_plural = _('Deals')
-        ordering = ['-date_created', 'partner', '-number']
+#        ordering = ['-date_created', 'partner', '-number']
 
     def __str__(self):
         return self.number + ' ' + self.partner.name
@@ -175,7 +153,7 @@ class Payment(models.Model):
         (BankPayment, _('Bank payment')),
         (BankCard, _('Bank card'))
     )
-    purchase = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.CASCADE)
+#    purchase = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.CASCADE)
     payment_type = models.CharField(_('Payment type'), max_length=2, choices=PAYMENT_TYPE_CHOICES, default='BP')
     payment_date = models.DateField(_('Payment date'), default=now)
     payment_value = models.DecimalField(_('Value'), max_digits=8, decimal_places=2)
