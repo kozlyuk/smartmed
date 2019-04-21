@@ -21157,6 +21157,10 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
 .container{
   display:inline-block;
 }
+
+#id_category{
+  width: auto;
+}
 @keyframes heartbeat {
   0% {
     transform: scale(0.75);
