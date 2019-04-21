@@ -6,3 +6,5 @@ progressbar2==3.39.3
 python-utils==2.3.0
 pytz==2018.9
 six==1.12.0
+django-widget-tweaks
+
