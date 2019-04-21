@@ -49,7 +49,7 @@ class Deal(models.Model):
     number = models.CharField(_('Deal number'), max_length=45)
     date = models.DateField(_('Deal date'), default=now)
     expire_date = models.DateField(_('Deal expire date'))
-    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT)
+#    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT)
     company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
     comment = models.TextField(_('Comment'), blank=True)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
@@ -64,10 +64,10 @@ class Deal(models.Model):
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
     class Meta:
-        unique_together = ('number', 'partner')
+#        unique_together = ('number', 'partner')
         verbose_name = _('Deal')
         verbose_name_plural = _('Deals')
-        ordering = ['-date_created', 'partner', '-number']
+#        ordering = ['-date_created', 'partner', '-number']
 
     def __str__(self):
         return self.number + ' ' + self.partner.name
