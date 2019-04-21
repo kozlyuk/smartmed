@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'stdimage',
     'widget_tweaks',
+    'django_userforeignkey',
     'catalogue.apps.CatalogueConfig',
     'purchases.apps.PurchasesConfig',
     'warehouse.apps.WarehouseConfig',
@@ -40,6 +41,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_userforeignkey.middleware.UserForeignKeyMiddleware',
 ]
 
 ROOT_URLCONF = 'smartmed.urls'
@@ -55,7 +57,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-#                'django.template.context_processors.i18n',
             ],
         },
     },

@@ -1,9 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
-from crum import get_current_user
+from django_userforeignkey.models.fields import UserForeignKey
 from warehouse.models import Stock
 from stdimage.models import StdImageField
 
@@ -65,8 +64,8 @@ class Product(models.Model):
     has_attributes = models.BooleanField(_('Has attributes'), default=True)
     is_discountable = models.BooleanField(_('Discountable'), default=True)
     is_active = models.BooleanField(_('Active'), default=True)
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='products_creator',
-                                on_delete=models.PROTECT, null=True)
+    # Creator and Date information
+    created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateField(_('Created'), auto_now_add=True)
     date_updated = models.DateField(_('Updated'), auto_now=True)
 
@@ -77,11 +76,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.creator = get_current_user()
-        super(Product, self).save(*args, **kwargs)
 
 
 class Image(models.Model):
@@ -107,8 +101,8 @@ class PriceRecord(models.Model):
     discount_price_1 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)
     discount_price_2 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)
     discount_price_3 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='price_records_creator',
-                                on_delete=models.PROTECT, null=True)
+    # Creator and Date information
+    created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateField(_('Created'), auto_now_add=True)
     date_updated = models.DateField(_('Updated'), auto_now=True)
 
@@ -118,11 +112,6 @@ class PriceRecord(models.Model):
 
     def __str__(self):
         return str(self.regular_price) + ' ' + settings.DEFAULT_CURRENCY
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.creator = get_current_user()
-        super(PriceRecord, self).save(*args, **kwargs)
 
 
 class AttributeType(models.Model):
@@ -166,8 +155,8 @@ class ProductInstance(models.Model):
     warranty_end_date = models.DateField(_('Warranty end date'))
     attribute_value = models.ForeignKey(AttributeValue, on_delete=models.PROTECT)
     stock = models.ForeignKey(Stock, on_delete=models.PROTECT)
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='product_instances_creator',
-                                on_delete=models.PROTECT, null=True)
+    # Creator and Date information
+    created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateField(_('Created'), auto_now_add=True)
     date_updated = models.DateField(_('Updated'), auto_now=True)
 
@@ -177,8 +166,3 @@ class ProductInstance(models.Model):
 
     def __str__(self):
         return self.serial_number
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.creator = get_current_user()
-        super(ProductInstance, self).save(*args, **kwargs)

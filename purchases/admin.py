@@ -18,9 +18,10 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(Deal)
 class DealAdmin(admin.ModelAdmin):
-    list_display = ['type', 'number', 'partner', 'company', 'expire_date']
+    list_display = ['number', 'type', 'partner', 'company', 'expire_date', 'created_by']
     fieldsets = [
-        (None, {'fields': [('number', 'date'),
+        (None, {'fields': ['type',
+                           ('number', 'date'),
                            ('partner', 'company'),
                            'expire_date',
                            'upload',
@@ -40,7 +41,7 @@ class InvoiceLineInline(admin.TabularInline):
 class PurchaseAdmin(admin.ModelAdmin):
 
     list_display = ['deal', 'invoice_number', 'value_wc',
-                    'in_stock', 'creator']
+                    'in_stock', 'created_by']
     list_per_page = 50
     fieldsets = [
         (None, {'fields': ['deal',

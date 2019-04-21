@@ -1,14 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from stdimage.models import StdImageField
-from crum import get_current_user
 from django.utils.translation import gettext_lazy as _
 
 
 def avatar_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/avatar/user_<id>/<filename>
-    return 'avatars/user_{0}/{1}'\
-        .format(get_current_user().id, filename)
+    return 'avatars/{1}'\
+        .format(filename)
 
 
 class Employee(models.Model):

@@ -1,11 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
 from .formatChecker import ContentTypeRestrictedFileField
 from datetime import datetime
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
-from crum import get_current_user
+from django_userforeignkey.models.fields import UserForeignKey
 from catalogue.models import Product
 from accounts.models import Partner
 from warehouse.models import Warehouse
@@ -49,7 +48,7 @@ class Deal(models.Model):
     number = models.CharField(_('Deal number'), max_length=45)
     date = models.DateField(_('Deal date'), default=now)
     expire_date = models.DateField(_('Deal expire date'))
-    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT)
+    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT, null=True)
     company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
     comment = models.TextField(_('Comment'), blank=True)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
@@ -59,7 +58,7 @@ class Deal(models.Model):
                                               max_upload_size=26214400,
                                               blank=True, null=True)
     # Creator and Date information
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='deals_creator', on_delete=models.PROTECT)
+    created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
@@ -71,11 +70,6 @@ class Deal(models.Model):
 
     def __str__(self):
         return self.number + ' ' + self.partner.name
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.creator = get_current_user()
-        super(Deal, self).save(*args, **kwargs)
 
 
 class Purchase(models.Model):
@@ -122,7 +116,7 @@ class Purchase(models.Model):
                                               max_upload_size=26214400,
                                               blank=True, null=True)
     # Creator and Date information
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name='purchases_creator', on_delete=models.PROTECT)
+    created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
@@ -138,11 +132,6 @@ class Purchase(models.Model):
     def value_wc(self):
         return str(self.value) + ' ' + self.currency
 
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.creator = get_current_user()
-        super(Purchase, self).save(*args, **kwargs)
-
 
 class Payment(models.Model):
     PayOnDelivery = 'PD'
@@ -153,12 +142,12 @@ class Payment(models.Model):
         (BankPayment, _('Bank payment')),
         (BankCard, _('Bank card'))
     )
-#    purchase = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.CASCADE)
+    purchase = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.CASCADE)
     payment_type = models.CharField(_('Payment type'), max_length=2, choices=PAYMENT_TYPE_CHOICES, default='BP')
     payment_date = models.DateField(_('Payment date'), default=now)
     payment_value = models.DecimalField(_('Value'), max_digits=8, decimal_places=2)
     # Creator and Date information
-    creator = models.ForeignKey(User, verbose_name=_('Creator'), related_name=_('payments_creator'), on_delete=models.PROTECT)
+    created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
@@ -168,11 +157,6 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.creator = get_current_user()
-        super(Payment, self).save(*args, **kwargs)
 
 
 class InvoiceLine(models.Model):
