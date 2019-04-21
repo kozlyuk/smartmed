@@ -1,24 +1,9 @@
 from django.contrib import admin
 from purchases.models import Company, Deal, Purchase, InvoiceLine
-from accounts.models import Partner
 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ['name', 'chief', 'phone']
-    fieldsets = [
-        (None, {'fields': [('name', 'fullname'),
-                           'address',
-                           'requisites',
-                           'bank_requisites',
-                           ('chief', 'phone'),
-                           'tax_system'
-                           ]})
-        ]
-
-
-@admin.register(Partner)
-class PartnerAdmin(admin.ModelAdmin):
     list_display = ['name', 'chief', 'phone']
     fieldsets = [
         (None, {'fields': [('name', 'fullname'),

@@ -1,3 +1,17 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+
+#@admin.register(Partner)
+#class PartnerAdmin(admin.ModelAdmin):
+#    list_display = ['name', 'chief', 'phone']
+#    fieldsets = [
+#        (None, {'fields': [('user', 'name'),
+#                           'fullname',
+#                           'address',
+#                           'requisites',
+#                           'bank_requisites',
+#                           ('chief', 'phone'),
+#                           'tax_system'
+#                           ]})
+#        ]
