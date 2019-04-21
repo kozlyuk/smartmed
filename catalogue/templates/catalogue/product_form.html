@@ -1,9 +1,59 @@
+{% extends 'base.html' %} 
+{% load ita_template_tags %} 
+{% load staticfiles %} 
+{% load widget_tweaks %} 
+{% block context %}
 <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8">
-                some text
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <div class="text-center">{{ product.title }}</div>
+                    </div>
+                    <p class="h5 m-3">Категорія товару: <small class="text-muted">{{ product.category }}</small> <i class="form-icons material-icons">add</i></p>
+                    <p class="h5 m-3">Група товару: <small class="text-muted">{{ product.group }}</small><i class="form-icons material-icons">add</i></p>
+                    <p class="h5 m-3">Бренд: <small class="text-muted">{{ product.brand }}</small><i class="form-icons material-icons">add</i></p>
+                    <p class="h5 m-3">Опис: <small class="text-muted">{{ product.description }}</small></p>
+                    <div class="row">
+                    <p class="h6 m-3 col-3">Ким створений: {{ product.created_by }}</p>
+                    <p class="h6 m-3 col-3">Коли створений: {{ product.date_created }}</p>
+                    <p class="h6 m-3 col-3">Дата редагування: {{ product.date_updated }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                some text 2
+            <div class="col-4">
+                <row>
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        update
+                    </div>
+                    
+                    <div class="form-check disabled">
+                        <label class="form-check-label">
+                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_active }}"disabled  checked>
+                            Активний
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                    </div>
+                    
+
+                    <p class="h5 m-3">has_instances: <small class="text-muted">{{ product.has_instances }}</small></p>
+                    <p class="h5 m-3">has_attributes: <small class="text-muted">{{ product.has_attributes }}</small></p>
+                    <p class="h5 m-3">Акційний: <small class="text-muted">{{ product.is_discountable }}</small></p>
+                    <p class="h5 m-3">Активний: <small class="text-muted">{{ product.is_active }}</small></p>
+                </div>
+                </row>
+                <row>
+                    <div class="card">
+                        <p class="h5 m-3">UPC: <small class="text-muted">{{ product.upc }}</small></p>
+                        <p class="h5 m-3">Міра виміру: <small class="text-muted">{{ product.default_uom }}</small></p>
+                        <p class="h5 m-3">Розмір упаковки: <small class="text-muted">{{ product.pack_size }}</small></p>
+                        <p class="h5 m-3">Мінімальна кількість замовлення: <small class="text-muted">{{ product.min_store_quantity }}</small></p>
+                        <p class="h5 m-3">Гарантійний термін: <small class="text-muted">{{ product.warranty_terms }}</small></p>
+                    </div>
+                </row>
             </div>
+{% endblock %}
