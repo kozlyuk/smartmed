@@ -9,7 +9,6 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from catalogue.forms import *
-from catalogue.models import Product
 
 
 @method_decorator(login_required, name='dispatch')
@@ -61,22 +60,6 @@ class ProductList(ListView):
         else:
             context['filter_form'] = ProductFilterForm(self.request.GET)
         return context
-
-
-
-@method_decorator(login_required, name='dispatch')
-class ProductCreate(CreateView):
-    model = Product
-
-
-@method_decorator(login_required, name='dispatch')
-class ProductUpdate(UpdateView):
-    model = Product
-
-
-@method_decorator(login_required, name='dispatch')
-class ProductDelete(DeleteView):
-    model = Product
 
 
 @method_decorator(login_required, name='dispatch')
@@ -164,3 +147,18 @@ class ProductDelete(DeleteView):
     def get_success_url(self):
         self.success_url = reverse_lazy('product_list') + '?' + self.request.session.get('product_query_string')
         return self.success_url
+
+
+@method_decorator(login_required, name='dispatch')
+class CategoryCreate(CreateView):
+    model = Category
+
+
+@method_decorator(login_required, name='dispatch')
+class CategoryUpdate(UpdateView):
+    model = Category
+
+
+@method_decorator(login_required, name='dispatch')
+class CategoryDelete(DeleteView):
+    model = Category

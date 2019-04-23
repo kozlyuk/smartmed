@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from catalogue.models import Product, Category, Group, Brand, Image, PriceRecord, Attribute
+from catalogue.models import *
 from django.utils.translation import gettext_lazy as _
 
 
@@ -60,3 +60,9 @@ class AttributeInlineForm(forms.ModelForm):
 
 
 AttributeFormSet = inlineformset_factory(Product, Attribute, form=AttributeInlineForm, extra=1)
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']
