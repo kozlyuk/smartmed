@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static '/assets/img/sidebar.jpg' %}">
+      <div class="logo">
+        <a id="logo" href="{% url 'base' %}"><img src="{% static '/assets/img/logo.png' %}" alt="SmartMed" height="100px" width="" /></a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'base' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">person</i>
+              <p>Користувачі</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'product_list' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Каталог</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">euro_symbol</i>
+              <p>Покупки</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">store</i>
+              <p>Склад</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'user' %}">
+              <i class="material-icons">face</i>
+              <p>Профіль</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="material-icons">power_settings_new</i>
+              <p>Вихід</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
