@@ -2,6 +2,8 @@ from django import forms
 from django.forms import inlineformset_factory
 from catalogue.models import *
 from django.utils.translation import gettext_lazy as _
+# from PIL import Image
+from django.core.files import File
 
 
 class ProductFilterForm(forms.Form):
@@ -66,3 +68,5 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name']
+        
+        

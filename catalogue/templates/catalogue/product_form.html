@@ -11,14 +11,41 @@
                     <div class="card-header card-header-info">
                         <div class="text-center">{{ product.title }}</div>
                     </div>
-                    <p class="h5 m-3">Категорія товару: <small class="text-muted">{{ product.category }}</small> <i class="form-icons material-icons">add</i></p>
-                    <p class="h5 m-3">Група товару: <small class="text-muted">{{ product.group }}</small><i class="form-icons material-icons">add</i></p>
-                    <p class="h5 m-3">Бренд: <small class="text-muted">{{ product.brand }}</small><i class="form-icons material-icons">add</i></p>
-                    <p class="h5 m-3">Опис: <small class="text-muted">{{ product.description }}</small></p>
+                    
+                    <!--<div class="btn-group">-->
+                    <!--    <button type="button" class="btn btn-danger btn-sm">{{ product.category }}</button>-->
+                    <!--    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--        <span class="sr-only">Toggle Dropdown</span>-->
+                    <!--    </button>-->
+                    <!--    <div class="dropdown-menu">-->
+                    <!--        <a class="dropdown-item" href="#">{{ product.category }}</a>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    
+                    
+                    
+                    <p class="h5 m-3">Категорія товару: 
+                        <small class="text-muted">{{ product.category }}</small>
+                        <i class="form-icons material-icons edit-icons">edit</i>
+                    </p>
+                    <p class="h5 m-3">Група товару: 
+                        <small class="text-muted">{{ product.group }}</small>
+                        <i class="form-icons material-icons edit-icons">edit</i>
+                    </p>
+                    <p class="h5 m-3">Бренд: 
+                        <small class="text-muted">{{ product.brand }}</small>
+                        <i class="form-icons material-icons edit-icons">edit</i>
+                    </p>
+                    <div class="form-group ml-4 mr-4">
+                        <label for="edit_product">Опис:</label>
+                        <textarea class="form-control" id="edit_product" rows="12">{{ product.description }}</textarea>
+                    </div>
+                    
+                    
                     <div class="row">
-                    <p class="h6 m-3 col-3">Ким створений: {{ product.created_by }}</p>
-                    <p class="h6 m-3 col-3">Коли створений: {{ product.date_created }}</p>
-                    <p class="h6 m-3 col-3">Дата редагування: {{ product.date_updated }}</p>
+                    <p class="h6 m-3 col-3 small-text">Ким створений: {{ product.created_by }}</p>
+                    <p class="h6 m-3 col-3 small-text">Коли створений: {{ product.date_created }}</p>
+                    <p class="h6 m-3 col-3 small-text">Дата редагування: {{ product.date_updated }}</p>
                     </div>
                 </div>
             </div>
@@ -29,21 +56,42 @@
                         update
                     </div>
                     
-                    <div class="form-check disabled">
+                    <div class="form-check disabled ml-3">
                         <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_active }}"disabled  checked>
+                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_active }}" disabled>
                             Активний
                             <span class="form-check-sign">
                                 <span class="check"></span>
                             </span>
                         </label>
                     </div>
-                    
-
-                    <p class="h5 m-3">has_instances: <small class="text-muted">{{ product.has_instances }}</small></p>
-                    <p class="h5 m-3">has_attributes: <small class="text-muted">{{ product.has_attributes }}</small></p>
-                    <p class="h5 m-3">Акційний: <small class="text-muted">{{ product.is_discountable }}</small></p>
-                    <p class="h5 m-3">Активний: <small class="text-muted">{{ product.is_active }}</small></p>
+                    <div class="form-check disabled ml-3">
+                        <label class="form-check-label">
+                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.has_instances }}" disabled>
+                            has_instances
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-check disabled ml-3">
+                        <label class="form-check-label">
+                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.has_attributes }}" disabled>
+                            has_attributes
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-check disabled ml-3">
+                        <label class="form-check-label">
+                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_discountable }}" disabled>
+                            Акційний
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
+                    </div>
                 </div>
                 </row>
                 <row>
