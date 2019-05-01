@@ -4,6 +4,7 @@ from catalogue.models import *
 from django.utils.translation import gettext_lazy as _
 # from PIL import Image
 from django.core.files import File
+from .fotoUpload import ImageInput
 
 
 class ProductFilterForm(forms.Form):
@@ -41,6 +42,9 @@ class ImageInlineForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ['image']
+        widgets = {
+            'image': ImageInput,
+        }
 
 
 ImageFormSet = inlineformset_factory(Product, Image, form=ImageInlineForm, extra=1)

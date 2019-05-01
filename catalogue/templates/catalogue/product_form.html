@@ -102,6 +102,19 @@
                         <p class="h5 m-3">Мінімальна кількість замовлення: <small class="text-muted">{{ product.min_store_quantity }}</small></p>
                         <p class="h5 m-3">Гарантійний термін: <small class="text-muted">{{ product.warranty_terms }}</small></p>
                     </div>
+                </row>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="text-center">Оновлення фото товару</div>
+                        </div>
+                        { product.image }
+                    </div>
+                </div>
+                <div class="col-4">
                     <div class="card">
                         <div class="card-header card-header-info">
                             <div class="text-center">Фото товару</div>
@@ -125,7 +138,7 @@
                             <div class="swiper-button-next"></div>
                         </div>
                     </div>
-                </row>
+                </div>
             </div>
             
 {% endblock %}
