@@ -51,9 +51,9 @@ var ctx = document.getElementById("lineChartExample").getContext("2d");
 
 var gradientStroke = ctx.createLinearGradient(0,230,0,50);
 
-gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
-gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+gradientStroke.addColorStop(1, 'rgba(2, 144, 162,0.2)');
+gradientStroke.addColorStop(0.2, 'rgba(2, 144, 162,0.0)');
+gradientStroke.addColorStop(0, 'rgba(2, 144, 162,0)'); //purple colors
 
 var data = {
   labels: ['СІЧ','ЛЮТ','БЕР','КВІ','ТРА','ЧЕР','ЛИП','СЕР','ВЕР','ЖОВ','ЛИС','ГРУ'],
@@ -61,13 +61,13 @@ var data = {
     label: "Кількість проданих товарів",
     fill: true,
     backgroundColor: gradientStroke,
-    borderColor: '#d048b6',
+    borderColor: '#0290a2',
     borderWidth: 2,
     borderDash: [],
     borderDashOffset: 0.0,
-    pointBackgroundColor: '#d048b6',
+    pointBackgroundColor: '#0290a2',
     pointBorderColor:'rgba(255,255,255,0)',
-    pointHoverBackgroundColor: '#d048b6',
+    pointHoverBackgroundColor: '#0290a2',
     pointBorderWidth: 20,
     pointHoverRadius: 4,
     pointHoverBorderWidth: 15,
