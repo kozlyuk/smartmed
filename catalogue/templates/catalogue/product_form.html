@@ -5,9 +5,9 @@
 {% block context %}
 <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-8">
-                <div class="card">
+            <div class="row">
+                <div class="col-8">
+                    <div class="card">
                     <div class="card-header card-header-info">
                         <div class="text-center">{{ product.title }}</div>
                     </div>
@@ -102,6 +102,30 @@
                         <p class="h5 m-3">Мінімальна кількість замовлення: <small class="text-muted">{{ product.min_store_quantity }}</small></p>
                         <p class="h5 m-3">Гарантійний термін: <small class="text-muted">{{ product.warranty_terms }}</small></p>
                     </div>
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="text-center">Фото товару</div>
+                        </div>
+                        <!-- Swiper -->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400)"></div>
+                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/city)"></div>
+                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/cats)"></div>
+                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/food)"></div>
+                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/nature)"></div>
+                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/people)"></div>
+                            </div>
+        
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                        
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
                 </row>
             </div>
+            
 {% endblock %}

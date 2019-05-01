@@ -29,20 +29,12 @@
                             <div class="row">
                             <tr>
                                 {% for field in filter_form.visible_fields|slice:":3" %}
-                                <div class="col-2">
+                                <div class="col-3">
                                     {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }} {% if field.help_text %}
                                     <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
                                 </div>
                                 {% endfor %}
-                                <div class="col-4">
-                                    <div class="row">
-                                    {{ filter_form.filter.label_tag }} {{ filter_form.filter|attr:"type:text"|attr:"placeholder=Пошук..."|add_class:"form-control col-6" }} {% if field.help_text %}
-                                    <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
-                                    <button type="submit" class="btn btn-sm btn-primary uppercase col-4">
-                                                <i class="fa fa-search"></i>Пошук</button>
-                                                </div>
-                                </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     {% if perms.smartmed.add_product %}
                                     <a href="{% url 'product_create' %}" class="btn btn-sm btn-success uppercase" <i class="fa fa-plus"></i> Додати товар </a> {% endif %}
                                 </div>
