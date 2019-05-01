@@ -61,6 +61,18 @@ class ProductList(ListView):
             context['filter_form'] = ProductFilterForm(self.request.GET)
         return context
 
+# test
+
+@method_decorator(login_required, name='dispatch')
+class ProductListFull(ListView):
+    model = Product
+    context_object_name = 'products'  # Default: object_list
+    paginate_by = 50
+    
+
+# test
+
+
 
 @method_decorator(login_required, name='dispatch')
 class ProductCreate(CreateView):
