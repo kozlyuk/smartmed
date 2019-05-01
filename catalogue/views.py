@@ -13,7 +13,7 @@ from catalogue.forms import *
 
 @method_decorator(login_required, name='dispatch')
 class Home(TemplateView):
-    template_name = 'base.html'
+    template_name = 'home.html'
 
 
 @method_decorator(login_required, name='dispatch')

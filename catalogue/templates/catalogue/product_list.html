@@ -66,6 +66,7 @@
                                     <th><a href="?{% url_replace request 'o' 'category' %}"> КАТЕГОРІЯ {{ title }}</a></th>
                                     <th><a href="?{% url_replace request 'o' 'group' %}"> ГРУППА </a></th>
                                     <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th>
+                                    <th>Дії</th>
                                 </thead>
                                 <tbody>
                                     {% for product in products %}
@@ -79,6 +80,14 @@
                                         <td> {{ product.category }}</td>
                                         <td> {{ product.group }}</td>
                                         <td> {{ product.is_active }}</td>
+                                        <td class="td-actions">
+                                              <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                                  <i class="material-icons">settings</i>
+                                              </button>
+                                              <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
+                                                  <i class="material-icons">delete</i>
+                                              </button>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
