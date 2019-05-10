@@ -112,10 +112,7 @@
                             <div class="text-center">Оновлення фото товару</div>
                         </div>
                         
-                    <!--<div class="frame" style="margin: 0 0.3em; width: 300px; height: 300px;">-->
-                    <!--  <img id="photo" src="http://lorempixel.com/400/400">-->
-                    <!--</div>-->
-                    <!-- Swiper -->
+                   
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400)"></div>
@@ -140,13 +137,22 @@
                         <div class="card-header card-header-info">
                             <div class="text-center">Фото товару</div>
                         </div>
-                        <!--<p class="h5 m-3">Завантажити головне фото</p>-->
+                        <p class="h5 m-3 text-center">Оновлення фото</p>
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-xl">Головне фото</button>
                             <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
-                                  ...
+                                   <div class="frame text-center" style="margin: 0 0.3em;">
+                                      <img id="photo" src="http://lorempixel.com/400/400">
+                                    </div>
+                                 <!--Swiper -->
+                                     <form>
+                                      <div class="form-group">
+                                        <button for="main_photo">Example file input</label>
+                                        <input type="file" class="form-control" id="main_photo">
+                                      </div>
+                                    </form>
                                 </div>
                               </div>
                             </div>
@@ -154,7 +160,20 @@
                             <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
-                                  ...
+                                    <div class="col">
+                                  <div class="frame text-center" style="margin: 0 0.3em;">
+                                      <img id="photo" src="http://lorempixel.com/400/400">
+                                    </div>
+                                 <!--Swiper -->
+                                 </div>
+                                 <div class="row">
+                                     <form>
+                                      <div class="form-group">
+                                        <label for="sub_photo">Example file input</label>
+                                        <input type="file" class="form-control" id="sub_photo">
+                                      </div>
+                                    </form>
+                                 </div>
                                 </div>
                               </div>
                             </div>
