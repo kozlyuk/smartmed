@@ -39,9 +39,11 @@ urlpatterns = [
     path('employee/create', EmployeeCreate.as_view(), name='employee_create'),
     path('employee/update/<int:pk>/', EmployeeUpdate.as_view(), name='employee_update'),
     path('employee/delete/<int:pk>/', EmployeeDelete.as_view(), name='employee_delete'),
+    path('employee/self_update/', EmployeeSelfUpdate.as_view(), name='employee_self_update'),
 
     path('partner/list/', PartnerList.as_view(), name='partner_list'),
     path('partner/create', PartnerCreate.as_view(), name='partner_create'),
     path('partner/update/<int:pk>/', PartnerUpdate.as_view(), name='partner_update'),
     path('partner/delete/<int:pk>/', PartnerDelete.as_view(), name='partner_delete'),
+    path('partner/self_update/', PartnerSelfUpdate.as_view(), name='partner_self_update'),
 ]

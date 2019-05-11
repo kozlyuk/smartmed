@@ -33,6 +33,16 @@ class EmployeeDelete(DeleteView):
 
 
 @method_decorator(login_required, name='dispatch')
+class EmployeeSelfUpdate(UpdateView):
+    model = Employee
+    form_class = EmployeeSelfUpdateForm
+    success_url = reverse_lazy('base')
+
+    def get_object(self):
+        return Employee.objects.get(user=self.request.user)
+
+
+@method_decorator(login_required, name='dispatch')
 class PartnerList(ListView):
     model = Partner
     success_url = reverse_lazy('base')
@@ -56,3 +66,13 @@ class PartnerUpdate(UpdateView):
 class PartnerDelete(DeleteView):
     model = Partner
     success_url = reverse_lazy('partner_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class PartnerSelfUpdate(UpdateView):
+    model = Partner
+    form_class = PartnerSelfUpdateForm
+    success_url = reverse_lazy('base')
+
+    def get_object(self):
+        return Partner.objects.get(user=self.request.user)

@@ -8,8 +8,19 @@ class EmployeeForm(forms.ModelForm):
         fields = '__all__'
 
 
+class EmployeeSelfUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['phone', 'avatar']
+
+
 class PartnerForm(forms.ModelForm):
     class Meta:
         model = Partner
         fields = '__all__'
 
+
+class PartnerSelfUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Partner
+        exclude = ['user']
