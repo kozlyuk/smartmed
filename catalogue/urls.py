@@ -1,5 +1,5 @@
 from django.urls import path
-from catalogue.views import Home, ProductList, ProductCreate, ProductUpdate, ProductDelete
+from catalogue.views import *
 from django.views.generic.base import TemplateView
 
 
