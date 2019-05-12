@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required, name='dispatch')
 class EmployeeList(ListView):
     model = Employee
-    success_url = reverse_lazy('base')
+    success_url = reverse_lazy('manager_home')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -36,7 +36,7 @@ class EmployeeDelete(DeleteView):
 class EmployeeSelfUpdate(UpdateView):
     model = Employee
     form_class = EmployeeSelfUpdateForm
-    success_url = reverse_lazy('base')
+    success_url = reverse_lazy('manager_home')
 
     def get_object(self):
         return Employee.objects.get(user=self.request.user)
@@ -45,7 +45,7 @@ class EmployeeSelfUpdate(UpdateView):
 @method_decorator(login_required, name='dispatch')
 class PartnerList(ListView):
     model = Partner
-    success_url = reverse_lazy('base')
+    success_url = reverse_lazy('manager_home')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -72,7 +72,7 @@ class PartnerDelete(DeleteView):
 class PartnerSelfUpdate(UpdateView):
     model = Partner
     form_class = PartnerSelfUpdateForm
-    success_url = reverse_lazy('base')
+    success_url = reverse_lazy('manager_home')
 
     def get_object(self):
         return Partner.objects.get(user=self.request.user)
