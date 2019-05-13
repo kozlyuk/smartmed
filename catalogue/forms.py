@@ -90,3 +90,4 @@ class BrandForm(forms.ModelForm):
     class Meta:
         model = Brand
         fields = ['name']
+        
