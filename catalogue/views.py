@@ -12,7 +12,7 @@ from catalogue.forms import *
 
 
 @method_decorator(login_required, name='dispatch')
-class Home(TemplateView):
+class ManagerHome(TemplateView):
     template_name = 'home.html'
 
 
@@ -21,7 +21,7 @@ class ProductList(ListView):
     model = Product
     context_object_name = 'products'  # Default: object_list
     paginate_by = 50
-    success_url = reverse_lazy('home_page')
+    success_url = reverse_lazy('manager_home')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser or request.user.groups.filter(name='Manager').exists():
@@ -150,15 +150,78 @@ class ProductDelete(DeleteView):
 
 
 @method_decorator(login_required, name='dispatch')
+class CategoryList(ListView):
+    model = Category
+    success_url = reverse_lazy('manager_home')
+
+
+@method_decorator(login_required, name='dispatch')
 class CategoryCreate(CreateView):
     model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('category_list')
 
 
 @method_decorator(login_required, name='dispatch')
 class CategoryUpdate(UpdateView):
     model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('category_list')
 
 
 @method_decorator(login_required, name='dispatch')
 class CategoryDelete(DeleteView):
     model = Category
+    success_url = reverse_lazy('category_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class GroupList(ListView):
+    model = Group
+    success_url = reverse_lazy('manager_home')
+
+
+@method_decorator(login_required, name='dispatch')
+class GroupCreate(CreateView):
+    model = Group
+    form_class = GroupForm
+    success_url = reverse_lazy('group_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class GroupUpdate(UpdateView):
+    model = Group
+    form_class = GroupForm
+    success_url = reverse_lazy('group_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class GroupDelete(DeleteView):
+    model = Group
+    success_url = reverse_lazy('group_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class BrandList(ListView):
+    model = Brand
+    success_url = reverse_lazy('manager_home')
+
+
+@method_decorator(login_required, name='dispatch')
+class BrandCreate(CreateView):
+    model = Brand
+    form_class = BrandForm
+    success_url = reverse_lazy('brand_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class BrandUpdate(UpdateView):
+    model = Brand
+    form_class = BrandForm
+    success_url = reverse_lazy('brand_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class BrandDelete(DeleteView):
+    model = Brand
+    success_url = reverse_lazy('brand_list')

@@ -72,5 +72,22 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name']
-        
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']
+
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name']
+
+
+class BrandForm(forms.ModelForm):
+    class Meta:
+        model = Brand
+        fields = ['name']
         

@@ -25,20 +25,20 @@
                     
                     
                     <p class="h5 m-3">Категорія товару: 
-                        <small class="text-muted">{{ product.category }}</small>
+                        <small class="text-muted">{{ form.category|add_class:"custom-select" }}</small>
                         <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
                     <p class="h5 m-3">Група товару: 
-                        <small class="text-muted">{{ product.group }}</small>
+                        <small class="text-muted">{{ form.group|add_class:"custom-select" }}</small>
                         <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
                     <p class="h5 m-3">Бренд: 
-                        <small class="text-muted">{{ product.brand }}</small>
+                        <small class="text-muted">{{ form.brand|add_class:"custom-select" }}</small>
                         <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
-                    <div class="form-group ml-4 mr-4">
+                    <div class="form-group ml-3 mr-3">
                         <label for="edit_product">Опис:</label>
-                        <textarea class="form-control" id="edit_product" rows="12">{{ product.description }}</textarea>
+                        <textarea class="form-control"  rows="12">{{ form.description|attr:"id:edit_product" }}</textarea>
                     </div>
                     
                     
@@ -112,7 +112,27 @@
                             <div class="text-center">Оновлення фото товару</div>
                         </div>
                         
-                   
+                        <!--crop-->
+                        
+                        <form method="post" enctype="multipart/form-data" id="formUpload">
+                          {% csrf_token %}
+                          {{ form }}
+                        </form>
+                        <div class="modal fade" id="modalCrop">
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                        </div>
+                        
+                        
+                        <!--crop-->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="text-center">Фото товару</div>
+                        </div>
+                        <!-- Swiper -->
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400)"></div>
