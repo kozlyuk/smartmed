@@ -11,9 +11,8 @@ THEME_CHOICES = (
 
 
 def avatar_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/avatar/user_<id>/<filename>
-    return 'avatars/{1}'\
-        .format(filename)
+    # file will be uploaded to MEDIA_ROOT/avatars/<filename>
+    return 'avatars/{1}'.format(filename)
 
 
 class Employee(models.Model):
