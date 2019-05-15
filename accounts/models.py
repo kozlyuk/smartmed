@@ -4,6 +4,12 @@ from stdimage.models import StdImageField
 from django.utils.translation import gettext_lazy as _
 
 
+THEME_CHOICES = (
+    ('bl', _('Black')),
+    ('wh', _('White')),
+)
+
+
 def avatar_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/avatar/user_<id>/<filename>
     return 'avatars/{1}'\
@@ -20,6 +26,7 @@ class Employee(models.Model):
                            'thumbnail': (100, 100, True),
                            })
     birthday = models.DateField('День народження', blank=True, null=True)
+    theme = models.CharField(_('Theme'), max_length=2, choices=THEME_CHOICES, default='bl')
 
     class Meta:
         verbose_name = 'Працівник'
@@ -49,6 +56,7 @@ class Partner(models.Model):
                            'thumbnail': (100, 100, True),
                            })
     birthday = models.DateField('День народження', blank=True, null=True)
+    theme = models.CharField(_('Theme'), max_length=2, choices=THEME_CHOICES, default='bl')
 
     class Meta:
         verbose_name = _('Partner')
