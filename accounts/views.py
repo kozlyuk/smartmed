@@ -21,10 +21,10 @@ class ManagerHome(TemplateView):
         context['sold'] = Purchase.objects.filter(created_by=self.request.user,
                                                   invoice_date__lt=time_threshold)\
                                           .exclude(status=Purchase.InBasket)\
-                                          .aggregate(Sum('value'))
+                                          .aggregate(Sum('value')).get('value_sum', 0.00)
         context['new_orders_count'] = Purchase.objects.filter(created_by=self.request.user,
                                                               status=Purchase.NewOrder)\
-                                                      .Count()
+                                                      .count()
         return context
 
 
