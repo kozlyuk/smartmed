@@ -21,7 +21,7 @@ class ManagerHome(TemplateView):
         context['sold'] = Purchase.objects.filter(created_by=self.request.user,
                                                   invoice_date__lt=time_threshold)\
                                           .exclude(status=Purchase.InBasket)\
-                                          .aggregate(Sum('value')).get('value_sum', 0.00)
+                                          .aggregate(Sum('value')).get('value_sum') or 0.00
         context['new_orders_count'] = Purchase.objects.filter(created_by=self.request.user,
                                                               status=Purchase.NewOrder)\
                                                       .count()
