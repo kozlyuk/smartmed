@@ -1,9 +1,31 @@
 from .forms import *
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from purchases.models import Purchase
+from datetime import datetime, timedelta
+from django.db.models import Sum
+
+
+@method_decorator(login_required, name='dispatch')
+class ManagerHome(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ManagerHome, self).get_context_data(*args, **kwargs)
+        context['partners_count'] = Partner.objects.all().count()
+        time_threshold = datetime.now() - timedelta(hours=24)
+        context['sold'] = Purchase.objects.filter(created_by=self.request.user,
+                                                  invoice_date__lt=time_threshold)\
+                                          .exclude(status=Purchase.InBasket)\
+                                          .aggregate(Sum('value')).get('value_sum') or 0.00
+        context['new_orders_count'] = Purchase.objects.filter(created_by=self.request.user,
+                                                              status=Purchase.NewOrder)\
+                                                      .count()
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
