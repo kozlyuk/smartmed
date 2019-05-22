@@ -114,15 +114,7 @@
                         
                         <!--crop-->
                         
-                        <form method="post" enctype="multipart/form-data" id="formUpload">
-                          {% csrf_token %}
-                          {{ form }}
-                        </form>
-                        <div class="modal fade" id="modalCrop">
-                        </div>
-                        <div class="row" style="margin-top: 20px">
-                        </div>
-                        
+                        {% include './includes/crop.html' %}
                         
                         <!--crop-->
                     </div>
