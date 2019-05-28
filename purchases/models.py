@@ -101,7 +101,7 @@ class Purchase(models.Model):
     status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES, default=NewOrder)
     pay_status = models.CharField('Статус оплати', max_length=2, choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
     invoice_number = models.CharField(_('Invoice number'), max_length=45)
-    invoice_date = models.DateField(_('Invoice date'), default=now)
+    invoice_date = models.DateTimeField(_('Invoice date'), default=now)
     products = models.ManyToManyField(Product, through='InvoiceLine', related_name='products',
                                    verbose_name=_('Goods'), blank=True)
     in_stock = models.BooleanField(_('Available in stock'), default=False)

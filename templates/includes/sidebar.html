@@ -5,19 +5,19 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active">
+          <li class="nav-item {% if request.resolver_match.url_name == "manager_home" %}active{% endif %}">
             <a class="nav-link" href="{% url 'manager_home' %}">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="material-icons">person</i>
               <p>Користувачі</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item {% if request.resolver_match.url_name == "product_list" %}active{% endif %}">
             <a class="nav-link" href="{% url 'product_list' %}">
               <i class="material-icons">content_paste</i>
               <p>Каталог</p>
@@ -29,13 +29,13 @@
               <p>Покупки</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="material-icons">store</i>
               <p>Склад</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item {% if request.resolver_match.url_name == "employee_self_update" %}active{% endif %}">
             <a class="nav-link" href="{% url 'employee_self_update' %}">
               <i class="material-icons">face</i>
               <p>Профіль</p>

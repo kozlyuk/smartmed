@@ -4,16 +4,10 @@ from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 
-from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from catalogue.forms import *
-
-
-@method_decorator(login_required, name='dispatch')
-class ManagerHome(TemplateView):
-    template_name = 'home.html'
 
 
 @method_decorator(login_required, name='dispatch')
