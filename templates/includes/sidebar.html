@@ -11,12 +11,18 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="material-icons">person</i>
-              <p>Користувачі</p>
+          <li class="nav-item {% if request.resolver_match.url_name == "employee_list" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'employee_list' %}">
+              <i class="material-icons">people</i>
+              <p>Працівники</p>
             </a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="material-icons">business_center</i>
+                <p>Партнери</p>
+              </a>
+            </li>
           <li class="nav-item {% if request.resolver_match.url_name == "product_list" %}active{% endif %}">
             <a class="nav-link" href="{% url 'product_list' %}">
               <i class="material-icons">content_paste</i>
