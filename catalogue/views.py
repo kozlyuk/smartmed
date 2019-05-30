@@ -11,6 +11,46 @@ from catalogue.forms import *
 
 
 @method_decorator(login_required, name='dispatch')
+class ShopHome(ListView):
+    template_name = 'shop_home.html'
+    model = Product
+    context_object_name = 'products'  # Default: object_list
+    paginate_by = 50
+
+    def get_queryset(self):
+        products = Product.objects.all()
+        search_string = self.request.GET.get('filter', '').split()
+        category = self.request.GET.get('category', '0')
+        group = self.request.GET.get('group', '0')
+        brand = self.request.GET.get('brand', '0')
+        order = self.request.GET.get('o', '0')
+        for word in search_string:
+            products = products.filter(Q(title__icontains=word) |
+                                       Q(upc__icontains=word) |
+                                       Q(description__icontains=word))
+        if category != '0':
+            products = products.filter(category=category)
+        if group != '0':
+            products = products.filter(group=group)
+        if brand != '0':
+            products = products.filter(brand=brand)
+        if order != '0':
+            products = products.order_by(order)
+        return products
+
+    def get_context_data(self, **kwargs):
+        context = super(ShopHome, self).get_context_data(**kwargs)
+        context['products_count'] = Product.objects.all().count()
+        context['products_filtered'] = self.get_queryset().count()
+        self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
+        if self.request.POST:
+            context['filter_form'] = ProductFilterForm(self.request.POST)
+        else:
+            context['filter_form'] = ProductFilterForm(self.request.GET)
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
 class ProductList(ListView):
     model = Product
     context_object_name = 'products'  # Default: object_list
