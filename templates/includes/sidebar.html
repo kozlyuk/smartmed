@@ -29,6 +29,12 @@
               <p>Бренди</p>
             </a>
           </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "category_list" %}active{% endif %}"">
+              <a class="nav-link" href="{% url 'category_list' %}">
+                <i class="material-icons">category</i>
+                <p>Категорії</p>
+              </a>
+            </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="material-icons">store</i>
