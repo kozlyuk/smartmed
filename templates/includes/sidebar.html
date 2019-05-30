@@ -41,8 +41,8 @@
                 <p>Групи</p>
               </a>
             </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item {% if request.resolver_match.url_name == "warehouse_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'warehouse_list' %}">
               <i class="material-icons">store</i>
               <p>Склад</p>
             </a>
