@@ -23,10 +23,10 @@
               <p>Каталог</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="#">
-              <i class="material-icons">euro_symbol</i>
-              <p>Покупки</p>
+          <li class="nav-item {% if request.resolver_match.url_name == "brand_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'brand_list' %}">
+              <i class="material-icons">spa</i>
+              <p>Бренди</p>
             </a>
           </li>
           <li class="nav-item">

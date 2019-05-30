@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col">
-      <div class="cont_modal cont_modal_active">
+      <div id="card" class="cont_modal">
       <div class="cont_photo">
     <div class="cont_img_back">
         <img src="https://s-media-cache-ak0.pinimg.com/736x/57/98/9f/57989f2a2e186e38bf93429aa395120c.jpg" alt="" />
@@ -57,7 +57,7 @@
         
       </div>
       <div class="cont_btn_open_dets">
-      <a href="#e" onclick="open_close()"><i class="material-icons">&#xE314;</i></a>
+      <a href="#" id="toggler"><i class="material-icons">&#xE314;</i></a>
       </div>
     
         </div>
@@ -66,18 +66,26 @@
 </div>
 
 <script>
-window.onload = function(){
-    document.querySelector('.cont_modal').className = "cont_modal";    
-    }
-    var c = 0;
-    function open_close(){
-      if(c % 2 == 0){    
-    document.querySelector('.cont_modal').className = "cont_modal cont_modal_active";  
-    c++;
-      }else {
-    document.querySelector('.cont_modal').className = "cont_modal";  
-    c++;    
-      }  
-    } 
+    var toggler = document.getElementById('toggler');
+    var card = document.getElementById('card');
+
+
+    // $('#toggler').click(function(event) {
+    //     $('#card').removeClass('cont_modal_active');
+	// 	    $(this).addClass('cont_modal_active');
+    // });
+//     toggler.on('click', function() {
+// 	    card.removeClass('cont_modal_active');
+//         $(this).addClass('cont_modal_active');
+// });
+//     document.getElementById('toggler').onclick = function(card, toggler) {
+//         var i, length = card.length;
+//         for (i = 0; i < length; i = i++) {
+//             console.log(i + '' + card);
+//     }
+// }
+    document.getElementById('toggler').onclick = function() {
+        document.getElementById('card').classList.toggle('cont_modal_active');
+    };
 </script>
      
