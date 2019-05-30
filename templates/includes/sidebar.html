@@ -30,9 +30,15 @@
             </a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == "category_list" %}active{% endif %}"">
-              <a class="nav-link" href="{% url 'category_list' %}">
-                <i class="material-icons">category</i>
-                <p>Категорії</p>
+            <a class="nav-link" href="{% url 'category_list' %}">
+              <i class="material-icons">category</i>
+              <p>Категорії</p>
+            </a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "group_list" %}active{% endif %}"">
+              <a class="nav-link" href="{% url 'group_list' %}">
+                <i class="material-icons">group</i>
+                <p>Групи</p>
               </a>
             </li>
           <li class="nav-item">
