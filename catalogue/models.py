@@ -10,7 +10,7 @@ from stdimage.models import StdImageField
 
 def image_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/product/product_upc/<filename>
-    return 'product/{0}/{1}'.format(instance.product.upc, filename)
+    return 'products/{0}/{1}'.format(instance.product.upc, filename)
 
 
 class Category(models.Model):
@@ -39,6 +39,12 @@ class Group(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(_('Brand name'), max_length=32, unique=True)
+    image = StdImageField(_('Brand Image'), upload_to='brands/', default='brands/no_image.jpg',
+                          variations={
+                                   'large': (400, 400, True),
+                                   'thumbnail': (100, 100, True),
+                                })
+    is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
         verbose_name = _('Brand')
