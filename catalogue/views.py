@@ -186,6 +186,7 @@ class ProductDelete(DeleteView):
 @method_decorator(login_required, name='dispatch')
 class CategoryList(ListView):
     model = Category
+    context_object_name = 'categories'  # Default: object_list
     success_url = reverse_lazy('manager_home')
 
 
@@ -212,6 +213,7 @@ class CategoryDelete(DeleteView):
 @method_decorator(login_required, name='dispatch')
 class GroupList(ListView):
     model = Group
+    context_object_name = 'groups'  # Default: object_list
     success_url = reverse_lazy('manager_home')
 
 
@@ -238,6 +240,7 @@ class GroupDelete(DeleteView):
 @method_decorator(login_required, name='dispatch')
 class BrandList(ListView):
     model = Brand
+    context_object_name = 'brands'  # Default: object_list
     success_url = reverse_lazy('manager_home')
 
 
