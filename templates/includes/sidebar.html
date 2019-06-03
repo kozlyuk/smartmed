@@ -11,26 +11,44 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="material-icons">person</i>
-              <p>Користувачі</p>
+          <li class="nav-item {% if request.resolver_match.url_name == "employee_list" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'employee_list' %}">
+              <i class="material-icons">people</i>
+              <p>Працівники</p>
             </a>
           </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "partner_list" %}active{% endif %}">
+              <a class="nav-link" href="{% url 'partner_list`' %}">
+                <i class="material-icons">business_center</i>
+                <p>Партнери</p>
+              </a>
+            </li>
           <li class="nav-item {% if request.resolver_match.url_name == "product_list" %}active{% endif %}">
             <a class="nav-link" href="{% url 'product_list' %}">
               <i class="material-icons">content_paste</i>
               <p>Каталог</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="#">
-              <i class="material-icons">euro_symbol</i>
-              <p>Покупки</p>
+          <li class="nav-item {% if request.resolver_match.url_name == "brand_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'brand_list' %}">
+              <i class="material-icons">spa</i>
+              <p>Бренди</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item {% if request.resolver_match.url_name == "category_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'category_list' %}">
+              <i class="material-icons">category</i>
+              <p>Категорії</p>
+            </a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "group_list" %}active{% endif %}"">
+              <a class="nav-link" href="{% url 'group_list' %}">
+                <i class="material-icons">group</i>
+                <p>Групи</p>
+              </a>
+            </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "warehouse_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'warehouse_list' %}">
               <i class="material-icons">store</i>
               <p>Склад</p>
             </a>

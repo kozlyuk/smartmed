@@ -12,7 +12,7 @@ from django.db.models import Sum
 
 @method_decorator(login_required, name='dispatch')
 class ManagerHome(TemplateView):
-    template_name = 'home.html'
+    template_name = 'manager_home.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(ManagerHome, self).get_context_data(*args, **kwargs)

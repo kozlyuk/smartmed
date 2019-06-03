@@ -1,0 +1,58 @@
+{% extends 'base.html' %} 
+{% load ita_template_tags %} 
+{% load staticfiles %} 
+{% load widget_tweaks %} 
+{% block sidebar %} 
+{% endblock %} 
+{% block context %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title ">Список складів</h4>
+                        <!--<p class="card-category"> some text</p>-->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class=" text-primary">
+                                    <th><a href="?{% url_replace request 'o' 'warehouse_title' %}"> НАЗВА СКЛАДУ </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'warehouse_phone_number' %}"> КОНТАКТНИЙ НОМЕР </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'warehouse_product_count' %}"> КІЛЬКІСТЬ ТОВАРІВ НА СКЛАДІ </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'active_time' %}"> ЧАСИ РОБОТИ </a></th>
+                                    <th>Дії</th>
+                                </thead>
+                                <tbody>
+                                    {% for product in products %}
+                                    <tr>
+                                        <!--<td>-->
+                                        <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
+                                        <!--</td>-->
+                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a></td>
+                                        <td> {{ product.UPC }}</td>
+                                        <td> {{ product.brand }}</td>
+                                        <td> {{ product.category }}</td>
+                                        <td> {{ product.group }}</td>
+                                        <td> {{ product.is_active }}</td>
+                                        <td class="td-actions">
+                                            <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                                <i class="material-icons">settings</i>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
