@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load ita_template_tags %}
+{% load widget_tweaks %} 
 {% load staticfiles %}
 {% block title %}
 <title>SmartMed | Профіль {{ user.get_username }}</title>
@@ -68,6 +69,14 @@
                         </div>
                       </div>
                     </div>
+                     <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Телефон</label>
+                          {{ form.phone|add_class:"form-control" }}
+                        </div>
+                      </div>
+                    </div>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
@@ -99,6 +108,11 @@
                     Some information
                   </p>
                   <!--<a href="#pablo" class="btn btn-primary btn-round">Follow</a>-->
+                                    <!--crop-->
+                        
+                        {% include './includes/crop.html' %}
+                        
+                        <!--crop-->
                 </div>
               </div>
             </div>

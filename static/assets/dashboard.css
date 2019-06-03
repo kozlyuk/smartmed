@@ -21206,6 +21206,25 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
     font-weight: 500;
 }
 
+  /* hide input field */
+  #id_avatar {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+
+  .custom-file-label::after{
+  content: "Обрати файл"
+  }
+
+  .custom-file-label{
+    text-align: left;
+  }
+
 @keyframes heartbeat {
   0% {
     transform: scale(0.75);
