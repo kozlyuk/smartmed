@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load ita_template_tags %}
 {% load staticfiles %}
+{% block title %}
+<title>SmartMed | Профіль {{ user.get_username }}</title>
+{% endblock %}
 {% block sidebar %}
 {% endblock %}
 {% block context %}
