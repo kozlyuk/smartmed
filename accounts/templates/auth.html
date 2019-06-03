@@ -61,9 +61,9 @@
                             {{ form.as_p }}
                             <input type="submit" id="submit" value="Вхід">
 
+                            <a id="passreset" href="{% url "password_reset" %}">Зкинути пароль</a>
+                            <a id="registration" href="{% url "password_reset" %}">Реєстрація</a>
                         </form>
-                            <a href="{% url "password_reset" %}">Зкинути пароль</a>
-                            <a href="{% url "password_reset" %}">Реєстрація</a>
                     </div>
                   </div>
                 </div>

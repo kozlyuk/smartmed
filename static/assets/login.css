@@ -49,6 +49,7 @@ body {
   top: 20px;
   position: relative;
   width: 50%;
+  
 }
 @media (max-width: 767px) {
   .left {
@@ -78,6 +79,7 @@ body {
   color: #F1F1F2;
   position: relative;
   width: 50%;
+  height: 110%;
 }
 @media (max-width: 767px) {
   .right {
@@ -122,12 +124,26 @@ input {
 input::-moz-focus-inner { 
   border: 0; 
 }
-#submit, #registration {
+#submit, #registration, #passreset {
+  display: flex;
+  justify-content: center;
   color: #707075;
   margin-top: 20px;
   transition: color 300ms;
   cursor: pointer;
 }
+
+#registration, #passreset {
+background: transparent;
+border: 0;
+font-size: 20px;
+height: 30px;
+line-height: 30px;
+outline: none !important;
+width: 100%;
+text-decoration: none;
+}
+
 #submit:focus,
 #registration:focus{
   color: #f2f2f2;
