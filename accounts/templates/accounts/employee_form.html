@@ -18,7 +18,7 @@
                   <p class="card-category">Заповніть данні про себе</p>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form id="EmployeeSelfUpdateForm" action="" enctype="multipart/form-data" method="post">{% csrf_token %}
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
@@ -90,31 +90,31 @@
                     </div>
                     <button type="submit" class="btn btn-info pull-right">Оновити інформацію</button>
                     <div class="clearfix"></div>
-                  </form>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card card-profile">
-                <div class="card-avatar">
-                  <a href="#pablo">
-                    <img class="img" src="https://erp.itel.rv.ua/media/avatars/user_14/32183_Scarlett_Johansson.large.jpg" />
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h6 class="card-category">trader</h6>
-                  <h4 class="card-title">{{ user.get_username }}</h4>
-                  <p class="card-description">
-                    Some information
-                  </p>
-                  <!--<a href="#pablo" class="btn btn-primary btn-round">Follow</a>-->
-                                    <!--crop-->
-                        
-                        {% include './includes/crop.html' %}
-                        
-                        <!--crop-->
-                </div>
-              </div>
+                <div class="col-md-4">
+                  <div class="card card-profile">
+                    <div class="card-avatar">
+                      <a href="#pablo">
+                        <img class="img" src="{{ employee.avatar.thumbnail.url }}" />
+                      </a>
+                    </div>
+                    <div class="card-body">
+                      <h6 class="card-category">trader</h6>
+                      <h4 class="card-title">{{ user.get_username }}</h4>
+                      <p class="card-description">
+                        Some information
+                      </p>
+                      <!--<a href="#pablo" class="btn btn-primary btn-round">Follow</a>-->
+                                        <!--crop-->
+
+                            {% include './includes/crop.html' %}
+
+                            <!--crop-->
+                    </div>
+                  </div>
+            </form>
             </div>
           </div>
         </div>
