@@ -1,9 +1,12 @@
+""" Forms for managing accounts """
+
 from django import forms
-from accounts.models import Employee, Partner
 from PIL import Image
+from accounts.models import Employee, Partner
 
 
 class EmployeeForm(forms.ModelForm):
+    """ EmployeeForm - form for employees creating or updating """
     x = forms.FloatField(widget=forms.HiddenInput())
     y = forms.FloatField(widget=forms.HiddenInput())
     width = forms.FloatField(widget=forms.HiddenInput())
@@ -13,8 +16,8 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         fields = ('avatar', 'x', 'y', 'width', 'height', )
 
-    def save(self):
-        photo = super(EmployeeForm, self).save()
+    def save(self, *args, **kwargs):  # pylint: disable=W0221
+        photo = super(EmployeeForm, self).save(*args, **kwargs)
 
         x = self.cleaned_data.get('x')
         y = self.cleaned_data.get('y')
@@ -30,6 +33,7 @@ class EmployeeForm(forms.ModelForm):
 
 
 class EmployeeSelfUpdateForm(forms.ModelForm):
+    """ PartnerSelfUpdateForm - form for employees self-creating self-updating """
 #    x = forms.FloatField(widget=forms.HiddenInput())
 #    y = forms.FloatField(widget=forms.HiddenInput())
 #    width = forms.FloatField(widget=forms.HiddenInput())
@@ -56,12 +60,15 @@ class EmployeeSelfUpdateForm(forms.ModelForm):
 
 
 class PartnerForm(forms.ModelForm):
+    """ PartnerForm - form for partners creating or updating """
     class Meta:
         model = Partner
         fields = '__all__'
 
 
 class PartnerSelfUpdateForm(forms.ModelForm):
+    """ PartnerSelfUpdateForm - form for partners self-creating or self-updating """
     class Meta:
         model = Partner
-        exclude = ['user']
+        fields = ['name', 'fullname', 'address', 'requisites', 'bank_requisites', 'chief',
+                  'phone', 'tax_system', 'avatar', 'birthday', 'theme']
