@@ -7,25 +7,25 @@ from accounts.models import Employee, Partner
 
 class EmployeeForm(forms.ModelForm):
     """ EmployeeForm - form for employees creating or updating """
-    x = forms.FloatField(widget=forms.HiddenInput())
-    y = forms.FloatField(widget=forms.HiddenInput())
+    pos_x = forms.FloatField(widget=forms.HiddenInput())
+    pos_y = forms.FloatField(widget=forms.HiddenInput())
     width = forms.FloatField(widget=forms.HiddenInput())
     height = forms.FloatField(widget=forms.HiddenInput())
 
     class Meta:
         model = Employee
-        fields = ('avatar', 'x', 'y', 'width', 'height', )
+        fields = ('avatar', 'pos_x', 'pos_y', 'width', 'height', )
 
     def save(self, *args, **kwargs):  # pylint: disable=W0221
         photo = super(EmployeeForm, self).save(*args, **kwargs)
 
-        x = self.cleaned_data.get('x')
-        y = self.cleaned_data.get('y')
-        w = self.cleaned_data.get('width')
-        h = self.cleaned_data.get('height')
+        pos_x = self.cleaned_data.get('x')
+        pos_y = self.cleaned_data.get('y')
+        width = self.cleaned_data.get('width')
+        height = self.cleaned_data.get('height')
 
         image = Image.open(photo.file)
-        cropped_image = image.crop((x, y, w+x, h+y))
+        cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
         resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
         resized_image.save(photo.file.path)
 
