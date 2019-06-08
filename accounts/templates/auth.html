@@ -61,8 +61,15 @@
                             {{ form.as_p }}
                             <input type="submit" id="submit" value="Вхід">
 
-                            <a id="passreset" href="{% url "password_reset" %}">Зкинути пароль</a>
-                            <a id="registration" href="{% url "password_reset" %}">Реєстрація</a>
+                            <a id="passreset" href="{% url 'password_reset' %}">Зкинути пароль</a>
+                            <a id="registration" href="{% url 'password_reset' %}">Реєстрація</a>
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                            {% for err in form.non_field_errors %}
+                                    {{ err }}
+                            {% endfor %}
+                                </div>
+                            {% endif %}
                         </form>
                     </div>
                   </div>
