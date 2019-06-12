@@ -36,9 +36,7 @@
 </div>
 <!-- CONTAINER TO DISPLAY THE CROPPED IMAGES -->
 {% comment %} <div class="row" style="margin-top: 20px">
-  {% for avatar in avatar %}
     <div class="col-sm-4 col-md-3">
-      <img src="{{ avatar.file.url }}" class="thumbnail">
+      <img src="{{ avatar.url }}" class="thumbnail">
     </div>
-  {% endfor %}
 </div> {% endcomment %}

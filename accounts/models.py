@@ -3,7 +3,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from stdimage.models import StdImageField
 
 
 THEME_CHOICES = (
@@ -23,8 +22,8 @@ class Employee(models.Model):
     name = models.CharField('ПІБ', max_length=50, unique=True)
     position = models.CharField('Посада', max_length=50)
     phone = models.CharField('Телефон', max_length=13, blank=True)
-    avatar = StdImageField('Фото', upload_to=avatar_directory_path, default='avatars/no_image.jpg',
-                           variations={'large': (400, 400, True), 'thumbnail': (100, 100, True)})
+    avatar = models.ImageField('Фото', upload_to=avatar_directory_path,
+                               default='avatars/no_image.jpg')
     birthday = models.DateField('День народження', blank=True, null=True)
     theme = models.CharField(_('Theme'), max_length=2, choices=THEME_CHOICES, default='bl')
 
@@ -53,8 +52,8 @@ class Partner(models.Model):
     phone = models.CharField(_('Phone'), max_length=13, blank=True)
     tax_system = models.CharField(_('Tax system'), max_length=5,
                                   choices=TAXATION_CHOICES, default='wvat')
-    avatar = StdImageField('Фото', upload_to=avatar_directory_path, default='avatars/no_image.jpg',
-                           variations={'large': (400, 400, True), 'thumbnail': (100, 100, True)})
+    avatar = models.ImageField('Фото', upload_to=avatar_directory_path,
+                               default='avatars/no_image.jpg')
     birthday = models.DateField('День народження', blank=True, null=True)
     theme = models.CharField(_('Theme'), max_length=2, choices=THEME_CHOICES, default='bl')
 
