@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{% static 'assets/shop/vendor/owl.carousel/assets/owl.theme.default.css' %}">
 <link rel="stylesheet" href="{% static 'assets/shop/css/style.default.css' %}" id="theme-stylesheet">
 <link rel="stylesheet" href="{% static 'assets/shop/css/custom.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <body>
     <!-- navbar-->
     <header class="header mb-5">
@@ -214,10 +215,10 @@
           <div class="row">
             <div class="col-md-12">
               <div id="main-slider" class="owl-carousel owl-theme">
-                <div class="item"><img src="img/main-slider1.jpg" alt="" class="img-fluid"></div>
-                <div class="item"><img src="img/main-slider2.jpg" alt="" class="img-fluid"></div>
-                <div class="item"><img src="img/main-slider3.jpg" alt="" class="img-fluid"></div>
-                <div class="item"><img src="img/main-slider4.jpg" alt="" class="img-fluid"></div>
+                <div class="item"><img src="https://picsum.photos/id/237/900/700" alt="" class="img-fluid"></div>
+                <div class="item"><img src="https://picsum.photos/id/236/900/700" alt="" class="img-fluid"></div>
+                <div class="item"><img src="https://picsum.photos/id/235/900/700" alt="" class="img-fluid"></div>
+                <div class="item"><img src="https://picsum.photos/id/234/900/700" alt="" class="img-fluid"></div>
               </div>
               <!-- /#main-slider-->
             </div>
@@ -227,9 +228,17 @@
         *** ADVANTAGES HOMEPAGE ***
         _________________________________________________________
         -->
+        <div class="row">
         {% include 'includes/card.html' %}
         {% include 'includes/card.html' %}
 
+        {% include 'includes/card.html' %}
+        {% include 'includes/card.html' %}
+        {% include 'includes/card.html' %}
+        {% include 'includes/card.html' %}
+        {% include 'includes/card.html' %}
+        {% include 'includes/card.html' %}
+        </div>
 
 
 
@@ -263,9 +272,9 @@
               <h3>Get Inspired</h3>
               <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae officiis eveniet consectetur natus repellat accusamus optio, modi sunt enim reprehenderit aspernatur facere architecto, quos, numquam quis aut doloremque explicabo adipisci?</p>
               <div id="get-inspired" class="owl-carousel owl-theme">
-                <div class="item"><a href="#"><img src="img/getinspired1.jpg" alt="Get inspired" class="img-fluid"></a></div>
-                <div class="item"><a href="#"><img src="img/getinspired2.jpg" alt="Get inspired" class="img-fluid"></a></div>
-                <div class="item"><a href="#"><img src="img/getinspired3.jpg" alt="Get inspired" class="img-fluid"></a></div>
+                <div class="item"><a href="#"><img src="https://picsum.photos/id/237/900/700" alt="Get inspired" class="img-fluid"></a></div>
+                <div class="item"><a href="#"><img src="https://picsum.photos/id/238/900/700" alt="Get inspired" class="img-fluid"></a></div>
+                <div class="item"><a href="#"><img src="https://picsum.photos/id/239/900/700" alt="Get inspired" class="img-fluid"></a></div>
               </div>
             </div>
           </div>
@@ -355,6 +364,7 @@
     <!-- *** FOOTER END ***-->
     
     <!-- JavaScript files-->
+
     <script src="{% static 'assets/shop/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'assets/shop/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/shop/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>

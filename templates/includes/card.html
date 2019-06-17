@@ -1,91 +1,64 @@
-<div class="container">
-    <div class="col">
-      <div id="card" class="cont_modal">
-      <div class="cont_photo">
-    <div class="cont_img_back">
-        <img src="https://s-media-cache-ak0.pinimg.com/736x/57/98/9f/57989f2a2e186e38bf93429aa395120c.jpg" alt="" />
+<div class="col-3">
+<div class="wrapper">
+  <div class="container">
+    <div class="top"></div>
+    <div class="bottom">
+      <div class="left">
+        <div class="details">
+          <h1>Chair</h1>
+          <p>£250</p>
         </div>
-    <div class="cont_mins">
-        <div class="sub_mins">
-      <h3>50</h3>
-    <span>MINS</span>
+        <div class="buy"><i class="material-icons">add_shopping_cart</i></div>
       </div>
-      <div class="cont_icon_right">
-    <a href="#">  <i class="material-icons">&#xE8E7;</i></a>
+      <div class="right">
+        <div class="done"><i class="material-icons">done</i></div>
+        <div class="details">
+          <h1>Chair</h1>
+          <p>Added to your cart</p>
+        </div>
+        <div class="remove"><i class="material-icons">clear</i></div>
       </div>
-        </div>
-    <div class="cont_servings">
-          <h3>4</h3>
-    <span>SERVINGS</span>
-        </div>
-    <div class="cont_detalles">
-        <h3>Some item</h3>
-    <p>lorem</p>
-        </div>
-        </div>
-    <div class="cont_text_ingredients">
-    <div class="cont_over_hidden">
-     
-      <div class="cont_tabs">
-      <ul>
-        <li><a href="#"><h4>INGREDIENTS</h4></a></li>
-        <li><a href="#"><h4>PREPARATION</h4></a></li>
-      </ul>  
-      </div>
-       
-      <div class="cont_text_det_preparation">
-      <div class="cont_title_preparation">
-        <p>STEP 1</p>
-        </div>
-      <div class="cont_info_preparation">
-        <p>Heat oven to 375 degress</p>
-        </div>  
-      <div class="cont_text_det_preparation">
-    
-      <div class="cont_title_preparation">
-        <p>STEP 2</p>
-        </div>
-      <div class="cont_info_preparation">
-        <p>Heat oil in a large skillet over medium-low head. Add onion and bell papper. Cook gently until very soft, about 20 minutes. Add garlic and cook until tender, 1 to 2 minutes; stir in cumin, paprika and cook 1 minute. Pour in tomatoes and season with 3/4 teaspoon salt and 1/4 teaspoon pepper;</p>
-        </div> 
-      
-      </div>
-    </div>  
-      <div class="cont_btn_mas_dets">
-      <a href="#"><i class="material-icons">&#xE313;</i></a>
-      </div>
-        
-      </div>
-      <div class="cont_btn_open_dets">
-      <a href="#" id="toggler"><i class="material-icons">&#xE314;</i></a>
-      </div>
-    
-        </div>
-       </div>
     </div>
+  </div>
+  <div class="inside">
+    <div class="icon"><i class="material-icons">info_outline</i></div>
+    <div class="contents">
+      <table>
+        <tr>
+          <th>Width</th>
+          <th>Height</th>
+        </tr>
+        <tr>
+          <td>3000mm</td>
+          <td>4000mm</td>
+        </tr>
+        <tr>
+          <th>Something</th>
+          <th>Something</th>
+        </tr>
+        <tr>
+          <td>200mm</td>
+          <td>200mm</td>
+        </tr>
+        <tr>
+          <th>Something</th>
+          <th>Something</th>
+        </tr>
+        <tr>
+          <td>200mm</td>
+          <td>200mm</td>
+        </tr>
+        <tr>
+          <th>Something</th>
+          <th>Something</th>
+        </tr>
+        <tr>
+          <td>200mm</td>
+          <td>200mm</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 </div>
 
-<script>
-    var toggler = document.getElementById('toggler');
-    var card = document.getElementById('card');
-
-
-    // $('#toggler').click(function(event) {
-    //     $('#card').removeClass('cont_modal_active');
-	// 	    $(this).addClass('cont_modal_active');
-    // });
-//     toggler.on('click', function() {
-// 	    card.removeClass('cont_modal_active');
-//         $(this).addClass('cont_modal_active');
-// });
-//     document.getElementById('toggler').onclick = function(card, toggler) {
-//         var i, length = card.length;
-//         for (i = 0; i < length; i = i++) {
-//             console.log(i + '' + card);
-//     }
-// }
-    document.getElementById('toggler').onclick = function() {
-        document.getElementById('card').classList.toggle('cont_modal_active');
-    };
-</script>
-     

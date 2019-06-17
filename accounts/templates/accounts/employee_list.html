@@ -1,12 +1,12 @@
-{% extends 'base.html' %} 
-{% load ita_template_tags %} 
-{% load staticfiles %} 
-{% load widget_tweaks %} 
+{% extends 'base.html' %}
+{% load ita_template_tags %}
+{% load staticfiles %}
+{% load widget_tweaks %}
 {% block title %}
 <title>SmartMed | Список працівників</title>
 {% endblock %}
-{% block sidebar %} 
-{% endblock %} 
+{% block sidebar %}
+{% endblock %}
 {% block context %}
 <div class="content">
     <div class="container-fluid">
@@ -32,17 +32,20 @@
                                         <!--<td>-->
                                         <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
                                         <!--</td>-->
-                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a></td>
+                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a>
+                                        </td>
                                         <td> {{ product.UPC }}</td>
                                         <td> {{ product.brand }}</td>
                                         <td> {{ product.category }}</td>
                                         <td> {{ product.group }}</td>
                                         <td> {{ product.is_active }}</td>
                                         <td class="td-actions">
-                                            <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                            <button type="button" rel="tooltip"
+                                                class="btn btn-success btn-round btn-icon">
                                                 <i class="material-icons">settings</i>
                                             </button>
-                                            <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
+                                            <button type="button" rel="tooltip"
+                                                class="btn btn-danger btn-round btn-icon">
                                                 <i class="material-icons">delete</i>
                                             </button>
                                         </td>

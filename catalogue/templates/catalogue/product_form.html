@@ -1,20 +1,20 @@
-{% extends 'base.html' %} 
-{% load ita_template_tags %} 
-{% load staticfiles %} 
-{% load widget_tweaks %} 
+{% extends 'base.html' %}
+{% load ita_template_tags %}
+{% load staticfiles %}
+{% load widget_tweaks %}
 {% block title %}
 <title>SmartMed | {{ product.title }}</title>
 {% endblock %}
 {% block context %}
 <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-8">
-                    <div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8">
+                <div class="card">
                     <div class="card-header card-header-info">
                         <div class="text-center">{{ product.title }}</div>
                     </div>
-                    
+
                     <!--<div class="btn-group">-->
                     <!--    <button type="button" class="btn btn-danger btn-sm">{{ product.category }}</button>-->
                     <!--    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
@@ -24,185 +24,202 @@
                     <!--        <a class="dropdown-item" href="#">{{ product.category }}</a>-->
                     <!--    </div>-->
                     <!--</div>-->
-                    
-                    
-                    
-                    <p class="h5 m-3">Категорія товару: 
+
+
+
+                    <p class="h5 m-3">Категорія товару:
                         <small class="text-muted">{{ form.category|add_class:"custom-select" }}</small>
                         <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
-                    <p class="h5 m-3">Група товару: 
+                    <p class="h5 m-3">Група товару:
                         <small class="text-muted">{{ form.group|add_class:"custom-select" }}</small>
                         <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
-                    <p class="h5 m-3">Бренд: 
+                    <p class="h5 m-3">Бренд:
                         <small class="text-muted">{{ form.brand|add_class:"custom-select" }}</small>
                         <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
                     <div class="form-group ml-3 mr-3">
                         <label for="edit_product">Опис:</label>
-                        <textarea class="form-control"  rows="12">{{ form.description|attr:"id:edit_product" }}</textarea>
+                        <textarea class="form-control"
+                            rows="12">{{ form.description|attr:"id:edit_product" }}</textarea>
                     </div>
-                    
-                    
+
+
                     <div class="row">
-                    <p class="h6 m-3 col-3 small-text">Ким створений: {{ product.created_by }}</p>
-                    <p class="h6 m-3 col-3 small-text">Коли створений: {{ product.date_created }}</p>
-                    <p class="h6 m-3 col-3 small-text">Дата редагування: {{ product.date_updated }}</p>
+                        <p class="h6 m-3 col-3 small-text">Ким створений: {{ product.created_by }}</p>
+                        <p class="h6 m-3 col-3 small-text">Коли створений: {{ product.date_created }}</p>
+                        <p class="h6 m-3 col-3 small-text">Дата редагування: {{ product.date_updated }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                 <row>
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        update
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            update
+                        </div>
+
+                        <div class="form-check disabled ml-3">
+                            <label class="form-check-label">
+                                <input id="bool_check" class="form-check-input" type="checkbox"
+                                    value="{{ product.is_active }}" disabled>
+                                Активний
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="form-check disabled ml-3">
+                            <label class="form-check-label">
+                                <input id="bool_check" class="form-check-input" type="checkbox"
+                                    value="{{ product.has_instances }}" disabled>
+                                has_instances
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="form-check disabled ml-3">
+                            <label class="form-check-label">
+                                <input id="bool_check" class="form-check-input" type="checkbox"
+                                    value="{{ product.has_attributes }}" disabled>
+                                has_attributes
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="form-check disabled ml-3">
+                            <label class="form-check-label">
+                                <input id="bool_check" class="form-check-input" type="checkbox"
+                                    value="{{ product.is_discountable }}" disabled>
+                                Акційний
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                    
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_active }}" disabled>
-                            Активний
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.has_instances }}" disabled>
-                            has_instances
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.has_attributes }}" disabled>
-                            has_attributes
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_discountable }}" disabled>
-                            Акційний
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
                 </row>
                 <row>
                     <div class="card">
                         <p class="h5 m-3">UPC: <small class="text-muted">{{ product.upc }}</small></p>
                         <p class="h5 m-3">Міра виміру: <small class="text-muted">{{ product.default_uom }}</small></p>
                         <p class="h5 m-3">Розмір упаковки: <small class="text-muted">{{ product.pack_size }}</small></p>
-                        <p class="h5 m-3">Мінімальна кількість замовлення: <small class="text-muted">{{ product.min_store_quantity }}</small></p>
-                        <p class="h5 m-3">Гарантійний термін: <small class="text-muted">{{ product.warranty_terms }}</small></p>
+                        <p class="h5 m-3">Мінімальна кількість замовлення: <small
+                                class="text-muted">{{ product.min_store_quantity }}</small></p>
+                        <p class="h5 m-3">Гарантійний термін: <small
+                                class="text-muted">{{ product.warranty_terms }}</small></p>
                     </div>
                 </row>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <div class="text-center">Оновлення фото товару</div>
+                    </div>
+
+                    <!--crop-->
+
+                    {% include './includes/crop.html' %}
+
+                    <!--crop-->
+                </div>
             </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="card">
-                        <div class="card-header card-header-info">
-                            <div class="text-center">Оновлення фото товару</div>
-                        </div>
-                        
-                        <!--crop-->
-                        
-                        {% include './includes/crop.html' %}
-                        
-                        <!--crop-->
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <div class="text-center">Фото товару</div>
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header card-header-info">
-                            <div class="text-center">Фото товару</div>
-                        </div>
-                        <!-- Swiper -->
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/city)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/cats)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/food)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/nature)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/people)"></div>
+                    <!-- Swiper -->
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400)"></div>
+                            <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/city)">
                             </div>
-        
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-                        
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-prev"></div>
-                            <div class="swiper-button-next"></div>
+                            <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/cats)">
+                            </div>
+                            <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/food)">
+                            </div>
+                            <div class="swiper-slide"
+                                style="background-image:url(http://lorempixel.com/400/400/nature)"></div>
+                            <div class="swiper-slide"
+                                style="background-image:url(http://lorempixel.com/400/400/people)"></div>
                         </div>
+
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header card-header-info">
-                            <div class="text-center">Фото товару</div>
-                        </div>
-                        <p class="h5 m-3 text-center">Оновлення фото</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-xl">Головне фото</button>
-                            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-xl">
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <div class="text-center">Фото товару</div>
+                    </div>
+                    <p class="h5 m-3 text-center">Оновлення фото</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal"
+                            data-target=".bd-example-modal-xl">Головне фото</button>
+                        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
-                                   <div class="frame text-center" style="margin: 0 0.3em;">
-                                      <img id="photo" src="http://lorempixel.com/400/400">
+                                    <div class="frame text-center" style="margin: 0 0.3em;">
+                                        <img id="photo" src="http://lorempixel.com/400/400">
                                     </div>
-                                 <!--Swiper -->
-                                     <form>
-                                      <div class="form-group">
-                                        <button for="main_photo">Example file input</label>
-                                        <input type="file" class="form-control" id="main_photo">
-                                      </div>
+                                    <!--Swiper -->
+                                    <form>
+                                        <div class="form-group">
+                                            <button for="main_photo">Example file input</label>
+                                                <input type="file" class="form-control" id="main_photo">
+                                        </div>
                                     </form>
                                 </div>
-                              </div>
                             </div>
-                            <button type="button" class="btn btn-sm btn-warning btn-block" data-toggle="modal" data-target=".bd-example-modal-xl">Допоміжні фото</button>
-                            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-xl">
+                        </div>
+                        <button type="button" class="btn btn-sm btn-warning btn-block" data-toggle="modal"
+                            data-target=".bd-example-modal-xl">Допоміжні фото</button>
+                        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="col">
-                                  <div class="frame text-center" style="margin: 0 0.3em;">
-                                      <img id="photo" src="http://lorempixel.com/400/400">
+                                        <div class="frame text-center" style="margin: 0 0.3em;">
+                                            <img id="photo" src="http://lorempixel.com/400/400">
+                                        </div>
+                                        <!--Swiper -->
                                     </div>
-                                 <!--Swiper -->
-                                 </div>
-                                 <div class="row">
-                                     <form>
-                                      <div class="form-group">
-                                        <label for="sub_photo">Example file input</label>
-                                        <input type="file" class="form-control" id="sub_photo">
-                                      </div>
-                                    </form>
-                                 </div>
+                                    <div class="row">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="sub_photo">Example file input</label>
+                                                <input type="file" class="form-control" id="sub_photo">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-const checkbox = () => {
-  var checkbox = document.getElementById("bool_check");
-  var boolElem = document.getElementById("bool_check").value;
-  if (boolElem != "true") {
-      document.getElementById("bool_check").checked = true;
-  }}
-  checkbox();
-  </script>
-{% endblock %}
+        </div>
+        <script type="text/javascript">
+            const checkbox = () => {
+                var checkbox = document.getElementById("bool_check");
+                var boolElem = document.getElementById("bool_check").value;
+                if (boolElem != "true") {
+                    document.getElementById("bool_check").checked = true;
+                }
+            }
+            checkbox();
+        </script>
+        {% endblock %}
