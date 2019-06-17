@@ -12,7 +12,7 @@ from catalogue.forms import *
 
 @method_decorator(login_required, name='dispatch')
 class ShopHome(ListView):
-    template_name = 'shop_home.html'
+    template_name = 'base_shop.html'
     model = Product
     context_object_name = 'products'  # Default: object_list
     paginate_by = 50

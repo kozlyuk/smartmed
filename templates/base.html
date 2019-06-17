@@ -7,17 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     
-{% include 'includes/css_list.html' %}
+{% include 'includes/dashboard/css_list.html' %}
 
 </head>
 <body class="dark-edition">
     <div class="wrapper ">
         
-{% include 'includes/sidebar.html' %}
+{% include 'includes/dashboard/sidebar.html' %}
 
         <div class="main-panel ps-container ps-theme-default">
             
-        {% include 'includes/navbar.html' %}
+        {% include 'includes/dashboard/navbar.html' %}
         
         {% block context %}
         
@@ -26,6 +26,6 @@
         </div>
     </div>
     
-{% include 'includes/js_list.html' %}
+{% include 'includes/dashboard/js_list.html' %}
 
 </body>
