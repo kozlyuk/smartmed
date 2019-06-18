@@ -5,6 +5,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('', ShopHome.as_view(), name='shop_home'),
+    path('basket/', TemplateView.as_view(template_name='basket.html'), name='basket'), #need change before production
 
     path('product/image/', TemplateView.as_view(template_name='image_form.html')),
     path('product/list/', ProductList.as_view(), name='product_list'),
