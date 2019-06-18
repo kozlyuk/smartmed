@@ -41,35 +41,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><a href="#"><img src="https://picsum.photos/id/165/50/50"
-                                                                alt="Some product"></a></td>
-                                                    <td><a href="#">Якийсь товар</a></td>
-                                                    <td>
-                                                        <input type="number" value="2" class="form-control">
-                                                    </td>
-                                                    <td>$123.00</td>
-                                                    <td>$0.00</td>
-                                                    <td>$246.00</td>
-                                                    <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#"><img src="https://picsum.photos/id/165/50/50"
-                                                                alt="Some product"></a></td>
-                                                    <td><a href="#">Якийсь товар</a></td>
-                                                    <td>
-                                                        <input type="number" value="1" class="form-control">
-                                                    </td>
-                                                    <td>$200.00</td>
-                                                    <td>$0.00</td>
-                                                    <td>$200.00</td>
-                                                    <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                                </tr>
+                                                {% include 'includes/shop/basket_card.html' %}
+                                                {% include 'includes/shop/basket_card.html' %}
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="5">Total</th>
-                                                    <th colspan="2">$446.00</th>
+                                                    <th colspan="2">$492.00</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -121,7 +99,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>Підсумок замовлення</td>
-                                                <th>$446.00</th>
+                                                <th>$492.00</th>
                                             </tr>
                                             <tr>
                                                 <td>Упаковка та відправка</td>
@@ -133,7 +111,7 @@
                                             </tr>
                                             <tr class="total">
                                                 <td>Загально</td>
-                                                <th>$456.00</th>
+                                                <th>$502.00</th>
                                             </tr>
                                         </tbody>
                                     </table>
