@@ -15,10 +15,11 @@ from purchases.models import Purchase
 
 @method_decorator(login_required, name='dispatch')
 class ManagerHome(TemplateView):
+    """ ShopHome - view for manager dashboard template """
     template_name = 'manager_home.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ManagerHome, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['partners_count'] = Partner.objects.all().count()
         time_threshold = datetime.now() - timedelta(hours=24)
         context['sold'] = Purchase.objects.filter(created_by=self.request.user,
@@ -33,6 +34,7 @@ class ManagerHome(TemplateView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeList(ListView):
+    """ EmployeeList - view for employees listing """
     model = Employee
     form_class = EmployeeForm
     success_url = reverse_lazy('manager_home')
@@ -40,6 +42,7 @@ class EmployeeList(ListView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeCreate(CreateView):
+    """ EmployeeCreate - view for creating employees """
     model = Employee
     form_class = EmployeeForm
     success_url = reverse_lazy('employee_list')
@@ -47,6 +50,7 @@ class EmployeeCreate(CreateView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeUpdate(UpdateView):
+    """ EmployeeUpdate - view for updating employees """
     model = Employee
     form_class = EmployeeForm
     success_url = reverse_lazy('employee_list')
@@ -54,12 +58,14 @@ class EmployeeUpdate(UpdateView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeDelete(DeleteView):
+    """ EmployeeDelete - view for deleting employees """
     model = Employee
     success_url = reverse_lazy('employee_list')
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeSelfUpdate(UpdateView):
+    """ EmployeeSelfUpdate - view for employees self updating """
     model = Employee
     form_class = EmployeeSelfUpdateForm
     success_url = reverse_lazy('manager_home')
@@ -70,12 +76,14 @@ class EmployeeSelfUpdate(UpdateView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerList(ListView):
+    """ PartnerList - view for partners listing """
     model = Partner
     success_url = reverse_lazy('manager_home')
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerCreate(CreateView):
+    """ PartnerCreate - view for partners creating """
     model = Partner
     form_class = PartnerForm
     success_url = reverse_lazy('partner_list')
@@ -83,6 +91,7 @@ class PartnerCreate(CreateView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerUpdate(UpdateView):
+    """ PartnerUpdate - view for partners updating """
     model = Partner
     form_class = PartnerForm
     success_url = reverse_lazy('partner_list')
@@ -90,12 +99,14 @@ class PartnerUpdate(UpdateView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerDelete(DeleteView):
+    """ PartnerDelete - view for partners deleting """
     model = Partner
     success_url = reverse_lazy('partner_list')
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerSelfUpdate(UpdateView):
+    """ PartnerSelfUpdate - view for partners self updating """
     model = Partner
     form_class = PartnerSelfUpdateForm
     success_url = reverse_lazy('manager_home')

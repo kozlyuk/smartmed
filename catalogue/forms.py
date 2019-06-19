@@ -1,15 +1,15 @@
+""" Forms for managing catalogues """
+
 from django import forms
 from django.forms import inlineformset_factory
-from catalogue.models import *
 from django.utils.translation import gettext_lazy as _
-# from PIL import Image
-from django.core.files import File
-from .fotoUpload import ImageInput
+from catalogue.models import Product, Category, Group, Brand, Image, PriceRecord, Attribute
 
 
 class ProductFilterForm(forms.Form):
+    """ ProductFilterForm - form for products filtering """
     def __init__(self, *args, **kwargs):
-        super(ProductFilterForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         category = [(category.id, category.name) for category in Category.objects.all()]
         category.insert(0, (0, "Всі"))
@@ -24,64 +24,73 @@ class ProductFilterForm(forms.Form):
         self.fields['group'].choices = group
         self.fields['brand'].choices = brand
 
-    category = forms.ChoiceField(label=_('Category'), required=False, widget=forms.Select(attrs={"onChange": 'submit()'}))
-    group = forms.ChoiceField(label=_('Group'), required=False, widget=forms.Select(attrs={"onChange": 'submit()'}))
-    brand = forms.ChoiceField(label=_('Brand'), required=False, widget=forms.Select(attrs={"onChange": 'submit()'}))
+    category = forms.ChoiceField(label=_('Category'), required=False,
+                                 widget=forms.Select(attrs={"onChange": 'submit()'}))
+    group = forms.ChoiceField(label=_('Group'), required=False,
+                              widget=forms.Select(attrs={"onChange": 'submit()'}))
+    brand = forms.ChoiceField(label=_('Brand'), required=False,
+                              widget=forms.Select(attrs={"onChange": 'submit()'}))
     filter = forms.CharField(label=_('Search string'), max_length=255, required=False)
 
 
 class ProductForm(forms.ModelForm):
+    """ ProductForm - form for products creating or updating """
     class Meta:
         model = Product
         fields = ['title', 'upc', 'category', 'group', 'brand', 'description',
                   'warranty_terms', 'default_uom', 'pack_size', 'min_store_quantity',
                   'has_instances', 'has_attributes', 'is_discountable', 'is_active']
-        
+
 
 class ImageInlineForm(forms.ModelForm):
+    """ ImageInlineForm - form for images inlines creating or updating """
     class Meta:
         model = Image
         fields = ['image']
-        widgets = {
-            'image': ImageInput,
-        }
 
 
-ImageFormSet = inlineformset_factory(Product, Image, form=ImageInlineForm, extra=1)
+IMAGE_FORMSET = inlineformset_factory(Product, Image, form=ImageInlineForm, extra=1)
 
 
-class PriceRecordsInlineForm(forms.ModelForm):
+class PriceRecordInlineForm(forms.ModelForm):
+    """ PriceRecordInlineForm - form for price records inlines creating or updating """
     class Meta:
         model = PriceRecord
-        fields = ['from_date', 'regular_price', 'discount_price_1', 'discount_price_2', 'discount_price_3']
+        fields = ['from_date', 'regular_price',
+                  'discount_price_1', 'discount_price_2', 'discount_price_3']
 
 
-PriceRecordsFormSet = inlineformset_factory(Product, PriceRecord, form=PriceRecordsInlineForm, extra=1)
+PRICE_RECORD_FORMSET = inlineformset_factory(Product, PriceRecord,
+                                             form=PriceRecordInlineForm, extra=1)
 
 
 class AttributeInlineForm(forms.ModelForm):
+    """ AttributeInlineForm - form for attributes inlines creating or updating """
     class Meta:
         model = Attribute
         fields = ['type']
 
 
-AttributeFormSet = inlineformset_factory(Product, Attribute, form=AttributeInlineForm, extra=1)
+ATTRIBUTE_FORMSET = inlineformset_factory(Product, Attribute,
+                                          form=AttributeInlineForm, extra=1)
 
 
 class CategoryForm(forms.ModelForm):
+    """ CategoryForm - form for categories inlines creating or updating """
     class Meta:
         model = Category
         fields = ['name']
 
 
 class GroupForm(forms.ModelForm):
+    """ GroupForm - form for attributes inlines creating or updating """
     class Meta:
         model = Group
         fields = ['name']
 
 
 class BrandForm(forms.ModelForm):
+    """ BrandForm - form for brands inlines creating or updating """
     class Meta:
         model = Brand
         fields = ['name']
-        

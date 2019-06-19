@@ -10,7 +10,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from catalogue.forms import Product, ProductForm, ProductFilterForm
-from catalogue.forms import ImageFormSet, PriceRecordsFormSet, AttributeFormSet
+from catalogue.forms import IMAGE_FORMSET, PRICE_RECORD_FORMSET, ATTRIBUTE_FORMSET
 from catalogue.forms import Category, CategoryForm, Group, GroupForm, Brand, BrandForm
 
 
@@ -44,7 +44,7 @@ class ShopHome(ListView):
         return products
 
     def get_context_data(self, **kwargs):  # pylint: disable=W0221
-        context = super(ShopHome, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['products_count'] = Product.objects.all().count()
         context['products_filtered'] = self.get_queryset().count()
         self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
@@ -65,7 +65,7 @@ class ProductList(ListView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser or request.user.groups.filter(name='Manager').exists():
-            return super(ProductList, self).dispatch(request, *args, **kwargs)
+            return super().dispatch(request, *args, **kwargs)
         raise PermissionDenied
 
     def get_queryset(self):
@@ -90,7 +90,7 @@ class ProductList(ListView):
         return products
 
     def get_context_data(self, **kwargs):  # pylint: disable=W0221
-        context = super(ProductList, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['products_count'] = Product.objects.all().count()
         context['products_filtered'] = self.get_queryset().count()
         self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
@@ -114,17 +114,18 @@ class ProductCreate(CreateView):
         return self.success_url
 
     def get_context_data(self, **kwargs):
-        context = super(ProductCreate, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         if self.request.POST:
-            context['image_formset'] = ImageFormSet(self.request.POST,
-                                                    instance=self.object)
-            context['price_records_formset'] = PriceRecordsFormSet(self.request.POST,
-                                                                   instance=self.object)
-            context['attribute_formset'] = AttributeFormSet(self.request.POST, instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET(self.request.POST,
+                                                     instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST,
+                                                                    instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST,
+                                                             instance=self.object)
         else:
-            context['image_formset'] = ImageFormSet(instance=self.object)
-            context['price_records_formset'] = PriceRecordsFormSet(instance=self.object)
-            context['attribute_formset'] = AttributeFormSet(instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET(instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET(instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
         return context
 
     def form_valid(self, form):
@@ -140,7 +141,7 @@ class ProductCreate(CreateView):
             price_records_formset.save()
             attribute_formset.instance = self.object
             attribute_formset.save()
-            return super(ProductCreate, self).form_valid(form)
+            return super().form_valid(form)
         return self.form_invalid(form)
 
 
@@ -157,16 +158,17 @@ class ProductUpdate(UpdateView):
         return self.success_url
 
     def get_context_data(self, **kwargs):
-        context = super(ProductUpdate, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         if self.request.POST:
-            context['image_formset'] = ImageFormSet(self.request.POST, instance=self.object)
-            context['price_records_formset'] = PriceRecordsFormSet(self.request.POST,
-                                                                   instance=self.object)
-            context['attribute_formset'] = AttributeFormSet(self.request.POST, instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET(self.request.POST, instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST,
+                                                                    instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST,
+                                                             instance=self.object)
         else:
-            context['image_formset'] = ImageFormSet(instance=self.object)
-            context['price_records_formset'] = PriceRecordsFormSet(instance=self.object)
-            context['attribute_formset'] = AttributeFormSet(instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET(instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET(instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
         return context
 
     def form_valid(self, form):
@@ -182,7 +184,7 @@ class ProductUpdate(UpdateView):
             price_records_formset.save()
             attribute_formset.instance = self.object
             attribute_formset.save()
-            return super(ProductUpdate, self).form_valid(form)
+            return super().form_valid(form)
         return self.form_invalid(form)
 
 

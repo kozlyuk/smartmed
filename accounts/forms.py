@@ -19,20 +19,19 @@ class EmployeeSelfUpdateForm(forms.ModelForm):
     y = forms.FloatField(widget=forms.HiddenInput())
     width = forms.FloatField(widget=forms.HiddenInput())
     height = forms.FloatField(widget=forms.HiddenInput())
-    
 
     class Meta:
         model = Employee
         fields = ['phone', 'avatar', 'x', 'y', 'width', 'height']
 
     def save(self, *args, **kwargs):  # pylint: disable=W0221
-        instance = super(EmployeeSelfUpdateForm, self).save(*args, **kwargs)
-        x = self.cleaned_data.get('x')
-        y = self.cleaned_data.get('y')
+        instance = super().save(*args, **kwargs)
+        pos_x = self.cleaned_data.get('x')
+        pos_y = self.cleaned_data.get('y')
         width = self.cleaned_data.get('width')
         height = self.cleaned_data.get('height')
         image = Image.open(instance.avatar)
-        cropped_image = image.crop((x, y, width+x, height+y))
+        cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
         resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
         resized_image.save(instance.avatar.path)
         return instance
