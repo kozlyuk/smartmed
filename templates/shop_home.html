@@ -1,25 +1,78 @@
-{% load ita_template_tags %} {% load staticfiles %} {% load widget_tweaks %}
+{% extends 'shop_base.html' %}
 {% block title %}
 <title>SmartMed | Інтернет-магазин</title>
 {% endblock %}
-<!-- css list -->
-{% include 'includes/shop/css_list.html' %}
-<!-- /css -->
-
-<body>
-    <!-- navbar -->
-    {% include 'includes/shop/navbar.html' %}
-    <!-- /navbar -->
-
-    <!-- content -->
-    {% include 'includes/shop/shop_main.html' %}
-    <!-- /content -->
-
-    <!--footer-->
-    {% include 'includes/shop/footer.html'%}
-    <!-- /footer-->
-
-    <!-- js files-->
-    {% include 'includes/shop/js_list.html' %}
-    <!-- /JS -->
-</body>
+{% block content %}
+<!-- content -->
+<div id="all">
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="main-slider" class="owl-carousel owl-theme">
+                        <div class="item"><img src="https://picsum.photos/id/237/900/700" alt="" class="img-fluid">
+                        </div>
+                        <div class="item"><img src="https://picsum.photos/id/236/900/700" alt="" class="img-fluid">
+                        </div>
+                        <div class="item"><img src="https://picsum.photos/id/235/900/700" alt="" class="img-fluid">
+                        </div>
+                        <div class="item"><img src="https://picsum.photos/id/234/900/700" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <!-- /#main-slider-->
+                </div>
+            </div>
+        </div>
+        <!--ADVANTAGES HOMEPAGE-->
+        <div class="row">
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+        </div>
+        <!-- /#advantages-->
+        <!--ADVANTAGES END-->
+        <!--HOT PRODUCT SLIDESHOW-->
+        <div id="hot">
+            <div class="box py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="mb-0">Hot this week</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#hot-->
+            <!-- *** HOT END ***-->
+        </div>
+        <!--GET INSPIRED ***-->
+        <div class="container">
+            <div class="col-md-12">
+                <div class="box slideshow">
+                    <h3>Get Inspired</h3>
+                    <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
+                        officiis eveniet consectetur natus repellat accusamus optio, modi sunt enim
+                        reprehenderit aspernatur facere architecto, quos, numquam quis aut doloremque
+                        explicabo adipisci?</p>
+                    <div id="get-inspired" class="owl-carousel owl-theme">
+                        <div class="item"><a href="#"><img src="https://picsum.photos/id/237/900/700" alt="Get inspired"
+                                    class="img-fluid"></a></div>
+                        <div class="item"><a href="#"><img src="https://picsum.photos/id/238/900/700" alt="Get inspired"
+                                    class="img-fluid"></a></div>
+                        <div class="item"><a href="#"><img src="https://picsum.photos/id/239/900/700" alt="Get inspired"
+                                    class="img-fluid"></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--GET INSPIRED END-->
+        <!--BLOG HOMEPAGE-->
+    </div>
+</div>
+<!-- /content -->
+{% endblock content %}
