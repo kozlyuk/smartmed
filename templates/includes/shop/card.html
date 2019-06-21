@@ -1,3 +1,4 @@
+{% for product in products %}
 <div class="col-xl-3 col-lg-4 col-sm-6">
     <div class="wrapper">
         <div class="container">
@@ -5,8 +6,9 @@
             <div class="bottom">
                 <div class="left">
                     <div class="details">
-                        <h1>Dog</h1>
+                        <h5>{{product.title}}</h5>
                         <p>£250</p>
+                        <img src="{{ product.price }}"></img>                        
                     </div>
                     <button data-toggle="modal" data-target="#modal" class="buy"><i class="material-icons">add_shopping_cart</i></button>
                 </div>
@@ -53,3 +55,4 @@
         </div>
     </div>
 </div>
+{% endfor %}

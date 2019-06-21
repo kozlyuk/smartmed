@@ -316,3 +316,9 @@ body {
 }
 
 /* Product card end */
+
+/* add2card */
+@media (min-width: 576px){}
+.modal-dialog {
+    max-width: 750px;
+}
