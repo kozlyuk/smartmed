@@ -99,8 +99,10 @@ class Purchase(models.Model):
         (AdvancePaid, 'Оплачений аванс'),
         (PaidUp, 'Оплачений')
         )
-    deal = models.ForeignKey(Deal, verbose_name=_('Deal'), blank=True, null=True, on_delete=models.PROTECT)
-    status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES, default=InBasket)
+    deal = models.ForeignKey(Deal, verbose_name=_('Deal'), blank=True, null=True,
+                             on_delete=models.PROTECT)
+    status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES,
+                              default=InBasket)
     pay_status = models.CharField('Статус оплати', max_length=2,
                                   choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
     invoice_number = models.CharField(_('Invoice number'), max_length=45)
@@ -110,7 +112,6 @@ class Purchase(models.Model):
     in_stock = models.BooleanField(_('Available in stock'), default=False)
     arrival_date = models.DateField(_('Arrival date'), default=now)
     value = models.DecimalField(_('Value'), max_digits=8, decimal_places=2, default=0)
-    currency = models.CharField(_('Currency'), max_length=12, default=settings.DEFAULT_CURRENCY)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
                                             content_types=['application/pdf',
                                                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -129,10 +130,10 @@ class Purchase(models.Model):
         ordering = ['-date_created', '-invoice_number']
 
     def __str__(self):
-        return self.invoice_number + ' ' + self.deal.partner.name
+        return self.invoice_number
 
     def value_wc(self):
-        return str(self.value) + ' ' + self.currency
+        return str(self.value) + ' ' + settings.DEFAULT_CURRENCY
 
 
 class Payment(models.Model):

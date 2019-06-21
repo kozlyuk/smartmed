@@ -30,6 +30,19 @@ class DealAdmin(admin.ModelAdmin):
         ]
 
 
+@admin.register(InvoiceLine)
+class InvoiceLineAdmin(admin.ModelAdmin):
+    list_display = ['purchase', 'product', 'unit_price', 'quantity', 'units']
+    fieldsets = [
+        (None, {'fields': ['product',
+                           'purchase',
+                           'unit_price',
+                           'quantity',
+                           'units',
+                           ]})
+        ]
+
+
 class InvoiceLineInline(admin.TabularInline):
 
     model = InvoiceLine
@@ -47,7 +60,7 @@ class PurchaseAdmin(admin.ModelAdmin):
         (None, {'fields': ['deal',
                            ('invoice_number', 'invoice_date'),
                            ('value', 'currency'),
-                           ('warehouse', 'in_stock'),
+                           'in_stock',
                            'upload'
                            ]}),
         ]

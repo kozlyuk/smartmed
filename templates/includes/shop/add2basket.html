@@ -2,6 +2,7 @@
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
+        <form id="AddToBasketForm" enctype="multipart/form-data" method="post">{% csrf_token %}
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Покупка товару</h5>
@@ -11,18 +12,14 @@
             </div>
             <div class="modal-body">
                 <tr>
-                    <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="Some product"></a></td>
-                    <td><a href="#">Якийсь товар</a></td>
-                    <td>
-                        <input type="number" value="2" class="form-control">
-                    </td>
-                    <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                    {{ form }}
                 </tr>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-                <button type="button" class="btn btn-primary">Додати в корзину</button>
+                <button type="submit" class="btn btn-primary">Додати в корзину</button>
             </div>
         </div>
+        </form>
     </div>
 </div>

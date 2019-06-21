@@ -86,6 +86,18 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    def actual_price(self):
+        """ return actual product price for current date """
+        actual_price = None
+        actual_from_date = None
+        for price in self.pricerecord_set.all():
+            if price.from_date < now():
+                if not actual_from_date or actual_from_date < price.from_date:
+                    actual_from_date = price.from_date
+                    actual_price = price.regular_price
+        return str(actual_price) + ' ' + settings.DEFAULT_CURRENCY
+    actual_price.short_description = _('Actual price')
+
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

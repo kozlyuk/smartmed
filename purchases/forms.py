@@ -1,20 +1,20 @@
 """ Forms for managing catalogues """
 
 from django import forms
-from purchases.models import Purchase
+from purchases.models import Purchase, InvoiceLine
 
 
-#class AddToBasketForm(forms.Form):
-#    """ ProductFilterForm - form for products filtering """
+class AddToBasketForm(forms.ModelForm):
+    """ ProductFilterForm - form for products filtering """
 
-#    class Meta:
-#        model = InvoiceLine
-#        fields = ['product', 'purchase', 'quantity', 'unit_price']
+    class Meta:
+        model = InvoiceLine
+        fields = ['product', 'purchase', 'quantity', 'unit_price']
 
 
-class BasketForm(forms.Form):
+class BasketForm(forms.ModelForm):
     """ ProductFilterForm - form for products filtering """
 
     class Meta:
         model = Purchase
-        fields = ['__all__']
+        fields = '__all__'
