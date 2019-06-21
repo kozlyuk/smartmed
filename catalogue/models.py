@@ -99,6 +99,11 @@ class Product(models.Model):
         return actual_price
     actual_price.short_description = _('Actual price')
 
+    def actual_price_wc(self):
+        """ return actual product price for current date in string"""
+        return str(self.actual_price()) + ' ' + settings.DEFAULT_CURRENCY
+    actual_price_wc.short_description = _('Actual price')
+
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

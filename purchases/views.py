@@ -22,13 +22,13 @@ class AddToBasketModal(CreateView):
 
     def get_initial(self):
         initials = super().get_initial()
-        initials['product'] = self.kwargs['product']
+        product = Product.objects.get(pk=self.kwargs['product'])
+        initials['product'] = product.pk
+        initials['unit_price'] = product.actual_price()
         if not self.request.session.get('purchase_id'):
             new_purchase = Purchase.objects.create(invoice_number='Basket')
             self.request.session['purchase_id'] = new_purchase.id
         initials['purchase'] = self.request.session.get('purchase_id')
-        product = Product.objects.get(pk=self.kwargs['product'])
-        initials['unit_price'] = product.actual_price()
         return initials
 
 

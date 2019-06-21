@@ -1,6 +1,7 @@
 import datetime
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from django.db.models import Sum
 from django.conf import settings
 from django_userforeignkey.models.fields import UserForeignKey
 from catalogue.models import Product
@@ -133,6 +134,10 @@ class Purchase(models.Model):
 
     def value_wc(self):
         return str(self.value) + ' ' + settings.DEFAULT_CURRENCY
+
+    def invoice_line_sum(self):
+        return self.invoiceline_set.extra(select={"item_total": "quantity * unit_price"})\
+                                   .aggregate(total=Sum("item_total"))
 
 
 class Payment(models.Model):
