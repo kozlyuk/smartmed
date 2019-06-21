@@ -7,10 +7,10 @@
 <!-- content -->
 <div id="all">
     <div id="content">
+        {% comment %} <!--main-slider-->
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <!--main-slider-->
                     <div id="main-slider" class="owl-carousel owl-theme">
                         <div class="item"><img src="https://picsum.photos/id/237/900/700" alt="" class="img-fluid">
                         </div>
@@ -21,10 +21,10 @@
                         <div class="item"><img src="https://picsum.photos/id/234/900/700" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <!--/main-slider-->
                 </div>
             </div>
         </div>
+        <!--/main-slider--> {% endcomment %}
 
         <!--add2basket-->
         {% include 'includes/shop/add2basket.html' %}
@@ -32,6 +32,10 @@
 
         <!--card list-->
         <div class="row">
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
+            {% include 'includes/shop/card.html' %}
             {% include 'includes/shop/card.html' %}
             {% include 'includes/shop/card.html' %}
             {% include 'includes/shop/card.html' %}
