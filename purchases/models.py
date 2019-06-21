@@ -1,5 +1,4 @@
-from datetime import datetime
-from django.utils.timezone import now
+import datetime
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django.conf import settings
@@ -13,7 +12,7 @@ from .formatChecker import ContentTypeRestrictedFileField
 def docs_directory_path(filename):
     # file will be uploaded to MEDIA_ROOT/projects/user_<id>/Year/Month/<filename>
     return 'archive/{0}/{1}/{2}'\
-        .format(datetime.now().year, datetime.now().month, filename)
+        .format(datetime.datetime.now().year, datetime.datetime.now().month, filename)
 
 
 class Company(models.Model):
@@ -47,7 +46,7 @@ class Deal(models.Model):
     )
     type = models.CharField(_('Deal type'), max_length=2, choices=DEAL_CHOICES, default='sa')
     number = models.CharField(_('Deal number'), max_length=45)
-    date = models.DateField(_('Deal date'), default=now)
+    date = models.DateField(_('Deal date'), default=datetime.date.today)
     expire_date = models.DateField(_('Deal expire date'))
     partner = models.ForeignKey(Partner, verbose_name=_('Partner'),
                                 on_delete=models.PROTECT, null=True)
@@ -106,11 +105,11 @@ class Purchase(models.Model):
     pay_status = models.CharField('Статус оплати', max_length=2,
                                   choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
     invoice_number = models.CharField(_('Invoice number'), max_length=45)
-    invoice_date = models.DateTimeField(_('Invoice date'), default=now)
+    invoice_date = models.DateField(_('Invoice date'), default=datetime.date.today)
     products = models.ManyToManyField(Product, through='InvoiceLine', related_name='products',
                                       verbose_name=_('Goods'), blank=True)
     in_stock = models.BooleanField(_('Available in stock'), default=False)
-    arrival_date = models.DateField(_('Arrival date'), default=now)
+    arrival_date = models.DateField(_('Arrival date'), default=datetime.date.today)
     value = models.DecimalField(_('Value'), max_digits=8, decimal_places=2, default=0)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
                                             content_types=['application/pdf',
@@ -147,7 +146,7 @@ class Payment(models.Model):
     )
     purchase = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.CASCADE)
     payment_type = models.CharField(_('Payment type'), max_length=2, choices=PAYMENT_TYPE_CHOICES, default='BP')
-    payment_date = models.DateField(_('Payment date'), default=now)
+    payment_date = models.DateField(_('Payment date'), default=datetime.date.today)
     payment_value = models.DecimalField(_('Value'), max_digits=8, decimal_places=2)
     # Creator and Date information
     created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))

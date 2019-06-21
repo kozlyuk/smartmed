@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -91,11 +92,11 @@ class Product(models.Model):
         actual_price = None
         actual_from_date = None
         for price in self.pricerecord_set.all():
-            if price.from_date < now():
+            if price.from_date < datetime.date.today():
                 if not actual_from_date or actual_from_date < price.from_date:
                     actual_from_date = price.from_date
                     actual_price = price.regular_price
-        return str(actual_price) + ' ' + settings.DEFAULT_CURRENCY
+        return actual_price
     actual_price.short_description = _('Actual price')
 
 

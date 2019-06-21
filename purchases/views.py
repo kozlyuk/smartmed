@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from purchases.forms import BasketForm, AddToBasketForm
 
 from purchases.models import Purchase
-#from catalogue.models import Product
+from catalogue.models import Product
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
@@ -27,7 +27,8 @@ class AddToBasketModal(CreateView):
             new_purchase = Purchase.objects.create(invoice_number='Basket')
             self.request.session['purchase_id'] = new_purchase.id
         initials['purchase'] = self.request.session.get('purchase_id')
-#        initials['unit_price'] = Product.objects.filter(pk=self.kwargs['product'])
+        product = Product.objects.get(pk=self.kwargs['product'])
+        initials['unit_price'] = product.actual_price()
         return initials
 
 

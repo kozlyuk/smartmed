@@ -59,7 +59,7 @@ class PurchaseAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['deal',
                            ('invoice_number', 'invoice_date'),
-                           ('value', 'currency'),
+                           'value',
                            'in_stock',
                            'upload'
                            ]}),
