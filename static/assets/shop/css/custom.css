@@ -119,7 +119,8 @@ body {
 .wrapper .container .bottom .left .details {
   padding: 20px;
   float: left;
-  width: calc(70% - 40px);
+  /* width: calc(70% - 40px); */
+  width: 70%;
 }
 
 .wrapper .container .bottom .left .buy {
