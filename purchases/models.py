@@ -1,16 +1,16 @@
-from django.db import models
-from django.conf import settings
-from .formatChecker import ContentTypeRestrictedFileField
 from datetime import datetime
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
+from django.db import models
+from django.conf import settings
 from django_userforeignkey.models.fields import UserForeignKey
 from catalogue.models import Product
 from accounts.models import Partner
 from warehouse.models import Warehouse
+from .formatChecker import ContentTypeRestrictedFileField
 
 
-def docs_directory_path(instance, filename):
+def docs_directory_path(filename):
     # file will be uploaded to MEDIA_ROOT/projects/user_<id>/Year/Month/<filename>
     return 'archive/{0}/{1}/{2}'\
         .format(datetime.now().year, datetime.now().month, filename)
@@ -28,7 +28,8 @@ class Company(models.Model):
     bank_requisites = models.CharField(_('Bank details'), max_length=255, blank=True)
     chief = models.CharField(_('Chief'), max_length=45, blank=True)
     phone = models.CharField(_('Phone'), max_length=13, blank=True)
-    tax_system = models.CharField(_('Tax system'), max_length=5, choices=TAXATION_CHOICES, default='wvat')
+    tax_system = models.CharField(_('Tax system'), max_length=5,
+                                  choices=TAXATION_CHOICES, default='wvat')
 
     class Meta:
         verbose_name = _('Company')
@@ -48,15 +49,16 @@ class Deal(models.Model):
     number = models.CharField(_('Deal number'), max_length=45)
     date = models.DateField(_('Deal date'), default=now)
     expire_date = models.DateField(_('Deal expire date'))
-    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT, null=True)
+    partner = models.ForeignKey(Partner, verbose_name=_('Partner'),
+                                on_delete=models.PROTECT, null=True)
     company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
     comment = models.TextField(_('Comment'), blank=True)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
-                                              content_types=['application/pdf',
-                                                             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                                             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-                                              max_upload_size=26214400,
-                                              blank=True, null=True)
+                                            content_types=['application/pdf',
+                                                           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                                           'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+                                            max_upload_size=26214400,
+                                            blank=True, null=True)
     # Creator and Date information
     created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
@@ -97,24 +99,24 @@ class Purchase(models.Model):
         (AdvancePaid, 'Оплачений аванс'),
         (PaidUp, 'Оплачений')
         )
-    deal = models.ForeignKey(Deal, verbose_name=_('Deal'), on_delete=models.PROTECT)
-    status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES, default=NewOrder)
-    pay_status = models.CharField('Статус оплати', max_length=2, choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
+    deal = models.ForeignKey(Deal, verbose_name=_('Deal'), blank=True, null=True, on_delete=models.PROTECT)
+    status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES, default=InBasket)
+    pay_status = models.CharField('Статус оплати', max_length=2,
+                                  choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
     invoice_number = models.CharField(_('Invoice number'), max_length=45)
     invoice_date = models.DateTimeField(_('Invoice date'), default=now)
     products = models.ManyToManyField(Product, through='InvoiceLine', related_name='products',
-                                   verbose_name=_('Goods'), blank=True)
+                                      verbose_name=_('Goods'), blank=True)
     in_stock = models.BooleanField(_('Available in stock'), default=False)
     arrival_date = models.DateField(_('Arrival date'), default=now)
-    warehouse = models.ForeignKey(Warehouse, verbose_name=_('Warehouse'), on_delete=models.PROTECT)
     value = models.DecimalField(_('Value'), max_digits=8, decimal_places=2, default=0)
     currency = models.CharField(_('Currency'), max_length=12, default=settings.DEFAULT_CURRENCY)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
-                                              content_types=['application/pdf',
-                                                             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                                             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-                                              max_upload_size=26214400,
-                                              blank=True, null=True)
+                                            content_types=['application/pdf',
+                                                           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                                           'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+                                            max_upload_size=26214400,
+                                            blank=True, null=True)
     # Creator and Date information
     created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
@@ -156,7 +158,7 @@ class Payment(models.Model):
         verbose_name_plural = 'Payments'
 
     def __str__(self):
-        return self.name
+        return self.payment_value
 
 
 class InvoiceLine(models.Model):
@@ -165,3 +167,4 @@ class InvoiceLine(models.Model):
     quantity = models.PositiveIntegerField(_('Amount'), default=1)
     units = models.CharField(_('Units'), max_length=16, default=_('pcs.'))
     unit_price = models.DecimalField(_('Unit price'), max_digits=8, decimal_places=2, default=0)
+    warehouse = models.ForeignKey(Warehouse, verbose_name=_('Warehouse'), blank=True, null=True, on_delete=models.PROTECT)

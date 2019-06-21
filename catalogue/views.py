@@ -20,7 +20,7 @@ class ShopHome(ListView):
     template_name = 'shop_home.html'
     model = Product
     context_object_name = 'products'  # Default: object_list
-    paginate_by = 50
+    paginate_by = 12
 
     def get_queryset(self):
         products = Product.objects.all()

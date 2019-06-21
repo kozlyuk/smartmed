@@ -13,21 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
-from django.conf.urls import include
+from django.views.generic.base import TemplateView
+
+from purchases.views import AddToBasketModal
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
-    path('', include('catalogue.urls')),
-    path('', include('purchases.urls')),
-    path('', include('warehouse.urls')),
-]
+    path('basket/', TemplateView.as_view(template_name='basket.html'), name='basket'),
+    path('basket/add/<int:product>/', AddToBasketModal.as_view(), name='invoice_line_create'),
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

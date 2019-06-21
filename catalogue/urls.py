@@ -1,11 +1,29 @@
+"""smartmed URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/2.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
 from django.urls import path
-from catalogue.views import *
 from django.views.generic.base import TemplateView
+from catalogue.views import ShopHome
+from catalogue.views import ProductList, ProductCreate, ProductUpdate, ProductDelete
+from catalogue.views import CategoryList, CategoryCreate, CategoryUpdate, CategoryDelete
+from catalogue.views import GroupList, GroupCreate, GroupUpdate, GroupDelete
+from catalogue.views import BrandList, BrandCreate, BrandUpdate, BrandDelete
 
 
 urlpatterns = [
     path('', ShopHome.as_view(), name='shop_home'),
-    path('basket/', TemplateView.as_view(template_name='basket.html'), name='basket'), #need change before production
 
     path('product/image/', TemplateView.as_view(template_name='image_form.html')),
     path('product/list/', ProductList.as_view(), name='product_list'),
