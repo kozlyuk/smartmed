@@ -1,3 +1,5 @@
+""" Models for managing purchases """
+
 import datetime
 from django.utils.translation import gettext_lazy as _
 from django.db import models
@@ -7,16 +9,17 @@ from django_userforeignkey.models.fields import UserForeignKey
 from catalogue.models import Product
 from accounts.models import Partner
 from warehouse.models import Warehouse
-from .formatChecker import ContentTypeRestrictedFileField
+from purchases.formatChecker import ContentTypeRestrictedFileField
 
 
 def docs_directory_path(filename):
-    # file will be uploaded to MEDIA_ROOT/projects/user_<id>/Year/Month/<filename>
+    """  file will be uploaded to MEDIA_ROOT/projects/user_<id>/Year/Month/<filename> """
     return 'archive/{0}/{1}/{2}'\
         .format(datetime.datetime.now().year, datetime.datetime.now().month, filename)
 
 
 class Company(models.Model):
+    """ Model contains Companies requisites for using in Deals and Invoices """
     TAXATION_CHOICES = (
         ('wvat', _('With VAT')),
         ('wovat', _('Without VAT')),
@@ -28,8 +31,7 @@ class Company(models.Model):
     bank_requisites = models.CharField(_('Bank details'), max_length=255, blank=True)
     chief = models.CharField(_('Chief'), max_length=45, blank=True)
     phone = models.CharField(_('Phone'), max_length=13, blank=True)
-    tax_system = models.CharField(_('Tax system'), max_length=5,
-                                  choices=TAXATION_CHOICES, default='wvat')
+    tax_system = models.CharField(_('Tax system'), max_length=5, choices=TAXATION_CHOICES, default='wvat')
 
     class Meta:
         verbose_name = _('Company')
@@ -41,6 +43,7 @@ class Company(models.Model):
 
 
 class Deal(models.Model):
+    """ Model contains Deals """
     DEAL_CHOICES = (
         ('sa', _('Sale')),
         ('pu', _('Purchase')),
@@ -49,14 +52,15 @@ class Deal(models.Model):
     number = models.CharField(_('Deal number'), max_length=45)
     date = models.DateField(_('Deal date'), default=datetime.date.today)
     expire_date = models.DateField(_('Deal expire date'))
-    partner = models.ForeignKey(Partner, verbose_name=_('Partner'),
-                                on_delete=models.PROTECT, null=True)
+    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT, null=True)
     company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
     comment = models.TextField(_('Comment'), blank=True)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
                                             content_types=['application/pdf',
-                                                           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                                           'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+                                                           'application/vnd.openxmlformats-officedocument'
+                                                           '.spreadsheetml.sheet',
+                                                           'application/vnd.openxmlformats-officedocument'
+                                                           '.wordprocessingml.document'],
                                             max_upload_size=26214400,
                                             blank=True, null=True)
     # Creator and Date information
@@ -75,6 +79,7 @@ class Deal(models.Model):
 
 
 class Purchase(models.Model):
+    """ Model contains Purchases, Orders, Baskets """
     InBasket = 'IB'
     NewOrder = 'NO'
     Cancelled = 'CN'
@@ -99,12 +104,9 @@ class Purchase(models.Model):
         (AdvancePaid, 'Оплачений аванс'),
         (PaidUp, 'Оплачений')
         )
-    deal = models.ForeignKey(Deal, verbose_name=_('Deal'), blank=True, null=True,
-                             on_delete=models.PROTECT)
-    status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES,
-                              default=InBasket)
-    pay_status = models.CharField('Статус оплати', max_length=2,
-                                  choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
+    deal = models.ForeignKey(Deal, verbose_name=_('Deal'), blank=True, null=True, on_delete=models.PROTECT)
+    status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES, default=InBasket)
+    pay_status = models.CharField('Статус оплати', max_length=2, choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
     invoice_number = models.CharField(_('Invoice number'), max_length=45)
     invoice_date = models.DateField(_('Invoice date'), default=datetime.date.today)
     products = models.ManyToManyField(Product, through='InvoiceLine', related_name='products',
@@ -114,8 +116,10 @@ class Purchase(models.Model):
     value = models.DecimalField(_('Value'), max_digits=8, decimal_places=2, default=0)
     upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
                                             content_types=['application/pdf',
-                                                           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                                           'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+                                                           'application/vnd.openxmlformats-officedocument'
+                                                           '.spreadsheetml.sheet',
+                                                           'application/vnd.openxmlformats-officedocument'
+                                                           '.wordprocessingml.document'],
                                             max_upload_size=26214400,
                                             blank=True, null=True)
     # Creator and Date information
@@ -133,14 +137,32 @@ class Purchase(models.Model):
         return self.invoice_number
 
     def value_wc(self):
+        """ return purchase value with currency"""
         return str(self.value) + ' ' + settings.DEFAULT_CURRENCY
+    value_wc.short_description = _('Invoice Value')
 
-    def invoice_line_sum(self):
+    def value_total(self):
+        """ return calculated from invoice_lines purchase value"""
         return self.invoiceline_set.extra(select={"item_total": "quantity * unit_price"})\
                                    .aggregate(total=Sum("item_total"))
+    value_total.short_description = _('Calculated invoice value')
+
+    def value_total_wc(self):
+        """ return calculated from invoice_lines purchase value with currency"""
+        return str(self.value_total) + ' ' + settings.DEFAULT_CURRENCY
+    value_total_wc.short_description = _('Calculated invoice value')
+
+    @classmethod
+    def invoice_number_generate(cls):
+        """ return autogenerated invoice number"""
+        today_str = datetime.date.today().strftime('%Y%m%d')
+        today_orders_count = cls.objects.filter(invoice_number__startswith=today_str).count()
+        return today_str + '-' + today_orders_count
+    value_total_wc.short_description = _('Generated invoice number')
 
 
 class Payment(models.Model):
+    """ Model contains Payments for Purchases model """
     PayOnDelivery = 'PD'
     BankPayment = 'BP'
     BankCard = 'BC'
@@ -167,9 +189,11 @@ class Payment(models.Model):
 
 
 class InvoiceLine(models.Model):
+    """ Model contains InvoiceLines for Purchases model """
     product = models.ForeignKey(Product, verbose_name=_('Goods'), on_delete=models.PROTECT)
     purchase = models.ForeignKey(Purchase, verbose_name=_('Purchase'), on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(_('Amount'), default=1)
     units = models.CharField(_('Units'), max_length=16, default=_('pcs.'))
     unit_price = models.DecimalField(_('Unit price'), max_digits=8, decimal_places=2, default=0)
-    warehouse = models.ForeignKey(Warehouse, verbose_name=_('Warehouse'), blank=True, null=True, on_delete=models.PROTECT)
+    warehouse = models.ForeignKey(Warehouse, verbose_name=_('Warehouse'), blank=True, null=True,
+                                  on_delete=models.PROTECT)

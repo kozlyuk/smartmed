@@ -24,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'stdimage',
     'widget_tweaks',
     'django_userforeignkey',
     'catalogue.apps.CatalogueConfig',

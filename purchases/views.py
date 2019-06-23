@@ -1,5 +1,6 @@
 """ Views for managing purchases """
 
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
@@ -14,7 +15,7 @@ from catalogue.models import Product
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class AddToBasketModal(CreateView):
-    """ AddToBasketModal - view for add to basket modal form """
+    """ View for add to basket modal form """
     template_name = 'includes/shop/add2basket.html'
     form_class = AddToBasketForm
     context_object_name = 'invoice_line'
@@ -34,7 +35,13 @@ class AddToBasketModal(CreateView):
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PurchaseUpdate(UpdateView):
-    """ AddToBasketModal - view for add to basket modal form """
-    template_name = 'add2basket.html'
+    """ Order review and confirmation """
+    template_name = 'basket.html'
     form_class = BasketForm
-    context_object_name = 'invoice_line'
+    context_object_name = 'order'
+
+    def get_initial(self):
+        initials = super().get_initial()
+        initials['invoice_number'] = self.object.invoice_number_generate()
+        initials['invoice_date'] = datetime.date.today()
+        return initials

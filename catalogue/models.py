@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 from django_userforeignkey.models.fields import UserForeignKey
 from warehouse.models import Stock
-from stdimage.models import StdImageField
 
 
 def image_directory_path(instance, filename):
@@ -39,11 +38,7 @@ class Group(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(_('Brand name'), max_length=32, unique=True)
-    image = StdImageField(_('Brand Image'), upload_to='brands/', default='brands/no_image.jpg',
-                          variations={
-                                   'large': (400, 400, True),
-                                   'thumbnail': (100, 100, True),
-                                })
+    image = models.ImageField(_('Brand Image'), upload_to='brands/', default='brands/no_image.jpg')
     is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
@@ -100,18 +95,16 @@ class Product(models.Model):
     actual_price.short_description = _('Actual price')
 
     def actual_price_wc(self):
-        """ return actual product price for current date in string"""
+        """ return actual product price for current with currency"""
+        if self.actual_price() is None:
+            return None
         return str(self.actual_price()) + ' ' + settings.DEFAULT_CURRENCY
     actual_price_wc.short_description = _('Actual price')
 
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = StdImageField(_('Product Image'), upload_to=image_directory_path,
-                          variations={
-                                   'large': (400, 400, True),
-                                   'thumbnail': (100, 100, True),
-                                })
+    image = models.ImageField(_('Product Image'), upload_to=image_directory_path)
 
     class Meta:
         verbose_name = _('Product Image')

@@ -17,4 +17,4 @@ class BasketForm(forms.ModelForm):
 
     class Meta:
         model = Purchase
-        fields = '__all__'
+        fields = ['invoice_number', 'invoice_date', 'products', 'value']
