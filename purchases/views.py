@@ -35,6 +35,7 @@ class AddToBasketModal(BSModalCreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['product'] = Product.objects.get(pk=self.kwargs['product'])
         if self.request.POST:
             context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
         else:

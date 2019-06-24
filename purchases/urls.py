@@ -14,13 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from django.views.generic.base import TemplateView
 
-from purchases.views import AddToBasketModal
+from purchases.views import AddToBasketModal, PurchaseUpdate
 
 
 urlpatterns = [
-    path('basket/', TemplateView.as_view(template_name='basket.html'), name='basket'),
+    path('basket/<int:pk>/', PurchaseUpdate.as_view(), name='basket'),
     path('basket/add/<int:product>/', AddToBasketModal.as_view(), name='invoice_line_create'),
 
 ]
