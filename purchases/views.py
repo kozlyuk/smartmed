@@ -12,9 +12,10 @@ from purchases.forms import BasketForm, AddToBasketForm
 from purchases.models import Purchase
 from catalogue.models import Product
 
+from bootstrap_modal_forms.generic import BSModalCreateView
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
-class AddToBasketModal(CreateView):
+class AddToBasketModal(BSModalCreateView):
     """ View for add to basket modal form """
     template_name = 'includes/shop/add2basket.html'
     form_class = AddToBasketForm

@@ -43,18 +43,18 @@ body {
 }
 
 .wrapper {
-  width: 300px;
-  height: 500px;
+  width: 250px;
+  height: 400px;
   background: white;
   margin: auto;
   position: relative;
   overflow: hidden;
   /* border-radius: 10px 10px 10px 10px; */
   -webkit-box-shadow: 0;
-          box-shadow: 0;
+  box-shadow: 0;
   -webkit-transform: scale(0.95);
-      -ms-transform: scale(0.95);
-          transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
   -webkit-transition: -webkit-box-shadow 0.5s, -webkit-transform 0.5s;
   transition: -webkit-box-shadow 0.5s, -webkit-transform 0.5s;
   -o-transition: box-shadow 0.5s, transform 0.5s;
@@ -64,10 +64,10 @@ body {
 
 .wrapper:hover {
   -webkit-transform: scale(0.96);
-      -ms-transform: scale(0.96);
-          transform: scale(0.96);
+  -ms-transform: scale(0.96);
+  transform: scale(0.96);
   -webkit-box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.2);
-          box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.2);
 }
 
 .wrapper .container {
@@ -94,8 +94,8 @@ body {
 
 .wrapper .container .bottom.clicked {
   -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .wrapper .container .bottom h1 {
@@ -151,8 +151,8 @@ body {
 
 .wrapper .container .bottom .left .buy:hover i {
   -webkit-transform: translateY(5px);
-      -ms-transform: translateY(5px);
-          transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  transform: translateY(5px);
   color: #00394B;
 }
 
@@ -208,8 +208,8 @@ body {
 
 .wrapper .container .bottom .right .remove:hover i {
   -webkit-transform: translateY(5px);
-      -ms-transform: translateY(5px);
-          transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  transform: translateY(5px);
 }
 
 .wrapper .container .bottom .right .remove i {
@@ -226,8 +226,8 @@ body {
 .wrapper .container .bottom .right:hover .remove,
 .wrapper .container .bottom .right:hover .done {
   -webkit-transform: translateY(-100%);
-      -ms-transform: translateY(-100%);
-          transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 .wrapper .inside {
@@ -270,22 +270,22 @@ body {
 .wrapper .inside:hover .contents {
   opacity: 1;
   -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-          transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
   -webkit-transform: translateY(0);
-      -ms-transform: translateY(0);
-          transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
 }
 
 .wrapper .inside .contents {
   padding: 5%;
   opacity: 0;
   -webkit-transform: scale(0.5);
-      -ms-transform: scale(0.5);
-          transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
   -webkit-transform: translateY(-200%);
-      -ms-transform: translateY(-200%);
-          transform: translateY(-200%);
+  -ms-transform: translateY(-200%);
+  transform: translateY(-200%);
   -webkit-transition: opacity 0.2s, -webkit-transform 0.8s;
   transition: opacity 0.2s, -webkit-transform 0.8s;
   -o-transition: opacity 0.2s, transform 0.8s;
@@ -316,10 +316,16 @@ body {
   border-style: none;
 }
 
+[type=button] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
 /* Product card end */
 
 /* add2card */
-@media (min-width: 576px){}
+@media (min-width: 576px) {}
+
 .modal-dialog {
-    max-width: 750px;
+  max-width: 750px;
 }
