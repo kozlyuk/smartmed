@@ -1,10 +1,11 @@
 """ Forms for managing catalogues """
 
 from django import forms
+from bootstrap_modal_forms.forms import BSModalForm
 from purchases.models import Purchase, InvoiceLine
 
 
-class AddToBasketForm(forms.ModelForm):
+class AddToBasketForm(BSModalForm):
     """ ProductFilterForm - form for products filtering """
 
     class Meta:
