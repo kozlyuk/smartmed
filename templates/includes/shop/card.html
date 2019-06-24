@@ -15,7 +15,7 @@
                         <p>£250</p>
                         <img src="{{ product.price }}"></img>                        
                     </div>
-                    <button class="add2basket buy" type="button" name="button" data-id="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></button>
+                    <a class="add2basket buy" type="button" name="button" data-id="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></a>
                 </div>
             </div>
         </div>

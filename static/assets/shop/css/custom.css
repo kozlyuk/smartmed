@@ -316,6 +316,11 @@ body {
   border-style: none;
 }
 
+[type=button] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
 /* Product card end */
 
 /* add2card */
