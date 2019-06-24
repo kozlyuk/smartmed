@@ -1,0 +1,76 @@
+{% for product in products %}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+<div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="wrapper">
+        <div class="container">
+            <div class="top"></div>
+            <div class="bottom">
+                <div class="left">
+                    <div class="details">
+                        <h5>{{product.title}}</h5>
+                        <p>£250</p>
+                        <img src="{{ product.price }}"></img>                        
+                    </div>
+                    <button class="add2basket buy" type="button" name="button"><i class="material-icons">add_shopping_cart</i></button>
+                    {% comment %} <a href="{% url 'invoice_line_create' product.id %}" class="buy"><i class="material-icons">add_shopping_cart</i></a> {% endcomment %}
+                </div>
+            </div>
+        </div>
+        <div class="inside">
+            <div class="icon"><i class="material-icons">info_outline</i></div>
+            <div class="contents">
+                <table>
+                    <tr>
+                        <th>Розмір упаковки</th>
+                        <th>Height</th>
+                    </tr>
+                    <tr>
+                        <td>{{product.pack_size}}</td>
+                        <td>4000mm</td>
+                    </tr>
+                    <tr>
+                        <th>Something</th>
+                        <th>Something</th>
+                    </tr>
+                    <tr>
+                        <td>200mm</td>
+                        <td>200mm</td>
+                    </tr>
+                    <tr>
+                        <th>Something</th>
+                        <th>Something</th>
+                    </tr>
+                    <tr>
+                        <td>200mm</td>
+                        <td>200mm</td>
+                    </tr>
+                    <tr>
+                        <th>Something</th>
+                        <th>Something</th>
+                    </tr>
+                    <tr>
+                        <td>200mm</td>
+                        <td>200mm</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+window.onload = function () {
+    $(document).ready(function () {
+
+        $(".add2basket").modalForm({
+            formURL: "{% url 'invoice_line_create' product.id %}"
+        });
+
+    });
+}
+</script>
+{% endfor %}

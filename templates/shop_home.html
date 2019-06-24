@@ -7,28 +7,9 @@
 <!-- content -->
 <div id="all">
     <div id="content">
-        {% comment %} <!--main-slider-->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="main-slider" class="owl-carousel owl-theme">
-                        <div class="item"><img src="https://picsum.photos/id/237/900/700" alt="" class="img-fluid">
-                        </div>
-                        <div class="item"><img src="https://picsum.photos/id/236/900/700" alt="" class="img-fluid">
-                        </div>
-                        <div class="item"><img src="https://picsum.photos/id/235/900/700" alt="" class="img-fluid">
-                        </div>
-                        <div class="item"><img src="https://picsum.photos/id/234/900/700" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/main-slider--> {% endcomment %}
-
-        <!--add2basket-->
-        {% include 'includes/shop/add2basket.html' %}
-        <!--/add2basket-->
+        <!--modal for add2basket-->
+        {% include 'includes/shop/modal.html' %}
+        <!--/modal for add2basket-->
 
         <!--card list-->
         <div class="row">
@@ -73,5 +54,6 @@
         <!--BLOG HOMEPAGE-->
     </div>
 </div>
+
 <!-- /content -->
 {% endblock content %}
