@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import include
+from django.conf.urls import include, url
+from django.views.generic.base import RedirectView
 
 
 urlpatterns = [
@@ -26,6 +27,8 @@ urlpatterns = [
     path('', include('catalogue.urls')),
     path('', include('purchases.urls')),
     path('', include('warehouse.urls')),
+    
+    url(r'favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
 ]
 
 if settings.DEBUG:
