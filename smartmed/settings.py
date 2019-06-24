@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'purchases.apps.PurchasesConfig',
     'warehouse.apps.WarehouseConfig',
     'accounts.apps.AccountsConfig',
+    'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [
