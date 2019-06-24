@@ -12,7 +12,7 @@
                 <div class="left">
                     <div class="details">
                         <h5>{{product.title}}</h5>
-                        <p>£250</p>
+                        <p>{{product.actual_price_wc}}</p>
                         <img src="{{ product.price }}"></img>                        
                     </div>
                     <a class="add2basket buy" type="button" name="button" data-id="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></a>
@@ -25,35 +25,28 @@
                 <table>
                     <tr>
                         <th>Розмір упаковки</th>
-                        <th>Height</th>
                     </tr>
                     <tr>
-                        <td>{{product.pack_size}}</td>
-                        <td>4000mm</td>
+                        <td>{{product.pack_size}} {{product.default_uom}}</td>
+                        <td></td>
                     </tr>
                     <tr>
-                        <th>Something</th>
-                        <th>Something</th>
+                        <th>Група продуктів</th>
                     </tr>
                     <tr>
-                        <td>200mm</td>
-                        <td>200mm</td>
+                        <td>{{product.group}}</td>
                     </tr>
                     <tr>
-                        <th>Something</th>
-                        <th>Something</th>
+                        <th>Бренд</th>
                     </tr>
                     <tr>
-                        <td>200mm</td>
-                        <td>200mm</td>
+                        <td>{{product.brand}}</td>
                     </tr>
                     <tr>
-                        <th>Something</th>
-                        <th>Something</th>
+                        <th>Гарантійний термін</th>
                     </tr>
                     <tr>
-                        <td>200mm</td>
-                        <td>200mm</td>
+                        <td>{{product.warranty_terms}}</td>
                     </tr>
                 </table>
             </div>
