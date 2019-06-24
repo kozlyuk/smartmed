@@ -39,7 +39,7 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['title', 'upc', 'category', 'group', 'brand', 'description',
                   'warranty_terms', 'default_uom', 'pack_size', 'min_store_quantity',
-                  'has_instances', 'has_attributes', 'is_discountable', 'is_active']
+                  'has_instances', 'is_discountable', 'is_active']
 
 
 class ImageInlineForm(forms.ModelForm):

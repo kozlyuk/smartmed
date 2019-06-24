@@ -116,12 +116,9 @@ class ProductCreate(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
-            context['image_formset'] = IMAGE_FORMSET(self.request.POST,
-                                                     instance=self.object)
-            context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST,
-                                                                    instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST,
-                                                             instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET(self.request.POST, instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST, instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
         else:
             context['image_formset'] = IMAGE_FORMSET(instance=self.object)
             context['price_records_formset'] = PRICE_RECORD_FORMSET(instance=self.object)
@@ -161,10 +158,8 @@ class ProductUpdate(UpdateView):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
             context['image_formset'] = IMAGE_FORMSET(self.request.POST, instance=self.object)
-            context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST,
-                                                                    instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST,
-                                                             instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST, instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
         else:
             context['image_formset'] = IMAGE_FORMSET(instance=self.object)
             context['price_records_formset'] = PRICE_RECORD_FORMSET(instance=self.object)

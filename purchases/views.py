@@ -1,18 +1,18 @@
 """ Views for managing purchases """
 
 import datetime
+from bootstrap_modal_forms.generic import BSModalCreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 
-from django.views.generic.edit import CreateView, UpdateView
-
-from purchases.forms import BasketForm, AddToBasketForm
+from django.views.generic.edit import UpdateView
 
 from purchases.models import Purchase
+from purchases.forms import BasketForm, AddToBasketForm
 from catalogue.models import Product
+from catalogue.forms import ATTRIBUTE_FORMSET
 
-from bootstrap_modal_forms.generic import BSModalCreateView
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class AddToBasketModal(BSModalCreateView):
@@ -32,6 +32,14 @@ class AddToBasketModal(BSModalCreateView):
             self.request.session['purchase_id'] = new_purchase.id
         initials['purchase'] = self.request.session.get('purchase_id')
         return initials
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
+        else:
+            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
+        return context
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors

@@ -73,7 +73,6 @@ class Product(models.Model):
     pack_size = models.PositiveSmallIntegerField(_('Pack size'), default=10)
     min_store_quantity = models.IntegerField(_('Minimal store quantity'), default=10)
     has_instances = models.BooleanField(_('Has instances'), default=True)
-    has_attributes = models.BooleanField(_('Has attributes'), default=True)
     is_discountable = models.BooleanField(_('Discountable'), default=True)
     is_active = models.BooleanField(_('Active'), default=True)
     # Creator and Date information
