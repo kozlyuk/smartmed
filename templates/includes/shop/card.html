@@ -15,8 +15,7 @@
                         <p>£250</p>
                         <img src="{{ product.price }}"></img>                        
                     </div>
-                    <button class="add2basket buy" type="button" name="button"><i class="material-icons">add_shopping_cart</i></button>
-                    {% comment %} <a href="{% url 'invoice_line_create' product.id %}" class="buy"><i class="material-icons">add_shopping_cart</i></a> {% endcomment %}
+                    <button class="add2basket buy" type="button" name="button" data-id="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></button>
                 </div>
             </div>
         </div>
@@ -66,11 +65,20 @@
 window.onload = function () {
     $(document).ready(function () {
 
-        $(".add2basket").modalForm({
-            formURL: "{% url 'invoice_line_create' product.id %}"
+        $(".add2basket").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
         });
 
     });
 }
 </script>
 {% endfor %}
+{% comment %} window.onload = function () {
+    $(document).ready(function () {
+
+        $(".add2basket").modalForm({
+            formURL: "{% url 'invoice_line_create' product.id %}"
+        });
+
+    });
+} {% endcomment %}
