@@ -1,3 +1,5 @@
+""" Models for managing catalogues """
+
 import datetime
 from django.db import models
 from django.conf import settings
@@ -8,11 +10,12 @@ from warehouse.models import Stock
 
 
 def image_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/product/product_upc/<filename>
+    """ file will be uploaded to MEDIA_ROOT/product/product_upc/<filename> """
     return 'products/{0}/{1}'.format(instance.product.upc, filename)
 
 
 class Category(models.Model):
+    """ Model contains product Categories """
     name = models.CharField(_('Category name'), max_length=32, unique=True)
 
     class Meta:
@@ -25,6 +28,7 @@ class Category(models.Model):
 
 
 class Group(models.Model):
+    """ Model contains product Groups """
     name = models.CharField(_('Group name'), max_length=32, unique=True)
 
     class Meta:
@@ -37,6 +41,7 @@ class Group(models.Model):
 
 
 class Brand(models.Model):
+    """ Model contains product Brands """
     name = models.CharField(_('Brand name'), max_length=32, unique=True)
     image = models.ImageField(_('Brand Image'), upload_to='brands/', default='brands/no_image.jpg')
     is_active = models.BooleanField(_('Active'), default=True)
@@ -50,11 +55,13 @@ class Brand(models.Model):
         return self.name
 
     def products_count(self):
+        """ return product quantity of brand"""
         return self.product_set.all().count()
     products_count.short_description = _('Products count')
 
 
 class Product(models.Model):
+    """ Model contains Products """
     title = models.CharField(_('Product title'), max_length=255)
     upc = models.CharField(_('Product UPC'), max_length=32, unique=True)
     category = models.ForeignKey(Category, verbose_name=_('Product Category'), on_delete=models.PROTECT)
@@ -101,8 +108,14 @@ class Product(models.Model):
         return str(self.actual_price()) + ' ' + settings.DEFAULT_CURRENCY
     actual_price_wc.short_description = _('Actual price')
 
+    def get_image(self):
+        """ return first image path """
+        return self.image_set.all().first()
+    get_image.short_description = _('Image')
+
 
 class Image(models.Model):
+    """ Model contains product Images """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(_('Product Image'), upload_to=image_directory_path)
 
@@ -115,6 +128,7 @@ class Image(models.Model):
 
 
 class PriceRecord(models.Model):
+    """ Model contains product Price records """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     from_date = models.DateField(_('Actual from'), default=now)
     regular_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
@@ -135,6 +149,7 @@ class PriceRecord(models.Model):
 
 
 class AttributeType(models.Model):
+    """ Model contains product attributes types """
     name = models.CharField(_('Attribute'), max_length=32, unique=True)
 
     class Meta:
@@ -146,6 +161,7 @@ class AttributeType(models.Model):
 
 
 class Attribute(models.Model):
+    """ Model contains product attributes """
     product = models.ForeignKey(Product, verbose_name=_('Product'), on_delete=models.CASCADE)
     type = models.ForeignKey(AttributeType, verbose_name=_('Attribute type'), on_delete=models.PROTECT)
 
@@ -157,6 +173,7 @@ class Attribute(models.Model):
 
 
 class AttributeValue(models.Model):
+    """ Model contains product attributes values """
     value = models.CharField(_('Attribute Value'), max_length=45)
     attribute = models.ForeignKey(Attribute, verbose_name=_('Attribute name'), on_delete=models.PROTECT)
 
@@ -169,6 +186,7 @@ class AttributeValue(models.Model):
 
 
 class ProductInstance(models.Model):
+    """ Model contains instances of products """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     instance_name = models.CharField(_('Instance name'), max_length=64, blank=True)
     serial_number = models.CharField(_('Serial Number'), max_length=32, unique=True)
