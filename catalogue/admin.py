@@ -45,7 +45,7 @@ class AdminImageWidget(AdminFileWidget):
             output.append(
                 u' <a href="%s" target="_blank"><img src="%s" alt="%s" width="150" height="150"  style="object-fit: cover;"/></a> %s ' % \
                 (image_url, image_url, file_name, _('')))
-        output.append(super(AdminFileWidget, self).render(name, value, attrs, renderer))
+        output.append(super().render(name, value, attrs, renderer))
         return mark_safe(u''.join(output))
 
 
@@ -76,7 +76,7 @@ class ProductAdmin(admin.ModelAdmin):
         (None, {'fields': [('title', 'upc'),
                            ('category', 'group', 'brand'),
                            ('pack_size', 'min_store_quantity', 'default_uom'),
-                           ('warranty_terms', 'has_instances', 'has_attributes', 'is_discountable', 'is_active'),
+                           ('warranty_terms', 'has_instances', 'is_discountable', 'is_active'),
                            'description',
                            ]})
         ]
