@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 
 from django.views.generic.edit import UpdateView
 
-from purchases.models import Purchase
+from purchases.models import Purchase, InvoiceLine
 from purchases.forms import BasketForm, AddToBasketForm
 from catalogue.models import Product
 from catalogue.forms import ATTRIBUTE_FORMSET
@@ -63,3 +63,11 @@ class PurchaseUpdate(UpdateView):
         initials['invoice_number'] = self.object.invoice_number_generate()
         initials['invoice_date'] = datetime.date.today()
         return initials
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.session.get('purchase_id'):
+            context['products_count'] = InvoiceLine.objects.filter(purchase=self.request.session.get('purchase_id'))
+        else:
+            context['products_count'] = 0
+        return context
