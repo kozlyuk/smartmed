@@ -67,7 +67,8 @@ class PurchaseUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.session.get('purchase_id'):
-            context['products_count'] = InvoiceLine.objects.filter(purchase=self.request.session.get('purchase_id'))
+            context['products_count'] = InvoiceLine.objects.filter(purchase=self.request.session.get('purchase_id'))\
+                                                           .count()
         else:
             context['products_count'] = 0
         return context
