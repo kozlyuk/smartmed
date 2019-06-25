@@ -8,7 +8,14 @@
     </div>
 
     <div class="modal-body">
-        {% for field in form %}
+        {{ form.as_p }}
+
+        {% for formset in attribute_formset %}
+            {{ formset.as_p }}
+        {% endfor %}
+
+
+        {% comment %} {% for field in form %}
         <div class="form-group{% if field.errors %} invalid{% endif %}">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
@@ -16,7 +23,7 @@
             <p class="help-block">{{ error }}</p>
             {% endfor %}
         </div>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
     </div>
 
     <div class="modal-footer">
