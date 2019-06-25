@@ -19,7 +19,7 @@ from purchases.views import AddToBasketModal, PurchaseUpdate
 
 
 urlpatterns = [
-    path('basket/<int:pk>/', PurchaseUpdate.as_view(), name='basket'),
+    path('basket/', PurchaseUpdate.as_view(), name='basket'),
     path('basket/add/<int:product>/', AddToBasketModal.as_view(), name='invoice_line_create'),
 
 ]

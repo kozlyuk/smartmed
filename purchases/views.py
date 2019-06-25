@@ -50,6 +50,13 @@ class PurchaseUpdate(UpdateView):
     form_class = BasketForm
     context_object_name = 'order'
 
+    def get_object(self, queryset=None):
+        if self.request.session.get('purchase_id'):
+            obj = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
+        else:
+            obj = Purchase.objects.create(invoice_number='Basket')
+        return obj
+
     def get_initial(self):
         initials = super().get_initial()
         initials['invoice_number'] = self.object.invoice_number_generate()
