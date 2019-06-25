@@ -55,6 +55,7 @@ class PurchaseUpdate(UpdateView):
             obj = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
         else:
             obj = Purchase.objects.create(invoice_number='Basket')
+            self.request.session['purchase_id'] = obj.id
         return obj
 
     def get_initial(self):
