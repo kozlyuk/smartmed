@@ -76,13 +76,21 @@ body {
 }
 
 .wrapper .container .top {
-  height: 80%;
-  width: 100%;
-  background: no-repeat center center;
-  background-size: 100%;
+  position: absolute;
+  top: 50%;
+  margin-top: -50%;
+  max-height: 100%;
+  max-width: 100%;
 }
 
+.center-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .wrapper .container .bottom {
+  position: fixed;
+  bottom: 15px;
   width: 200%;
   height: 20%;
   -webkit-transition: -webkit-transform 0.5s;
@@ -110,7 +118,7 @@ body {
 
 .wrapper .container .bottom .left {
   height: 100%;
-  width: 50%;
+  width: 45%;
   background: #f4f4f4;
   position: relative;
   float: left;
@@ -118,6 +126,7 @@ body {
 
 .wrapper .container .bottom .left .details {
   padding: 20px;
+  padding-left: 0px;
   float: left;
   /* width: calc(70% - 40px); */
   width: 70%;
