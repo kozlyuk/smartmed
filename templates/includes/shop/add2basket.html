@@ -1,4 +1,4 @@
-<form method="post" action="">
+<form method="post" id="AddToBasketForm" enctype="multipart/form-data" action="">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">Покупка товару</h5>
@@ -10,9 +10,9 @@
     <div class="modal-body">
         {{ form.as_p }}
 
-        {% for formset in attribute_formset %}
+        {% comment %} {% for formset in attribute_formset %}
             {{ formset.as_p }}
-        {% endfor %}
+        {% endfor %} {% endcomment %}
 
 
         {% comment %} {% for field in form %}
