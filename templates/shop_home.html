@@ -54,6 +54,30 @@
         <!--BLOG HOMEPAGE-->
     </div>
 </div>
+{% comment %} <script>
+window.onload = function () {
+    $(".add2basket").each(function () {
+            $(this).modalForm({
+                formURL: $(this).data('id'),
+                modalContent: ".modal-content",
+                modalForm: ".modal-content form"
+            });
+    }); 
+}
+</script> {% endcomment %}
 
+
+
+{% comment %} <script>
+window.onload = function () {
+    $(document).ready(function () {
+
+        $(".add2basket").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
+
+    });
+}
+</script> {% endcomment %}
 <!-- /content -->
 {% endblock content %}

@@ -16,7 +16,7 @@
                         <h5>{{product.title}}</h5>
                         <p>{{product.actual_price_wc}}</p>                    
                     </div>
-                    <button class="add2basket buy" type="button" name="button" data-id="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></button>
+                    <a class="add2basket buy" type="button" name="button" href="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></a>
                 </div>
             </div>
         </div>
@@ -54,17 +54,7 @@
     </div>
 </div>
 
-<script>
-window.onload = function () {
-    $(document).ready(function () {
 
-        $(".add2basket").each(function () {
-            $(this).modalForm({formURL: $(this).data('id')});
-        });
-
-    });
-}
-</script>
 {% endfor %}
 {% comment %} window.onload = function () {
     $(document).ready(function () {
