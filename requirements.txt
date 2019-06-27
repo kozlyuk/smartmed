@@ -6,4 +6,6 @@ pytz==2018.9
 six==1.12.0
 django-widget-tweaks
 django-userforeignkey
-django-bootstrap-modal-forms
+bootstrap4
+pure_pagination
+popupcrud

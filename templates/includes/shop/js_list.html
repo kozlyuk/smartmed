@@ -1,8 +1,9 @@
 {% load staticfiles %}
+{% load bootstrap4 %}
 <script src="{% static 'assets/core/jquery.min.js' %}"></script>
-<script src="{% static 'assets/shop/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{% bootstrap_javascript jquery='full' %}
 <script src="{% static 'assets/shop/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
 <script src="{% static 'assets/shop/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
 <script src="{% static 'assets/shop/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js' %}"></script>
+{% bootstrap_javascript %}
 <script src="{% static 'assets/shop/js/front.js' %}"></script>
-<script src="{% static 'assets/core/jquery.bootstrap.modal.forms.min.js' %}"></script>

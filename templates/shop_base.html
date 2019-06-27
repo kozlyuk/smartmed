@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load bootstrap4 %}
 <head>
     <meta charset="utf-8"/>
     {% block title %}{% endblock %}
@@ -12,8 +12,10 @@
     <!-- css list -->
     {% include 'includes/shop/css_list.html' %}
     <!-- /css -->
+    {% block extrahead%} {% endblock extrahead%}
 </head>
 <body>
+    {% bootstrap_messages %}
     <!-- navbar -->
     {% include 'includes/shop/navbar.html' %}
     <!-- /navbar -->

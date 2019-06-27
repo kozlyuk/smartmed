@@ -30,7 +30,9 @@ INSTALLED_APPS = [
     'purchases.apps.PurchasesConfig',
     'warehouse.apps.WarehouseConfig',
     'accounts.apps.AccountsConfig',
-    'bootstrap_modal_forms',
+    'bootstrap4',
+    'pure_pagination',
+    'popupcrud',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +71,9 @@ WSGI_APPLICATION = 'smartmed.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 
-
+POPUPCRUD = {
+    'base_template': 'shop_base.html',
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
