@@ -1,33 +1,25 @@
-<form method="post" id="AddToBasketForm" enctype="multipart/form-data" action="">
-    {% csrf_token %}
-    <div class="modal-header">
-        <h5 class="modal-title">Покупка товару</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <div class="modal-body">
-        {{ form.as_p }}
-
-        {% comment %} {% for formset in attribute_formset %}
-            {{ formset.as_p }}
-        {% endfor %} {% endcomment %}
-
-
-        {% comment %} {% for field in form %}
-        <div class="form-group{% if field.errors %} invalid{% endif %}">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% for error in field.errors %}
-            <p class="help-block">{{ error }}</p>
-            {% endfor %}
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="AddToBasketForm" enctype="multipart/form-data" method="post">{% csrf_token %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Покупка товару</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <tr>
+                    {{ form }}
+                </tr>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                <button type="submit" class="btn btn-primary">Додати в корзину</button>
+            </div>
         </div>
-        {% endfor %} {% endcomment %}
+        </form>
     </div>
-
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-        <button type="submit" class="submit-btn btn btn-primary">Додати в кошик</button>
-    </div>
-</form>
+</div>

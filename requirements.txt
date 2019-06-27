@@ -7,5 +7,3 @@ six==1.12.0
 django-widget-tweaks
 django-userforeignkey
 bootstrap4
-pure_pagination
-popupcrud

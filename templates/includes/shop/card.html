@@ -1,7 +1,29 @@
 {% for product in products %}
-<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+<!-- Modal -->
+<div class="modal fade" id="add2basket_modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form enctype="multipart/form-data" method="post" id="add2basket_{{product.pk}}">
+            {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="add2basket_{{product.pk}}">Example label</label>
+                        <input type="text" class="form-control" id="quanity_{{product.pk}}" placeholder="Введіть кількість товарів">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary">Save changes</input>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <div class="col-xl-3 col-lg-4 col-sm-6">
@@ -16,7 +38,7 @@
                         <h5>{{product.title}}</h5>
                         <p>{{product.actual_price_wc}}</p>                    
                     </div>
-                    <a class="add2basket buy" type="button" name="button" href="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></a>
+                    <button class="add2basket buy" data-toggle="modal" data-target="#add2basket_modal" type="button" name="button" ><i class="material-icons">add_shopping_cart</i></button>
                 </div>
             </div>
         </div>
@@ -53,15 +75,22 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).on('submit','#add2basket', function(e){
+        e.preventDefault();
 
+        $.ajax({
+            type:'POST',
+            url:'{% url "invoice_line_create" product.pk %}',
+            data:{
+                quanity:$('#quanity_{{product.pk}}').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            sucess:function(){
+
+            }
+        })
+    })
+</script>
 
 {% endfor %}
-{% comment %} window.onload = function () {
-    $(document).ready(function () {
-
-        $(".add2basket").modalForm({
-            formURL: "{% url 'invoice_line_create' product.id %}"
-        });
-
-    });
-} {% endcomment %}

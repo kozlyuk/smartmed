@@ -15,7 +15,7 @@ from catalogue.forms import ATTRIBUTE_FORMSET
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
-class AddToBasketModal(BSModalUpdateView):
+class AddToBasketModal(UpdateView):
     """ View for add to basket modal form """
     template_name = 'includes/shop/add2basket.html'
     form_class = AddToBasketForm
