@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'warehouse.apps.WarehouseConfig',
     'accounts.apps.AccountsConfig',
     'bootstrap4',
+    'fontawesome_5',
 ]
 
 MIDDLEWARE = [
