@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import template
+from django.http import HttpResponse
 
 register = template.Library()
 
@@ -60,3 +61,18 @@ def deal_status_color(status):
 @register.simple_tag
 def exec_bonus(task, part):
     return round(task.exec_bonus(part), 2)
+
+
+@register.simple_tag
+def active_status_icon(status):
+    if status and 'true':
+        return 'done'
+    else:
+        return 'highlight_off'
+
+@register.simple_tag
+def active_status_color(status):
+    if status and 'true':
+        return '#288c6c'
+    else:
+        return 'red'

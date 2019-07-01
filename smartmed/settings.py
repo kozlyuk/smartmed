@@ -30,8 +30,12 @@ INSTALLED_APPS = [
     'purchases.apps.PurchasesConfig',
     'warehouse.apps.WarehouseConfig',
     'accounts.apps.AccountsConfig',
-    'bootstrap_modal_forms',
+    'bootstrap4',
+    'fontawesome_5',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -25,26 +25,33 @@ class AddToBasketModal(UpdateView):
     def get_object(self, queryset=None):
         # get the existing object or created a new one
         product = Product.objects.get(pk=self.kwargs['product'])
-        if self.request.session.get('purchase_id'):
-            purchase = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
-        else:
+        if not self.request.session.get('purchase_id'):
             purchase = Purchase.objects.create(invoice_number='Basket')
             self.request.session['purchase_id'] = purchase.id
-        obj, created = InvoiceLine.objects.get_or_create(product=product, purchase=purchase,
-                                                         unit_price=product.actual_price())
-#        if not created:
-#            obj.quantity = obj.quantity + 1
-#            obj.save()
+        else:
+            purchase = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
+        obj, created = InvoiceLine.objects.get_or_create(product=product, purchase=purchase)
+        if not created:
+            obj.quantity = obj.quantity + 1
+            obj.save()
         return obj
 
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        context['product'] = Product.objects.get(pk=self.kwargs['product'])
+    def get_initial(self):
+        initials = super().get_initial()
+        product = Product.objects.get(pk=self.kwargs['product'])
+#        initials['product'] = product.pk
+        initials['unit_price'] = product.actual_price()
+#        initials['purchase'] = self.request.session.get('purchase_id')
+        return initials
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product'] = Product.objects.get(pk=self.kwargs['product'])
 #        if self.request.POST:
 #            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
 #        else:
 #            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
-#        return context
+        return context
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors

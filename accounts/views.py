@@ -77,6 +77,7 @@ class EmployeeSelfUpdate(UpdateView):
 class PartnerList(ListView):
     """ PartnerList - view for partners listing """
     model = Partner
+    context_object_name = 'partners'  # Default: object_list
     success_url = reverse_lazy('manager_home')
 
 

@@ -1,8 +1,9 @@
 {% load staticfiles %}
-<script src="{% static 'assets/core/jquery.min.js' %}"></script>
-<script src="{% static 'assets/shop/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{% load bootstrap4 %}
+
+{% bootstrap_javascript %}
 <script src="{% static 'assets/shop/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+<script src="{% static 'assets/shop/js/front.js' %}"></script>
 <script src="{% static 'assets/shop/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
 <script src="{% static 'assets/shop/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js' %}"></script>
-<script src="{% static 'assets/shop/js/front.js' %}"></script>
-<script src="{% static 'assets/core/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.0.0/dist/lazyload.min.js"></script>

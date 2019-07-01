@@ -21205,25 +21205,18 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
     text-transform: uppercase;
     font-weight: 500;
 }
-
+.tooltip-inner>img{
+  width:150px;
+}
   /* hide input field */
-  /* #id_avatar {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-  } */
-
-
-  .custom-file-label::after{
-  content: "Обрати файл"
-  }
-
-  .custom-file-label{
-    text-align: left;
-  }
+  input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    display: inline-block;
+    padding: 2px 10px;
+    cursor: pointer;
+}
 
 @keyframes heartbeat {
   0% {
