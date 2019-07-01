@@ -32,7 +32,7 @@
                                     {% for brand in brands %}
                                     <tr>
                                         <td>
-                                            <input type="checkbox" name="ids" value="{{ product.id }}" />
+                                            <input type="checkbox" name="ids" value="{{ brand.id }}"/>
                                         </td>
                                         <td data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src={{brand.image.url}}>">
                                         {{ brand.name }}
@@ -56,9 +56,11 @@
         </div>
     </div>
 </div>
+{% block extrascripts %}
 <script>
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 </script>
+{% endblock extrascripts %}
 {% endblock %}
