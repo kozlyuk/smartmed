@@ -2,6 +2,7 @@
 {% load ita_template_tags %} 
 {% load staticfiles %} 
 {% load widget_tweaks %} 
+{% load ita_template_tags %}
 {% block title %}
 <title>SmartMed | Список брендів</title>
 {% endblock %}
@@ -36,7 +37,7 @@
                                         <td data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src={{brand.image.url}}>">
                                         {{ brand.name }}
                                         </td>
-                                        <td> {{ brand.is_active }}</td>
+                                        <td> <i style="color:{% active_status_color brand.is_active %}" class="material-icons">{% active_status_icon brand.is_active %} </td>
                                         <td> {{ brand.products_count }}</td>
                                         <td class="td-actions">
                                             <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
