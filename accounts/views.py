@@ -38,6 +38,7 @@ class ManagerHome(TemplateView):
 class EmployeeList(ListView):
     """ EmployeeList - view for employees listing """
     model = Employee
+    context_object_name = 'employees'  # Default: object_list
     success_url = reverse_lazy('manager_home')
 
 
