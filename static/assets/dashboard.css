@@ -21205,7 +21205,9 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
     text-transform: uppercase;
     font-weight: 500;
 }
-
+.tooltip-inner>img{
+  width:150px;
+}
   /* hide input field */
   input[type="file"] {
     display: none;
