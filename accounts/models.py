@@ -28,8 +28,8 @@ class Employee(models.Model):
     theme = models.CharField(_('Theme'), max_length=2, choices=THEME_CHOICES, default='bl')
 
     class Meta:
-        verbose_name = 'Працівник'
-        verbose_name_plural = 'Працівники'
+        verbose_name = _('Employee')
+        verbose_name_plural = _('Employees')
         ordering = ['name']
 
     def __str__(self):
