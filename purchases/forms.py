@@ -12,6 +12,15 @@ class AddToBasketForm(forms.ModelForm):
         model = InvoiceLine
         fields = ['product', 'purchase', 'quantity', 'unit_price']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        quantity = cleaned_data.get('quantity')
+
+        if quantity == 0:
+            self.add_error('quantity', _('The quantity of goods can not be zero'))
+        return cleaned_data
+
+
 
 class BasketForm(forms.ModelForm):
     """ ProductFilterForm - form for products filtering """
