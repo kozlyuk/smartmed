@@ -22,7 +22,7 @@ class EmployeeSelfUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ['phone', 'avatar', 'x', 'y', 'width', 'height']
+        fields = ['phone', 'avatar', 'x', 'y', 'width', 'height', 'theme']
 
     def save(self, *args, **kwargs):  # pylint: disable=W0221
         instance = super().save(*args, **kwargs)

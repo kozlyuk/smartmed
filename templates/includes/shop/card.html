@@ -1,44 +1,22 @@
 {% for product in products %}
-<!-- Modal -->
-<div class="modal fade" id="add2basket_modal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form enctype="multipart/form-data" method="post" id="add2basket_{{product.pk}}">
-            {% csrf_token %}
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="add2basket_{{product.pk}}">Example label</label>
-                        <input type="text" class="form-control" id="quanity_{{product.pk}}" placeholder="Введіть кількість товарів">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-                    <input type="submit" class="btn btn-primary"/>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+{% comment %}1 - This js which allows to submit forms through ajax and must be loaded in the page{% endcomment %}
+
+{% comment %}3 - The modal container{% endcomment %}
+<div class="modal fade" id="modal"></div>
+
 <div class="col-xl-3 col-lg-4 col-sm-6">
     <div class="wrapper">
         <div class="container">
-        <div class="center-img">
-            <img class="top lazy" src="{{product.get_image}}" alt="product image">
-            </div>
+            <img class="top" src="{{product.get_image}}" alt="product image">
             <div class="bottom">
                 <div class="left">
                     <div class="details">
                         <h5>{{product.title}}</h5>
-                        <p>{{product.actual_price_wc}}</p>                    
+                        <p>{{product.actual_price_wc}}</p>
                     </div>
-                    <button class="add2basket buy" data-toggle="modal" data-target="#add2basket_modal" type="button" name="button" ><i class="material-icons">add_shopping_cart</i></button>
+                    {% comment %}2 - The button which shows the modal, notice the href attribute{% endcomment %}
+                    <a class="add2basket buy" data-toggle="modal" href="{% url 'invoice_line_create' product.id %}"
+                        data-target="#modal"></a>
                 </div>
             </div>
         </div>
@@ -75,22 +53,18 @@
         </div>
     </div>
 </div>
+
 <script>
-    $(document).on('submit','#add2basket', function(e){
-        e.preventDefault();
-
+window.onload = function () {
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
         $.ajax({
-            type:'POST',
-            url:'{% url "invoice_line_create" product.pk %}',
-            data:{
-                quanity:$('#quanity_{{product.pk}}').val(),
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-            },
-            sucess:function(){
-
-            }
-        })
-    })
+            url: "{% url 'invoice_line_create' product.pk %}",
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+};
 </script>
-
 {% endfor %}
