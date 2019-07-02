@@ -1,9 +1,9 @@
 {% for product in products %}
-<div class="modal fade" tabindex="-1" role="dialog" id="modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content"></div>
-    </div>
-</div>
+{% comment %}1 - This js which allows to submit forms through ajax and must be loaded in the page{% endcomment %}
+
+{% comment %}3 - The modal container{% endcomment %}
+<div class="modal fade" id="modal"></div>
+
 <div class="col-xl-3 col-lg-4 col-sm-6">
     <div class="wrapper">
         <div class="container">
@@ -12,9 +12,11 @@
                 <div class="left">
                     <div class="details">
                         <h5>{{product.title}}</h5>
-                        <p>{{product.actual_price_wc}}</p>                    
+                        <p>{{product.actual_price_wc}}</p>
                     </div>
-                    <button class="add2basket buy" type="button" name="button" data-id="{% url 'invoice_line_create' product.pk %}"><i class="material-icons">add_shopping_cart</i></button>
+                    {% comment %}2 - The button which shows the modal, notice the href attribute{% endcomment %}
+                    <a class="add2basket buy" data-toggle="modal" href="{% url 'invoice_line_create' product.id %}"
+                        data-target="#modal"></a>
                 </div>
             </div>
         </div>
@@ -54,20 +56,15 @@
 
 <script>
 window.onload = function () {
-    $(document).ready(function () {
-        $(".add2basket").each(function () {
-            $(this).modalForm({formURL: $(this).data('id')});
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "{% url 'invoice_line_create' product.pk %}",
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
         });
     });
-}
+};
 </script>
 {% endfor %}
-{% comment %} window.onload = function () {
-    $(document).ready(function () {
-
-        $(".add2basket").modalForm({
-            formURL: "{% url 'invoice_line_create' product.id %}"
-        });
-
-    });
-} {% endcomment %}

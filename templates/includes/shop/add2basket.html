@@ -1,19 +1,43 @@
-<form method="post" id="AddToBasketForm" enctype="multipart/form-data" action="">
-    {% csrf_token %}
-    <div class="modal-header">
-        <h5 class="modal-title">Покупка товару</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
 
-    <div class="modal-body">
-        {{ form }}
+<div class="modal-dialog modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+        <form id="AddToBasketForm_{{product.pk}}" method='post' class="form" role="form"
+            action="{% url 'invoice_line_create' product.pk %}">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Item</h4>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    {% for field in form %}
+                    <div class="form-group">
+                        {% if field.errors %}
+                        <ul class="form-errors">
+                            {% for error in field.errors %}
+                            <li><span class="fa fa-exclamation-triangle"></span> <strong>{{ error|escape }}</strong>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}<div class="form-helptext">{{ field.help_text }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+        </form>
 
-    </div>
-
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-        <button type="submit" class="submit-btn btn btn-primary">Додати в кошик</button>
-    </div>
-</form>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<script>
+    var form_options = {
+        target: '#modal',
+        success: function (response) {}
+    };
+    $('#AddToBasketForm_{{product.pk}}').ajaxForm(form_options);
+</script>
