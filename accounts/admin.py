@@ -9,7 +9,8 @@ class Employee(admin.ModelAdmin):
         (None, {'fields': [('user', 'name'),
                            ('position', 'phone'),
                            'avatar',
-                           'birthday'
+                           'birthday',
+                           'theme',
                            ]})
         ]
 
@@ -24,6 +25,7 @@ class PartnerAdmin(admin.ModelAdmin):
                            'requisites',
                            'bank_requisites',
                            ('chief', 'phone'),
-                           'tax_system'
+                           'tax_system',
+                           'theme',
                            ]})
         ]
