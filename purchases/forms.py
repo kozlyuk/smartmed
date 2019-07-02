@@ -3,6 +3,7 @@
 from django import forms
 from bootstrap_modal_forms.forms import BSModalForm
 from purchases.models import Purchase, InvoiceLine
+from django.utils.translation import gettext_lazy as _
 
 
 class AddToBasketForm(forms.ModelForm):
