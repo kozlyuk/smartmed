@@ -31,9 +31,7 @@ class AddToBasketModal(UpdateView):
         else:
             purchase = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
         obj, created = InvoiceLine.objects.get_or_create(product=product, purchase=purchase)
-        if not created:
-            obj.quantity = obj.quantity + 1
-            obj.save()
+
         return obj
 
     def get_initial(self):

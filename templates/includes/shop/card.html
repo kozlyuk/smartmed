@@ -15,7 +15,7 @@
                         <p>{{product.actual_price_wc}}</p>
                     </div>
                     {% comment %}2 - The button which shows the modal, notice the href attribute{% endcomment %}
-                    <a class="add2basket buy" data-toggle="modal" href="{% url 'invoice_line_create' product.pk %}"
+                    <a class="add2basket buy" data-toggle="modal" onclick="submit({{product.pk}})" href="{% url 'invoice_line_create' product.pk %}"
                         data-target="#modal"></a>
                 </div>
             </div>
@@ -55,16 +55,16 @@
 </div>
 
 <script>
-window.onload = function () {
+function submit (pk) {
     $('#modal').on('show.bs.modal', function (event) {
         var modal = $(this)
         $.ajax({
-            url: "{% url 'invoice_line_create' product.pk %}",
+            url: "basket/add/" + pk,
             context: document.body
         }).done(function (response) {
             modal.html(response);
         });
     });
-};
+    }
 </script>
 {% endfor %}
