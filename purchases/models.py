@@ -197,3 +197,13 @@ class InvoiceLine(models.Model):
     unit_price = models.DecimalField(_('Unit price'), max_digits=8, decimal_places=2, default=0)
     warehouse = models.ForeignKey(Warehouse, verbose_name=_('Warehouse'), blank=True, null=True,
                                   on_delete=models.PROTECT)
+
+    def value_total(self):
+        """ return calculated invoice_line value"""
+        return self.unit_price * self.quantity
+    value_total.short_description = _('Calculated invoice_line value')
+
+    def value_total_wc(self):
+        """ return calculated invoice_line value with currency"""
+        return str(self.value_total) + ' ' + settings.DEFAULT_CURRENCY
+    value_total_wc.short_description = _('Calculated invoice value')

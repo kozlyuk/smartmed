@@ -1,10 +1,10 @@
 """ Views for managing purchases """
 
 import datetime
-from bootstrap_modal_forms.generic import BSModalUpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from django.conf import settings
 
 from django.views.generic.edit import UpdateView
 
@@ -36,7 +36,10 @@ class AddToBasketModal(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['product'] = Product.objects.get(pk=self.kwargs['product'])
+        product = Product.objects.get(pk=self.kwargs['product'])
+        context['product'] = product
+        context['unit_price'] = str(product.actual_price())
+        context['currency'] = settings.DEFAULT_CURRENCY
 #        if self.request.POST:
 #            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
 #        else:
