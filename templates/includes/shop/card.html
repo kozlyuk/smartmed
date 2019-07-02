@@ -15,7 +15,7 @@
                         <p>{{product.actual_price_wc}}</p>
                     </div>
                     {% comment %}2 - The button which shows the modal, notice the href attribute{% endcomment %}
-                    <a class="add2basket buy" data-toggle="modal" href="{% url 'invoice_line_create' product.id %}"
+                    <a class="add2basket buy" data-toggle="modal" href="{% url 'invoice_line_create' product.pk %}"
                         data-target="#modal"></a>
                 </div>
             </div>
