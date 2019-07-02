@@ -30,6 +30,7 @@
                     <button type="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+            </div>
         </form>
 
     </div><!-- /.modal-content -->
@@ -39,5 +40,5 @@
         target: '#modal',
         success: function (response) {}
     };
-    $('#AddToBasketForm_{{product.pk}}').ajaxForm(form_options);
+    $('#AddToBasketForm').ajaxForm(form_options);
 </script>

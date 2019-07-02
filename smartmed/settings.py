@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'bootstrap4',
     'fontawesome_5',
-    'crispy_forms',
+#    'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

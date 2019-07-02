@@ -30,19 +30,9 @@ class AddToBasketModal(UpdateView):
             self.request.session['purchase_id'] = purchase.id
         else:
             purchase = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
-        obj, created = InvoiceLine.objects.get_or_create(product=product, purchase=purchase)
-        if not created:
-            obj.quantity = obj.quantity + 1
-            obj.save()
+        obj, created = InvoiceLine.objects.get_or_create(product=product, purchase=purchase,
+                                                         unit_price=product.actual_price())
         return obj
-
-    def get_initial(self):
-        initials = super().get_initial()
-        product = Product.objects.get(pk=self.kwargs['product'])
-#        initials['product'] = product.pk
-        initials['unit_price'] = product.actual_price()
-#        initials['purchase'] = self.request.session.get('purchase_id')
-        return initials
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
