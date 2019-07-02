@@ -8,11 +8,14 @@
 {% block content %}
 <!-- content -->
 <div id="all">
+    <div id="success"></div>
     <div id="content">
         {% include 'includes/shop/modal.html' %}
         <!--card list-->
+        <div class="container">
         <div class="row">
             {% include 'includes/shop/card.html' %}
+        </div>
         </div>
         <!--/card list-->
         <!--HOT PRODUCT SLIDESHOW-->
@@ -55,6 +58,15 @@
 </div>
 <script type="module">
     import {lazyLoad} from "{% static '/assets/shop/jsComponents/lazyLoad.mjs' %}";
+</script>
+<script>
+function add2modal() {
+    var form_options = {
+        target: '#modal',
+    };
+    $('#AddToBasketForm').ajaxForm(form_options);
+};
+
 </script>
 
 {% endblock content %}
