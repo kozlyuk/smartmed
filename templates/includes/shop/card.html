@@ -16,7 +16,7 @@
                     </div>
                     {% comment %}2 - The button which shows the modal, notice the href attribute{% endcomment %}
                     <a class="add2basket buy" data-toggle="modal" onclick="submit({{product.pk}})" href="{% url 'invoice_line_create' product.pk %}"
-                        data-target="#modal"></a>
+                        data-target="#modal"><i class="material-icons">add_shopping_cart</i></a>
                 </div>
             </div>
         </div>
