@@ -11,7 +11,7 @@ class AddToBasketForm(forms.ModelForm):
 
     class Meta:
         model = InvoiceLine
-        fields = ['product', 'purchase', 'quantity', 'unit_price']
+        fields = ['quantity']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
