@@ -1,3 +1,4 @@
+{% load i18n %} 
 {% for product in products %}
 {% comment %}1 - This js which allows to submit forms through ajax and must be loaded in the page{% endcomment %}
 
@@ -25,7 +26,7 @@
             <div class="contents">
                 <table>
                     <tr>
-                        <th>Розмір упаковки</th>
+                        <th>{% trans "Розмір упаковки" %}</th>
                     </tr>
                     <tr>
                         <td>{{product.pack_size}} {{product.default_uom}}</td>

@@ -325,6 +325,10 @@ body {
   border-style: none;
 }
 
+.table td {
+  vertical-align: middle;
+}
+
 [type=button] {
   -webkit-appearance: none;
      -moz-appearance: none;
