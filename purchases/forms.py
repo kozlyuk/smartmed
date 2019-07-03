@@ -13,14 +13,9 @@ class AddToBasketForm(forms.ModelForm):
         model = InvoiceLine
         fields = ['product', 'purchase', 'quantity', 'unit_price']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        quantity = cleaned_data.get('quantity')
-
-        if quantity == 0:
-            self.add_error('quantity', _('The quantity of goods can not be zero'))
-        return cleaned_data
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['quantity'] = forms.IntegerField(min_value=1, max_value=65535)
 
 
 class BasketForm(forms.ModelForm):
