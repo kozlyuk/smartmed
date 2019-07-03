@@ -1,7 +1,7 @@
-{% load ita_template_tags %} {% load staticfiles %} {% load widget_tweaks %}
+{% load ita_template_tags %} {% load staticfiles %} {% load widget_tweaks %}{% load i18n %} 
 
 {% block title %}
-<title>SmartMed | Корзина</title>
+<title>SmartMed | {% trans "Basket" %}</title>
 {% endblock %}
 <!-- css list -->
 {% include 'includes/shop/css_list.html' %}
@@ -18,15 +18,8 @@
                             <!-- breadcrumb-->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{% url 'shop_home' %}">Home</a></li>
-
-                                    {% comment %} {% for field in form %}
-                                    {{field}}
-                                    {% endfor %} {% endcomment %}
-                                    {{form}}
-
-
-                                    <li aria-current="page" class="breadcrumb-item active">Корзина покупця</li>
+                                    <li class="breadcrumb-item"><a href="{% url 'shop_home' %}">{% trans "Home" %}</a></li>
+                                    <li aria-current="page" class="breadcrumb-item active">{% trans "Basket" %}</li>
                                 </ol>
                             </nav>
                             <!--/breadcrumb-->
@@ -34,8 +27,10 @@
                         <div id="basket" class="col-lg-9">
                             <div class="box">
                                 <form method="post" action="">
-                                    <h1>Корзина покупця</h1>
-                                    <p class="text-muted">Ви маєте 3 товара в вашій корзині.</p>
+                                {{products}}
+                                {{form}}
+                                    <h1>{% trans "Basket" %}</h1>
+                                    <p class="text-muted">{% trans "Count of products in the basket:" %} {{ products_count }}</p>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
@@ -48,7 +43,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% include 'includes/shop/basket_card.html' %}
                                                 {% include 'includes/shop/basket_card.html' %}
                                             </tbody>
                                             <tfoot>

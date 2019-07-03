@@ -37,7 +37,7 @@
                         <tr>
                             <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="{{product.title}}"></a>
                             </td>
-                            <td>{{product.title}}</td>
+                            <td>{{ product.title }}</td>
                             <td>
                                 {{ form.quantity|add_class:"form-control" }}
                             </td>
@@ -52,8 +52,10 @@
                 <div class="form-helptext">{{ field.help_text }}</div>
                 {% endif %}
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}">{% trans "Add to basket and continue shopping" %}</button>
-                    <button type="submit" formaction = "basket/" class="btn btn-primary">{% trans "Add and open basket" %}</button>
+                    <button type="submit" class="btn btn-secondary"
+                        href="{{request.META.HTTP_REFERER}}">{% trans "Add to basket and continue shopping" %}</button>
+                    <button type="submit" formaction="basket/"
+                        class="btn btn-primary">{% trans "Add and open basket" %}</button>
                 </div>
             </div>
         </form>
