@@ -1,17 +1,19 @@
 {% load bootstrap4 %}
 {% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
+
 <tr id="aaaa{{product.id}}">
     <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="Some product"></a></td>
-    <td><a href="#"></a>product name</td>
+    <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">
         {{ form.quantity|add_class:"form-control" }}
         </div>
     </td>
+    <td>{{ form.instance.unit_price }}</td>
     <td>{{ form.instance.value_total_wc }}</td>
-    <td>$246.00</td>
     <td><a href="#" onclick="deleteProduct(1)"><i class="btn btn-danger material-icons">delete</i></a></td>
+
 </tr>
 
 
