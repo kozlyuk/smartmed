@@ -1,39 +1,63 @@
-{% load bootstrap4 %}
-
+{% load bootstrap4 %}   
+{% load i18n %} 
+{% load widget_tweaks %} 
+{% load staticfiles %}
 
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <form id="AddToBasketForm_{{product.pk}}" method='post' class="form" role="form"
             action="{% url 'invoice_line_create' product.pk %}">
             <div class="modal-header">
-                <h4 class="modal-title">Додати {{product.title}} в корзину?</h4>
-                <button class="close" onclick="$('#modal').close();">×</button>
+                <h4 class="modal-title">{% trans "Add" %} {{product.title}} {% trans "to basket?" %}</h4>
+                <button class="close" href="{{request.META.HTTP_REFERER}}">×</button>
             </div>
             <div class="modal-body">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 <div class="form-group">
-                    {% for field in form %}
-                    <div class="form-group">
-                        {% if field.errors %}
-                        <ul class="form-errors">
-                            {% for error in field.errors %}
-                            <li><span class="fa fa-exclamation-triangle"></span> <strong>{{ error|escape }}</strong>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        {% bootstrap_field field %}
-                        {% if field.help_text %}<div class="form-helptext">{{ field.help_text }}</div>{% endif %}
-                    </div>
-                    {% endfor %}
+                    {% if field.errors %}
+                    <ul class="form-errors">
+                        {% for error in field.errors %}
+                        <li><span class="fa fa-exclamation-triangle"></span> <strong>{{ error|escape }}</strong>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">{% trans "Product" %}</th>
+                            <th>{% trans "Quantity" %}</th>
+                            <th>{% trans "Price per unit" %}</th>
+                            <th style="width:20%">{% trans "Summary" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="{{product.title}}"></a>
+                            </td>
+                            <td>{{ product.title }}</td>
+                            <td>
+                                {{ form.quantity|add_class:"form-control" }}
+                            </td>
+                            <td>
+                                <div id="price">{{ unit_price }} {{ currency }}</div>
+                            </td>
+                            <td><output id="countResult">{{ unit_price }}</output> {{ currency }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% if field.help_text %}
+                <div class="form-helptext">{{ field.help_text }}</div>
+                {% endif %}
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" onclick="$('#modal').close();">Закрити</button>
-                    <button type="submit" class="btn btn-primary">Додати</button>
+                    <button type="submit" class="btn btn-secondary"
+                        href="{{request.META.HTTP_REFERER}}">{% trans "Add to basket and continue shopping" %}</button>
+                    <button type="submit" formaction="basket/"
+                        class="btn btn-primary">{% trans "Add and open basket" %}</button>
                 </div>
             </div>
         </form>
-
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->

@@ -10,7 +10,7 @@ class AddToBasketForm(forms.ModelForm):
 
     class Meta:
         model = InvoiceLine
-        fields = ['product', 'purchase', 'quantity', 'unit_price']
+        fields = ['quantity']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -32,4 +32,4 @@ class BasketForm(forms.ModelForm):
 
     class Meta:
         model = Purchase
-        fields = ['invoice_number', 'invoice_date', 'value']
+        fields = ['products', 'value', 'value']
