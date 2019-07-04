@@ -2,8 +2,8 @@
 {% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
 
-<tr id="aaaa{{product.id}}">
-    <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="Some product"></a></td>
+<tr id="{{ form.instance.product.pk }}">
+    <td><a href="#"><img style="width: 50px; height: 50px" src="{{form.instance.product.get_image}}" alt="Some product"></a></td>
     <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">
@@ -12,23 +12,10 @@
     </td>
     <td>{{ form.instance.unit_price }}</td>
     <td>{{ form.instance.value_total_wc }}</td>
-    <td><a href="#" onclick="deleteProduct(1)"><i class="btn btn-danger material-icons">delete</i></a></td>
+    <td><a href="#" onclick="deleteProduct({{ form.instance.product.pk }})"><i class="btn btn-danger material-icons">delete</i></a></td>
 
 </tr>
 
 
-<script>
 
-
-function deleteProduct(pk) {
-    var rowId = document.getElementById("aaaa");
-    document.getElementById("aaaa").classList.toggle("basket_delete_product")
-    // rowId.innerHTML = "<td colspan='6'>1</td>"
-    var QuestionField = document.createElement('div');
-    var QuestionField = QuestionField.className = "deleteQuestionField";
-    var QuestionField = QuestionField.innerHTML = "<button>Відновити</button>";
-    document.body.appendChild(QuestionField);
-}
-
-</script>
 {% endfor %}

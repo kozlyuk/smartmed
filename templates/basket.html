@@ -143,4 +143,16 @@
     <!--footer-->
     {% include 'includes/shop/footer.html'%}
     <!-- /footer-->
+
+    <script>
+
+
+function deleteProduct(pk) {
+    event.preventDefault();
+    var rowId = document.getElementById(pk);
+    rowId.classList.toggle('basket_delete_product');
+    var deleteBtn = document.getElementById('delete_{{ form.instance.product.pk }}');
+}
+
+</script>
 </body>
