@@ -333,7 +333,7 @@ body {
   margin-bottom: 0;
 }
 
-.basket_delete_product {
+.basketDeleteProduct {
   transition-duration: 1s;
   transition-property: all;
   filter: grayscale(100) blur(1.5px);

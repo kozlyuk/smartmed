@@ -150,7 +150,7 @@
 function deleteProduct(pk) {
     event.preventDefault();
     var rowId = document.getElementById(pk);
-    rowId.classList.toggle('basket_delete_product');
+    rowId.classList.toggle("basketDeleteProduct");
     var deleteBtn = document.getElementById('delete_{{ form.instance.product.pk }}');
 }
 
