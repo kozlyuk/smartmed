@@ -143,13 +143,13 @@ class Purchase(models.Model):
 
     def value_total(self):
         """ return calculated from invoice_lines purchase value"""
-        return self.invoiceline_set.extra(select={"item_total": "quantity * unit_price"})\
-                                   .aggregate(total=Sum("item_total"))
+        return self.invoiceline_set.extra(select={"value": "quantity * unit_price"})\
+                                   .aggregate(total=Sum("value"))
     value_total.short_description = _('Calculated invoice value')
 
     def value_total_wc(self):
         """ return calculated from invoice_lines purchase value with currency"""
-        return str(self.value_total) + ' ' + settings.DEFAULT_CURRENCY
+        return str(self.value_total()) + ' ' + settings.DEFAULT_CURRENCY
     value_total_wc.short_description = _('Calculated invoice value')
 
     @classmethod
@@ -203,7 +203,7 @@ class InvoiceLine(models.Model):
         return self.unit_price * self.quantity
     value_total.short_description = _('Calculated invoice_line value')
 
-    def value_total_wc(self):
+    def value_total_wc(self):   #  check if it work?
         """ return calculated invoice_line value with currency"""
-        return str(self.value_total) + ' ' + settings.DEFAULT_CURRENCY
+        return str(self.value_total()) + ' ' + settings.DEFAULT_CURRENCY
     value_total_wc.short_description = _('Calculated invoice value')

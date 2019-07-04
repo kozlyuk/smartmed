@@ -1,16 +1,13 @@
 {% load bootstrap4 %}
 {% for form in invoice_line_formset %}
 <tr>
-    <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="Some product"></a></td>
-    <td><a href="#"></a>product name</td>
+    <td><a href="#"><img  src="{{form.instance.product.get_image}}" alt="product image"></a></td>
+    <td><a href="#"></a>{{ form.instance.product }}</td>
     <td>
-        {% bootstrap_field form.quantity %}
+        {{ form.quantity }}
     </td>
-    {% for field in form %}
-    {% endfor %}
-
-    <td>$123.00</td>
-    <td>$246.00</td>
+    <td>{{ form.instance.unit_price }}</td>
+    <td>{{ form.instance.value_total_wc }}</td>
     <td><a href="#"><i style="color: red" class="material-icons">delete</i></a></td>
 </tr>
 {% endfor %}
