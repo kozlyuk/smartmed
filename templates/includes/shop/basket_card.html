@@ -1,16 +1,32 @@
 {% load bootstrap4 %}
+{% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
-<tr>
+<tr id="aaaa{{product.id}}">
     <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="Some product"></a></td>
     <td><a href="#"></a>product name</td>
     <td>
-        {% bootstrap_field form.quantity %}
+        <div class="form-group">
+        {{ form.quantity|add_class:"form-control" }}
+        </div>
     </td>
-    {% for field in form %}
-    {% endfor %}
-
-    <td>$123.00</td>
+    <td>{{ form.instance.value_total_wc }}</td>
     <td>$246.00</td>
-    <td><a href="#"><i style="color: red" class="material-icons">delete</i></a></td>
+    <td><a href="#" onclick="deleteProduct(1)"><i class="btn btn-danger material-icons">delete</i></a></td>
 </tr>
+
+
+<script>
+
+
+function deleteProduct(pk) {
+    var rowId = document.getElementById("aaaa");
+    document.getElementById("aaaa").classList.toggle("basket_delete_product")
+    // rowId.innerHTML = "<td colspan='6'>1</td>"
+    var QuestionField = document.createElement('div');
+    var QuestionField = QuestionField.className = "deleteQuestionField";
+    var QuestionField = QuestionField.innerHTML = "<button>Відновити</button>";
+    document.body.appendChild(QuestionField);
+}
+
+</script>
 {% endfor %}

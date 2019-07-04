@@ -329,6 +329,18 @@ body {
   vertical-align: middle;
 }
 
+.table .form-group {
+  margin-bottom: 0;
+}
+
+.basket_delete_product {
+  transition-duration: 1s;
+  transition-property: all;
+  filter: grayscale(100) blur(5px);
+  height: 75px;
+}
+
+
 [type=button] {
   -webkit-appearance: none;
      -moz-appearance: none;
