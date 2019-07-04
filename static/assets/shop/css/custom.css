@@ -336,7 +336,7 @@ body {
 .basket_delete_product {
   transition-duration: 1s;
   transition-property: all;
-  filter: grayscale(100) blur(5px);
+  filter: grayscale(100) blur(1.5px);
   height: 75px;
 }
 
