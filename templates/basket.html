@@ -27,8 +27,9 @@
                         <div id="basket" class="col-lg-9">
                             <div class="box">
                                 <form method="post" action="">
-                                {{products}}
-                                {{form}}
+                                
+                                
+                                
                                     <h1>{% trans "Basket" %}</h1>
                                     <p class="text-muted">{% trans "Count of products in the basket:" %} {{ products_count }}</p>
                                     <div class="table-responsive">
@@ -38,17 +39,18 @@
                                                     <th colspan="2">Товар</th>
                                                     <th>Кількість</th>
                                                     <th>Ціна за одиницю</th>
-                                                    <th>Скидка</th>
-                                                    <th colspan="2">Загально</th>
+                                                    <th>Загально</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                                 {% include 'includes/shop/basket_card.html' %}
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="5">Total</th>
-                                                    <th colspan="2">$492.00</th>
+                                                    <th colspan ="4">Total</th>
+                                                    <th colspan ="2">$492.00</th>
                                                 </tr>
                                             </tfoot>
                                         </table>

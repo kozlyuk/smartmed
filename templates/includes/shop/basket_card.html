@@ -1,12 +1,16 @@
+{% load bootstrap4 %}
+{% for form in invoice_line_formset %}
 <tr>
     <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="Some product"></a></td>
-    <td><a href="#"></a></td>
+    <td><a href="#"></a>product name</td>
     <td>
-        <input type="number" value="2" class="form-control">
+        {% bootstrap_field form.quantity %}
     </td>
-    {{field.invoice_number}}
+    {% for field in form %}
+    {% endfor %}
+
     <td>$123.00</td>
-    <td>$0.00</td>
     <td>$246.00</td>
-    <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
+    <td><a href="#"><i style="color: red" class="material-icons">delete</i></a></td>
 </tr>
+{% endfor %}

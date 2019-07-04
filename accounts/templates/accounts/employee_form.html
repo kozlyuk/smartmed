@@ -203,5 +203,24 @@ $(function () {
 	});
 
 });
+
+// change theme
+
+    function changeTheme() {
+        var triger = document.querySelector("#id_theme").value;
+		var targetThemeChanger = document.querySelector('body');
+
+		if (triger = "bl") {
+			targetThemeChanger.classList.toggle("dark-edition");
+		} else {
+			console.log("123");
+		}
+		return this;
+	};
+
+	changeTheme();
+
+
+
 </script>
 {% endblock %}
