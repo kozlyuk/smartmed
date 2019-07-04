@@ -1,3 +1,4 @@
+{% load ita_template_tags %}
 {% load bootstrap4 %}
 {% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
@@ -10,8 +11,8 @@
         {{ form.quantity|add_class:"form-control" }}
         </div>
     </td>
-    <td>{{ form.instance.unit_price }}</td>
-    <td>{{ form.instance.value_total_wc }}</td>
+    <td>{{ form.instance.unit_price | value_format }}</td>
+    <td>{{ form.instance.value_total | value_format }}</td>
     <td><a href="#" onclick="deleteProduct(1)"><i class="btn btn-danger material-icons">delete</i></a></td>
 
 </tr>

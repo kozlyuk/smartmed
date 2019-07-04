@@ -53,7 +53,7 @@ class InvoiceLineInline(admin.TabularInline):
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
 
-    list_display = ['deal', 'invoice_number', 'value_wc',
+    list_display = ['deal', 'invoice_number', 'value',
                     'in_stock', 'created_by']
     list_per_page = 50
     fieldsets = [

@@ -100,13 +100,6 @@ class Product(models.Model):
         return actual_price
     actual_price.short_description = _('Actual price')
 
-    def actual_price_wc(self):
-        """ return actual product price for current with currency"""
-        if self.actual_price() is None:
-            return None
-        return str(self.actual_price()) + ' ' + settings.DEFAULT_CURRENCY
-    actual_price_wc.short_description = _('Actual price')
-
     def get_image(self):
         """ return first image path """
         return self.image_set.all().first()

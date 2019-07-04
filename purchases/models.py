@@ -136,21 +136,11 @@ class Purchase(models.Model):
     def __str__(self):
         return self.invoice_number
 
-    def value_wc(self):
-        """ return purchase value with currency"""
-        return str(self.value) + ' ' + settings.DEFAULT_CURRENCY
-    value_wc.short_description = _('Invoice Value')
-
     def value_total(self):
         """ return calculated from invoice_lines purchase value"""
         return self.invoiceline_set.aggregate(total_value=Sum(F('quantity')*F('unit_price'),
                                                               output_field=FloatField()))['total_value']
     value_total.short_description = _('Calculated invoice value')
-
-    def value_total_wc(self):
-        """ return calculated from invoice_lines purchase value with currency"""
-        return str(self.value_total()) + ' ' + settings.DEFAULT_CURRENCY
-    value_total_wc.short_description = _('Calculated invoice value')
 
     @classmethod
     def invoice_number_generate(cls):
@@ -158,7 +148,7 @@ class Purchase(models.Model):
         today_str = datetime.date.today().strftime('%Y%m%d')
         today_orders_count = cls.objects.filter(invoice_number__startswith=today_str).count()
         return today_str + '-' + str(today_orders_count + 1)
-    value_total_wc.short_description = _('Generated invoice number')
+    invoice_number_generate.short_description = _('Generated invoice number')
 
 
 class Payment(models.Model):
@@ -202,8 +192,3 @@ class InvoiceLine(models.Model):
         """ return calculated invoice_line value"""
         return self.unit_price * self.quantity
     value_total.short_description = _('Calculated invoice_line value')
-
-    def value_total_wc(self):   #  check if it work?
-        """ return calculated invoice_line value with currency"""
-        return str(self.value_total()) + ' ' + settings.DEFAULT_CURRENCY
-    value_total_wc.short_description = _('Calculated invoice value')
