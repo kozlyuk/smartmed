@@ -340,6 +340,18 @@ body {
   height: 75px;
 }
 
+.return2basket {
+  background-color: green;
+  border-color: green;
+}
+
+
+.return2basket:hover {
+  background-color: rgb(0, 87, 0);
+  border-color: rgb(0, 87, 0);
+}
+
+
 
 [type=button] {
   -webkit-appearance: none;
