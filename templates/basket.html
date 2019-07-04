@@ -148,10 +148,13 @@
 
 
 function deleteProduct(pk) {
+
     event.preventDefault();
+
     var rowId = document.getElementById(pk);
-    rowId.classList.toggle("basketDeleteProduct");
-    var deleteBtn = document.getElementById('delete_{{ form.instance.product.pk }}');
+    for (let index = 0; index < 5; index++) {
+        rowId.children[index].classList.toggle("basketDeleteProduct");
+    }
 }
 
 </script>
