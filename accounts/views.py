@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 from django.db.models import Sum
 
 from django.views.generic import TemplateView
@@ -22,15 +23,32 @@ class ManagerHome(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['partners_count'] = Partner.objects.all().count()
         time_threshold = datetime.now() - timedelta(hours=24)
-        context['sold'] = Purchase.objects.filter(created_by=self.request.user,
-                                                  invoice_date__lt=time_threshold)\
-                                          .exclude(status=Purchase.InBasket)\
-                                          .aggregate(Sum('value')).get('value_sum') or 0.00
-        context['new_orders_count'] = Purchase.objects.filter(created_by=self.request.user,
-                                                              status=Purchase.NewOrder)\
+        orders_total = Purchase.objects.filter(Q(status=Purchase.NewOrder),
+                                               Q(status=Purchase.Confirmed),
+                                               Q(status=Purchase.Sent))
+        context['orders_value_tth'] = orders_total.filter(invoice_date__lt=time_threshold)\
+                                                  .aggregate(Sum('value')).get('value_sum') or 0.00
+        context['new_orders_count'] = Purchase.objects.filter(status=Purchase.NewOrder)\
                                                       .count()
+        context['confirmed_orders_count'] = Purchase.objects.filter(status=Purchase.Confirmed)\
+                                                            .count()
+        context['sent_orders_count_tth'] = Purchase.objects.filter(invoice_date__lt=time_threshold,
+                                                                   status=Purchase.Sent)\
+                                                           .count()
+        context['not_paid_orders_count'] = orders_total.filter(pay_status=Purchase.NotPaid) \
+                                                       .count()
+        context['advance_orders_count'] = orders_total.filter(pay_status=Purchase.AdvancePaid) \
+                                                      .count()
+        context['paid_orders_count'] = orders_total.filter(pay_status=Purchase.PaidUp) \
+                                                   .count()
+
+        context['partners_count'] = Partner.objects.all().count()
+        paid_orders_sum = orders_total.filter(pay_status=Purchase.Paid)\
+                                      .aggregate(Sum('value')).get('value_sum') or 0.00
+        advance_orders_sum = orders_total.filter(pay_status=Purchase.Paid)\
+                                         .aggregate(Sum('value')).get('value_sum') or 0.00
+
         return context
 
 

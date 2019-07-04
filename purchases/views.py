@@ -11,7 +11,7 @@ from django.views.generic.edit import UpdateView
 from purchases.models import Purchase, InvoiceLine
 from purchases.forms import BasketForm, AddToBasketForm
 from catalogue.models import Product
-from catalogue.forms import ATTRIBUTE_FORMSET
+from purchases.forms import INVOICE_LINE_FORMSET
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
@@ -30,8 +30,9 @@ class AddToBasketModal(UpdateView):
             self.request.session['purchase_id'] = purchase.id
         else:
             purchase = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
-        obj, created = InvoiceLine.objects.get_or_create(product=product, purchase=purchase,
-                                                         unit_price=product.actual_price())
+        obj, created = InvoiceLine.objects.get_or_create(product=product,
+                                                         purchase=purchase,
+                                                         defaults={'unit_price': product.actual_price()})
         return obj
 
     def get_context_data(self, **kwargs):
@@ -70,9 +71,13 @@ class PurchaseUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.session.get('purchase_id'):
-            context['products_count'] = InvoiceLine.objects.filter(purchase=self.request.session.get('purchase_id'))\
-                                                           .count()
+        purchase_id = self.request.session.get('purchase_id')
+        if purchase_id:
+            context['products_count'] = InvoiceLine.objects.filter(purchase=purchase_id).count()
         else:
             context['products_count'] = 0
+        if self.request.POST:
+            context['invoice_line_formset'] = INVOICE_LINE_FORMSET(self.request.POST, instance=self.object)
+        else:
+            context['invoice_line_formset'] = INVOICE_LINE_FORMSET(instance=self.object)
         return context

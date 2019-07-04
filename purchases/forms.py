@@ -1,9 +1,8 @@
 """ Forms for managing catalogues """
 
 from django import forms
-from bootstrap_modal_forms.forms import BSModalForm
+from django.forms import inlineformset_factory
 from purchases.models import Purchase, InvoiceLine
-from django.utils.translation import gettext_lazy as _
 
 
 class AddToBasketForm(forms.ModelForm):
@@ -16,6 +15,16 @@ class AddToBasketForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['quantity'] = forms.IntegerField(min_value=1, max_value=65535)
+
+
+class InvoiceLineInlineForm(forms.ModelForm):
+    """ PriceRecordInlineForm - form for price records inlines creating or updating """
+    class Meta:
+        model = InvoiceLine
+        fields = ['quantity']
+
+
+INVOICE_LINE_FORMSET = inlineformset_factory(Purchase, InvoiceLine, form=InvoiceLineInlineForm, extra=0)
 
 
 class BasketForm(forms.ModelForm):
