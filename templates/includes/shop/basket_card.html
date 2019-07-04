@@ -3,7 +3,7 @@
 {% for form in invoice_line_formset %}
 
 <tr id="aaaa{{product.id}}">
-    <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="Some product"></a></td>
+    <td><a href="#"><img src="{{form.instance.product.get_image}}" alt="product image"></a></td>
     <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">

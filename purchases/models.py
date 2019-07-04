@@ -3,7 +3,7 @@
 import datetime
 from django.utils.translation import gettext_lazy as _
 from django.db import models
-from django.db.models import Sum
+from django.db.models import F, FloatField, Sum
 from django.conf import settings
 from django_userforeignkey.models.fields import UserForeignKey
 from catalogue.models import Product
@@ -143,8 +143,8 @@ class Purchase(models.Model):
 
     def value_total(self):
         """ return calculated from invoice_lines purchase value"""
-        return self.invoiceline_set.extra(select={"value": "quantity * unit_price"})\
-                                   .aggregate(total=Sum("value"))
+        return self.invoiceline_set.aggregate(total_value=Sum(F('quantity')*F('unit_price'),
+                                                              output_field=FloatField()))['total_value']
     value_total.short_description = _('Calculated invoice value')
 
     def value_total_wc(self):
