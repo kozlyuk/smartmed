@@ -40,7 +40,7 @@ class AddToBasketModal(UpdateView):
         product = Product.objects.get(pk=self.kwargs['product'])
         context['product'] = product
         context['unit_price'] = str(product.actual_price())
-        context['currency'] = settings.DEFAULT_CURRENCY
+#        context['currency'] = settings.DEFAULT_CURRENCY
 #        if self.request.POST:
 #            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
 #        else:
