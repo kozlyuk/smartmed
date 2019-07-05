@@ -329,6 +329,14 @@ body {
   vertical-align: middle;
 }
 
+.table tr {
+  height: 75px;
+}
+
+.hidden {
+  display: none;
+}
+
 .table .form-group {
   margin-bottom: 0;
 }

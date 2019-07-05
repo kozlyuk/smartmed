@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 {% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
-
+{{form.DELETE }} <!--add |add_class:"hidden" in production-->
 <tr id="{{ form.instance.product.pk }}">
     <td><a href="#"><img src="{{form.instance.product.get_image}}" alt="product image"></a></td>
     <td><a href="#">{{ form.instance.product }}</a></td>
@@ -14,9 +14,5 @@
     <td>{{ form.instance.unit_price | value_format }}</td>
     <td>{{ form.instance.value_total | value_format }}</td>
     <td><a href="#" onclick="deleteProduct({{ form.instance.product.pk }})"><i class="btn btn-danger material-icons">delete</i></a></td>
-
 </tr>
-
-
-
 {% endfor %}
