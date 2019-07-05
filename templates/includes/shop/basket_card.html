@@ -2,17 +2,19 @@
 {% load bootstrap4 %}
 {% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
-{{ form.DELETE }} <!--add |add_class:"hidden" in production-->
+{{ form.DELETE | add_class:"hidden" }} {% comment %} <!--add |add_class:"hidden" in production--> {% endcomment %}
 <tr id="{{ forloop.counter0 }}">
     <td><a href="#"><img src="{{form.instance.product.get_image}}" alt="product image"></a></td>
     <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">
-        {{ form.quantity|add_class:"form-control" }}
+            {{ form.quantity|add_class:"form-control" }}
         </div>
     </td>
     <td>{{ form.instance.unit_price | value_format }}</td>
     <td>{{ form.instance.value_total | value_format }}</td>
-    <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip" data-placement="left" title="Відкрити в новому вікні" class="btn btn-danger material-icons">delete</button></a></td>
+    <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip"
+                data-placement="left" title="Відкрити в новому вікні"
+                class="btn btn-danger material-icons">delete</button></a></td>
 </tr>
 {% endfor %}

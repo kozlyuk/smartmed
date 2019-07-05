@@ -359,6 +359,9 @@ body {
   border-color: rgb(0, 87, 0);
 }
 
+.form-group input[type='number'] {
+  width: 70px !important;
+}
 
 
 [type=button] {
