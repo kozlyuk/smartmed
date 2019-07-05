@@ -13,6 +13,6 @@
     </td>
     <td>{{ form.instance.unit_price | value_format }}</td>
     <td>{{ form.instance.value_total | value_format }}</td>
-    <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><i class="btn btn-danger material-icons">delete</i></a></td>
+    <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip" data-placement="left" title="Відкрити в новому вікні" class="btn btn-danger material-icons">delete</button></a></td>
 </tr>
 {% endfor %}
