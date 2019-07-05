@@ -248,9 +248,9 @@ body {
   top: -70px;
   right: -70px;
   border-radius: 0px 0px 200px 200px;
-  -webkit-transition: all 0.5s, border-radius 2s, top 1s;
-  -o-transition: all 0.5s, border-radius 2s, top 1s;
-  transition: all 0.5s, border-radius 2s, top 1s;
+  -webkit-transition: all 0.2s, border-radius 0.5s, top 1s;
+  -o-transition: all 0.2s, border-radius 0.5s, top 1s;
+  transition: all 0.2s, border-radius 0.5s, top 1s;
   overflow: hidden;
 }
 
