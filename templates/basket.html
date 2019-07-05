@@ -125,17 +125,34 @@
 
     <script>
 
+(function () {
+    if (window.addEventListener) {
+        window.addEventListener('DOMContentLoaded', deleteProduct, false);
+    } else {
+        window.attachEvent('onload', domReady);
+    }
+} ());
+
+
 
 function deleteProduct(pk) {
 
     event.preventDefault();
 
     var rowId = document.getElementById(pk);
+
     for (let index = 0; index < 5; index++) {
         rowId.children[index].classList.toggle("basketDeleteProduct");
     }
         rowId.children[5].children[0].children[0].classList.toggle("return2basket");
-}
+    
+    var checkbox = document.getElementById("id_invoiceline_set-" + pk + "-DELETE")
+
+    checkbox.checked = "true";
+};
+
+
+
 
 </script>
 </body>
