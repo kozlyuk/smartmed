@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 {% load i18n %}
+{% load bootstrap4 %}
 {% block title %}
 <title>SmartMed | {{ product.title }}</title>
 {% endblock %}
@@ -120,6 +121,9 @@
                         <div class="text-center">Оновлення фото товару</div>
                     </div>
                     <form method="post" enctype="multipart/form-data" id="ProductImageForm">
+                    {% for ImageInlineForm in image_formset %}
+                            {% bootstrap_formset image_formset layout='horizontal' %}
+                    {% endfor %}
                     </form>
 
                 </div>
