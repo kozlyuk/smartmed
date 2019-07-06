@@ -1,8 +1,9 @@
 {% load staticfiles %}
+{% load bootstrap4 %}
 {% load widget_tweaks %}
 <form method="post" enctype="multipart/form-data" id="formUpload">
     {% csrf_token %}
-    {{ form }}
+    {% bootstrap_form form layout='inline' %}
 </form>
 <div class="modal fade" id="modalCrop">
     <div class="modal-dialog">

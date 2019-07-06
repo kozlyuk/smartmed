@@ -28,6 +28,8 @@
                     <div id="basket" class="col-lg-12">
                         <div class="box">
                             <form method="post" action="">
+                            {{invoice_line_formset.management_form}}
+                            {% csrf_token %}
                                 <h1>{% trans "Basket" %}</h1>
                                 <p class="text-muted">{% trans "Count of products in the basket:" %}
                                     {{ products_count }}</p>

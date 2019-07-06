@@ -21158,11 +21158,9 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
   display:inline-block;
 }
 
-#id_category{
-  width: auto;
-}
+
 .h5, .h6 {
-  color:white;
+  color:#AAAAAA;
 }
 .form-icons {
   font-family: 'Material Icons';

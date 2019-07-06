@@ -2,6 +2,7 @@
 {% load ita_template_tags %}
 {% load staticfiles %}
 {% load widget_tweaks %}
+{% load i18n %}
 {% block title %}
 <title>SmartMed | {{ product.title }}</title>
 {% endblock %}
@@ -27,17 +28,14 @@
 
 
 
-                    <p class="h5 m-3">Категорія товару:
+                    <p class="h5 m-3">{% trans "Product Category:" %}
                         <small class="text-muted">{{ form.category|add_class:"custom-select" }}</small>
-                        <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
                     <p class="h5 m-3">Група товару:
                         <small class="text-muted">{{ form.group|add_class:"custom-select" }}</small>
-                        <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
                     <p class="h5 m-3">Бренд:
                         <small class="text-muted">{{ form.brand|add_class:"custom-select" }}</small>
-                        <i class="form-icons material-icons edit-icons">edit</i>
                     </p>
                     <div class="form-group ml-3 mr-3">
                         <label for="edit_product">Опис:</label>
@@ -63,7 +61,7 @@
                         <div class="form-check disabled ml-3">
                             <label class="form-check-label">
                                 <input id="bool_check" class="form-check-input" type="checkbox"
-                                    value="{{ product.is_active }}" disabled>
+                                    value="{{ product.is_active }}">
                                 Активний
                                 <span class="form-check-sign">
                                     <span class="check"></span>
@@ -73,7 +71,7 @@
                         <div class="form-check disabled ml-3">
                             <label class="form-check-label">
                                 <input id="bool_check" class="form-check-input" type="checkbox"
-                                    value="{{ product.has_instances }}" disabled>
+                                    value="{{ product.has_instances }}">
                                 has_instances
                                 <span class="form-check-sign">
                                     <span class="check"></span>
@@ -83,7 +81,7 @@
                         <div class="form-check disabled ml-3">
                             <label class="form-check-label">
                                 <input id="bool_check" class="form-check-input" type="checkbox"
-                                    value="{{ product.has_attributes }}" disabled>
+                                    value="{{ product.has_attributes }}">
                                 has_attributes
                                 <span class="form-check-sign">
                                     <span class="check"></span>
@@ -93,7 +91,7 @@
                         <div class="form-check disabled ml-3">
                             <label class="form-check-label">
                                 <input id="bool_check" class="form-check-input" type="checkbox"
-                                    value="{{ product.is_discountable }}" disabled>
+                                    value="{{ product.is_discountable }}">
                                 Акційний
                                 <span class="form-check-sign">
                                     <span class="check"></span>
@@ -121,12 +119,9 @@
                     <div class="card-header card-header-info">
                         <div class="text-center">Оновлення фото товару</div>
                     </div>
+                    <form method="post" enctype="multipart/form-data" id="ProductImageForm">
+                    </form>
 
-                    <!--crop-->
-
-                    {% include './includes/crop.html' %}
-
-                    <!--crop-->
                 </div>
             </div>
             <div class="col-4">
