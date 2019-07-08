@@ -23,7 +23,7 @@ class ManagerHome(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        time_threshold = datetime.now() - timedelta(hours=24)
+#        time_threshold = datetime.now() - timedelta(hours=24)
         orders_total = Purchase.objects.filter(Q(status=Purchase.NewOrder),
                                                Q(status=Purchase.Confirmed),
                                                Q(status=Purchase.Sent))
@@ -44,9 +44,9 @@ class ManagerHome(TemplateView):
                                                    .count()
 
         context['partners_count'] = Partner.objects.all().count()
-        paid_orders_sum = orders_total.filter(pay_status=Purchase.Paid)\
+        paid_orders_sum = orders_total.filter(pay_status=Purchase.PaidUp)\
                                       .aggregate(Sum('value')).get('value_sum') or 0.00
-        advance_orders_sum = orders_total.filter(pay_status=Purchase.Paid)\
+        advance_orders_sum = orders_total.filter(pay_status=Purchase.PaidUp)\
                                          .aggregate(Sum('value')).get('value_sum') or 0.00
 
         return context

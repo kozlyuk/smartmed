@@ -11,9 +11,6 @@ class AddToBasketForm(forms.ModelForm):
     class Meta:
         model = InvoiceLine
         fields = ['quantity']
-        widgets = {
-            'DELETION_FIELD_NAME': forms.HiddenInput(),
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
