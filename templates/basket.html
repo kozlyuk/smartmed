@@ -85,21 +85,15 @@
     <!-- /footer-->
 </body>
 
+<script type="module">
+import {activateTooltips} from "{% static '/jsComponents/bootstrapToggler.mjs' %}";
+import {DOMContentLoader} from "{% static '/jsComponents/DOMContentLoader.mjs' %}";
+
+activateTooltips();
+DOMContentLoader(deleteProduct);
+
+</script>
 <script>
-//activate tooltips 
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
-
-//activate func deleteProduct adter DOM loading
-(function () {
-    if (window.addEventListener) {
-        window.addEventListener('DOMContentLoaded', deleteProduct, false);
-    } else {
-        window.attachEvent('onload', domReady);
-    }
-}());
-
 //onclick delete checkbox
 function deleteProduct(pk) {
 
@@ -118,4 +112,5 @@ function deleteProduct(pk) {
     //change the checkbox ((need to toggle checkbox!!!))
     checkbox.checked = "true";
 };
+
 </script>

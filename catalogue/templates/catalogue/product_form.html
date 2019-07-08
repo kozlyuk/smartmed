@@ -16,39 +16,26 @@
                     <div class="card-header card-header-info">
                         <div class="text-center">{{ product.title }}</div>
                     </div>
-
-                    <!--<div class="btn-group">-->
-                    <!--    <button type="button" class="btn btn-danger btn-sm">{{ product.category }}</button>-->
-                    <!--    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                    <!--        <span class="sr-only">Toggle Dropdown</span>-->
-                    <!--    </button>-->
-                    <!--    <div class="dropdown-menu">-->
-                    <!--        <a class="dropdown-item" href="#">{{ product.category }}</a>-->
-                    <!--    </div>-->
-                    <!--</div>-->
-
-
-
                     <p class="h5 m-3">{% trans "Product Category:" %}
                         <small class="text-muted">{{ form.category|add_class:"custom-select" }}</small>
                     </p>
-                    <p class="h5 m-3">Група товару:
+                    <p class="h5 m-3">{% trans "Product Group" %}:
                         <small class="text-muted">{{ form.group|add_class:"custom-select" }}</small>
                     </p>
-                    <p class="h5 m-3">Бренд:
+                    <p class="h5 m-3">{% trans "Product Brand" %}:
                         <small class="text-muted">{{ form.brand|add_class:"custom-select" }}</small>
                     </p>
                     <div class="form-group ml-3 mr-3">
-                        <label for="edit_product">Опис:</label>
+                        <label for="edit_product">{% trans "Description" %}:</label>
                         <textarea class="form-control"
                             rows="12">{{ form.description|attr:"id:edit_product" }}</textarea>
                     </div>
 
 
                     <div class="row">
-                        <p class="h6 m-3 col-3 small-text">Ким створений: {{ product.created_by }}</p>
-                        <p class="h6 m-3 col-3 small-text">Коли створений: {{ product.date_created }}</p>
-                        <p class="h6 m-3 col-3 small-text">Дата редагування: {{ product.date_updated }}</p>
+                        <p class="h6 m-3 col-3 small-text">{% trans "Created by:" %} {{ product.created_by }}</p>
+                        <p class="h6 m-3 col-3 small-text">{% trans "Date created:" %} {{ product.date_created }}</p>
+                        <p class="h6 m-3 col-3 small-text">{% trans "Date updated:" %} {{ product.date_updated }}</p>
                     </div>
                 </div>
             </div>
@@ -56,7 +43,7 @@
                 <row>
                     <div class="card">
                         <div class="card-header card-header-info">
-                            update
+                            {% trans "Atributes" %}
                         </div>
 
                         <div class="form-check disabled ml-3">
@@ -212,14 +199,11 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            const checkbox = () => {
-                var checkbox = document.getElementById("bool_check");
-                var boolElem = document.getElementById("bool_check").value;
-                if (boolElem != "true") {
-                    document.getElementById("bool_check").checked = true;
-                }
-            }
+
+        <script type="module">
+            import { checkbox } from "{% static '/jsComponents/BoolCheckbox.mjs' %}";
+            
             checkbox();
         </script>
+        
         {% endblock %}

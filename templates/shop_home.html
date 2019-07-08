@@ -58,24 +58,10 @@
 </div>
 <script type="module">
     import {lazyLoad} from "{% static '/assets/shop/jsComponents/lazyLoad.mjs' %}";
-</script>
-<script>
-// calculate quantity in add2basket modal
-    window.oninput = function calcQuantityAdd2Basket() {
-        var quantityProduct = document.getElementById('id_quantity').value;
-        var price = document.getElementById('price').innerHTML;
-        var priceNum = Number.parseFloat(price);
-        var sumQuantity = quantityProduct * priceNum;
-        var sumQuantity = sumQuantity.toFixed(2);
-        document.getElementById('countResult').innerHTML = sumQuantity;
-    }
-// init modal and ajax request
-function add2modal() {
-    var form_options = {
-        target: '#modal',
-    };
-    $('#AddToBasketForm').ajaxForm(form_options);
-};
-</script>
+    import {calcQuantity} from "{% static '/jsComponents/productOperations.mjs' %}";
+    import {requestAjaxAdd2Modal} from "{% static '/jsComponents/requestAjaxAdd2Modal.mjs' %}"
 
+    calcQuantity();
+    requestAjaxAdd2Modal();
+</script>
 {% endblock content %}
