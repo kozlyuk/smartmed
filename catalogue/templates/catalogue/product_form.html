@@ -123,6 +123,7 @@
                     <form method="post" enctype="multipart/form-data" id="ProductImageForm">
                     {% for ImageInlineForm in image_formset %}
                             {% bootstrap_formset image_formset layout='horizontal' %}
+                            <p>{{ ImageInlineForm.image.url }}</p>
                     {% endfor %}
                     </form>
 
