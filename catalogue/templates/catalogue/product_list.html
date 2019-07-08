@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div id="collapse_1" class="collapse" aria-expanded="false">
-                <div class="card-body container" style="display:block">
+                <div class="container-flex">
                     <form action="{% url 'product_list' %}" method="get">
                         {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
 
@@ -32,14 +32,14 @@
                             <div class="row">
                             <tr>
                                 {% for field in filter_form.visible_fields|slice:":3" %}
-                                <div class="col-3">
+                                <div class="col-3 d-flex align-items-end">
                                     {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }} {% if field.help_text %}
                                     <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
                                 </div>
                                 {% endfor %}
-                                <div class="col-3">
+                                <div class="col d-flex align-items-end">
                                     {% if perms.smartmed.add_product %}
-                                    <a href="{% url 'product_create' %}" class="btn btn-sm btn-success uppercase" <i class="fa fa-plus"></i> Додати товар </a> {% endif %}
+                                    <a href="{% url 'product_create' %}" class="btn btn-block align-bottom btn-sm btn-success uppercase" <i class="fa fa-plus"></i> Додати товар </a> {% endif %}
                                 </div>
                             </tr>
                             </div>
