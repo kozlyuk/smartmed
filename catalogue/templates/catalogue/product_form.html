@@ -108,9 +108,9 @@
                         <div class="text-center">Оновлення фото товару</div>
                     </div>
                     <form method="post" enctype="multipart/form-data" id="ProductImageForm">
-                    {% for ImageInlineForm in image_formset %}
-                            {% bootstrap_formset image_formset layout='horizontal' %}
-                            <p>{{ ImageInlineForm.image.url }}</p>
+                    {% bootstrap_formset image_formset layout='horizontal' %}
+                    {% for image in image_formset %}
+                            <img class="img" src="{{ image.instance.image.url }}" alt="product image">
                     {% endfor %}
                     </form>
 

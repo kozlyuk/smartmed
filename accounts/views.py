@@ -23,7 +23,7 @@ class ManagerHome(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-#        time_threshold = datetime.now() - timedelta(hours=24)
+        time_threshold = datetime.now() - timedelta(hours=24)
         orders_total = Purchase.objects.filter(Q(status=Purchase.NewOrder),
                                                Q(status=Purchase.Confirmed),
                                                Q(status=Purchase.Sent))
