@@ -3,7 +3,7 @@
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 
 from django.views.generic.edit import UpdateView
@@ -20,7 +20,6 @@ class AddToBasketModal(UpdateView):
     template_name = 'includes/shop/add2basket.html'
     form_class = AddToBasketForm
     context_object_name = 'invoice_line'
-    success_url = reverse_lazy('basket')
 
     def get_object(self, queryset=None):
         # get the existing object or created a new one
@@ -47,6 +46,11 @@ class AddToBasketModal(UpdateView):
 #            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
         return context
 
+    def get_success_url(self):
+        if self.request.POST.get('save_go_basket'):
+            return reverse('basket')
+        return reverse('shop_home')
+
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PurchaseUpdate(UpdateView):
@@ -54,6 +58,7 @@ class PurchaseUpdate(UpdateView):
     template_name = 'basket.html'
     form_class = BasketForm
     context_object_name = 'order'
+    success_url = reverse_lazy('shop_home')
 
     def get_object(self, queryset=None):
         if self.request.session.get('purchase_id'):
@@ -81,3 +86,15 @@ class PurchaseUpdate(UpdateView):
         else:
             context['invoice_line_formset'] = INVOICE_LINE_FORMSET(instance=self.object)
         return context
+
+    def form_valid(self, form):
+        """
+        Check if invoice_line_formset is valid then save it and call form_valid for main form.
+        """
+        context = self.get_context_data()
+        invoice_line_formset = context['invoice_line_formset']
+        if invoice_line_formset.is_valid():
+            invoice_line_formset.instance = self.object
+            invoice_line_formset.save()
+            return super().form_valid(form)
+        return self.form_invalid(form)
