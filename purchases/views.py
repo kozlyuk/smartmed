@@ -58,6 +58,7 @@ class PurchaseUpdate(UpdateView):
     template_name = 'basket.html'
     form_class = BasketForm
     context_object_name = 'order'
+    success_url = reverse_lazy('shop_home')
 
     def get_object(self, queryset=None):
         if self.request.session.get('purchase_id'):
@@ -85,3 +86,15 @@ class PurchaseUpdate(UpdateView):
         else:
             context['invoice_line_formset'] = INVOICE_LINE_FORMSET(instance=self.object)
         return context
+
+    def form_valid(self, form):
+        """
+        Check if invoice_line_formset is valid then save it and call form_valid for main form.
+        """
+        context = self.get_context_data()
+        invoice_line_formset = context['invoice_line_formset']
+        if invoice_line_formset.is_valid():
+            invoice_line_formset.instance = self.object
+            invoice_line_formset.save()
+            return super().form_valid(form)
+        return self.form_invalid(form)
