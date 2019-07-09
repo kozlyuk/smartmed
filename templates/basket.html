@@ -89,11 +89,16 @@
 import {activateTooltips} from "{% static '/jsComponents/bootstrapToggler.mjs' %}";
 import {DOMContentLoader} from "{% static '/jsComponents/DOMContentLoader.mjs' %}";
 
+
+
 activateTooltips();
 DOMContentLoader(deleteProduct);
 
 </script>
 <script>
+document.addEventListener ("input", calcPrice)
+
+
 //onclick delete checkbox
 function deleteProduct(pk) {
 

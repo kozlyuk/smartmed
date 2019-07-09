@@ -1,5 +1,6 @@
 {% load ita_template_tags %}
 {% load bootstrap4 %}
+{% load static %}
 {% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
 {{ form.DELETE | add_class:"hidden" }} {% comment %} <!--add |add_class:"hidden" in production--> {% endcomment %}
@@ -8,7 +9,7 @@
     <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">
-            {{ form.quantity|add_class:"form-control quantity" }}
+            {{ form.quantity|add_class:"form-control productQuantity" }}
             <div class="form-group">
             {{ form.non_field_errors }}
                 {% if field.errors %}
@@ -22,10 +23,54 @@
             </div>
         </div>
     </td>
-    <td class="value">{{ form.instance.unit_price | value_format }}</td>
-    <td>{{ form.instance.value_total | value_format }}</td>
+    <td id="value_{{ forloop.counter0 }}">{{ form.instance.unit_price | value_format }}</td>
+    <td id="countResult">{{ form.instance.value_total | value_format }}</td>
     <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip"
                 data-placement="left" title="Відкрити в новому вікні"
                 class="btn btn-danger material-icons">delete</button></a></td>
 </tr>
+
+<script>
+
+
+
+function calcPrice() {
+    var productQuantity = document.getElementById('id_invoiceline_set-' + '{{ forloop.counter0 }}' + '-quantity').value;
+    var pricePerUnit = document.getElementById('value_' + '{{ forloop.counter0 }}').innerHTML;
+
+    var priceNum = Number.parseFloat(pricePerUnit);
+    var productQuantityNum = Number.parseFloat(productQuantity);
+
+    var sumPrice = productQuantityNum * priceNum;
+    var sumPrice = sumPrice.toFixed(2);
+    var sumPrice = sumPrice + " грн."
+
+    document.getElementById('countResult').innerHTML = sumPrice;
+};
+
+
+
+
+{% comment %} 
+document.addEventListener ("input", calcPrice())
+
+
+function calcPrice() {
+        
+        var productQuantity = document.getElementById('id_invoiceline_set-' + '{{ forloop.counter0 }}' + '-quantity').value;
+        var pricePerUnit = document.getElementById('value_' + '{{ forloop.counter0 }}').innerHTML;
+
+        var priceNum = Number.parseFloat(pricePerUnit);
+        var productQuantityNum = Number.parseFloat(productQuantity);
+
+        var sumPrice = productQuantityNum * priceNum;
+        var sumPrice = sumPrice.toFixed(2);
+        var sumPrice = sumPrice + " грн."
+
+        document.getElementById('countResult').innerHTML = sumPrice;
+
+    }; {% endcomment %}
+
+
+</script>
 {% endfor %}

@@ -9,7 +9,7 @@
             action="{% url 'invoice_line_create' product.pk %}">
             <div class="modal-header">
                 <h4 class="modal-title">{% trans "Add" %} {{product.title}} {% trans "to basket?" %}</h4>
-                <button class="close" href="{{request.META.HTTP_REFERER}}">×</button>
+                <button class="close" onclick="$('#modal').hide();">×</button>
             </div>
             <div class="modal-body">
                 {% csrf_token %}
@@ -52,7 +52,7 @@
                 <div class="form-helptext">{{ field.help_text }}</div>
                 {% endif %}
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary"
+                    <button class="btn btn-secondary"
                         href="{{request.META.HTTP_REFERER}}">{% trans "Add to basket and continue shopping" %}</button>
                     <button type="submit" name="save_go_basket" value="True"
                         class="btn btn-primary">{% trans "Add and open basket" %}</button>
