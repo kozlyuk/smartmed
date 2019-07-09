@@ -8,10 +8,21 @@
     <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">
-            {{ form.quantity|add_class:"form-control" }}
+            {{ form.quantity|add_class:"form-control quantity" }}
+            <div class="form-group">
+            {{ form.non_field_errors }}
+                {% if field.errors %}
+                <ul class="form-errors">
+                    {% for error in field.errors %}
+                    <li><i class="material-icons">error</i> <strong>{{ error|escape }}</strong>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
         </div>
     </td>
-    <td>{{ form.instance.unit_price | value_format }}</td>
+    <td class="value">{{ form.instance.unit_price | value_format }}</td>
     <td>{{ form.instance.value_total | value_format }}</td>
     <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip"
                 data-placement="left" title="Відкрити в новому вікні"
