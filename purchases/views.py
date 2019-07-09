@@ -20,7 +20,7 @@ class AddToBasketModal(UpdateView):
     template_name = 'includes/shop/add2basket.html'
     form_class = AddToBasketForm
     context_object_name = 'invoice_line'
-    success_url = reverse_lazy('shop_home')
+    success_url = reverse_lazy('basket')
 
     def get_object(self, queryset=None):
         # get the existing object or created a new one
