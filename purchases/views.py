@@ -3,7 +3,7 @@
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 
 from django.views.generic.edit import UpdateView
@@ -20,7 +20,6 @@ class AddToBasketModal(UpdateView):
     template_name = 'includes/shop/add2basket.html'
     form_class = AddToBasketForm
     context_object_name = 'invoice_line'
-    success_url = reverse_lazy('basket')
 
     def get_object(self, queryset=None):
         # get the existing object or created a new one
@@ -46,6 +45,11 @@ class AddToBasketModal(UpdateView):
 #        else:
 #            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
         return context
+
+    def get_success_url(self):
+        if self.request.POST.get('save_go_basket'):
+            return reverse('basket')
+        return reverse('shop_home')
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors

@@ -54,7 +54,7 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-secondary"
                         href="{{request.META.HTTP_REFERER}}">{% trans "Add to basket and continue shopping" %}</button>
-                    <button type="submit"
+                    <button type="submit" name="save_go_basket" value="True"
                         class="btn btn-primary">{% trans "Add and open basket" %}</button>
                 </div>
             </div>
