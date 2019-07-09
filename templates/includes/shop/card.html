@@ -1,4 +1,5 @@
 {% load i18n %} 
+{% load ita_template_tags %}
 {% for product in products %}
 {% comment %}1 - This js which allows to submit forms through ajax and must be loaded in the page{% endcomment %}
 
@@ -12,11 +13,11 @@
             <div class="bottom">
                 <div class="left">
                     <div class="details">
-                        <h5>{{product.title}}</h5>
-                        <p>{{product.actual_price_wc}}</p>
+                        <h5>{{ product.title }}</h5>
+                        <p>{{ product.actual_price | value_format }}</p>
                     </div>
                     {% comment %}2 - The button which shows the modal, notice the href attribute{% endcomment %}
-                    <a class="add2basket buy" data-toggle="modal" onclick="submit({{product.pk}})" href="{% url 'invoice_line_create' product.pk %}"
+                    <a class="add2basket buy" data-toggle="modal" onclick="submit({{ product.pk }})" href="{% url 'invoice_line_create' product.pk %}"
                         data-target="#modal"><i class="material-icons">add_shopping_cart</i></a>
                 </div>
             </div>
@@ -29,25 +30,25 @@
                         <th>{% trans "Розмір упаковки" %}</th>
                     </tr>
                     <tr>
-                        <td>{{product.pack_size}} {{product.default_uom}}</td>
+                        <td>{{ product.pack_size }} {{ product.default_uom }}</td>
                     </tr>
                     <tr>
                         <th>Група продуктів</th>
                     </tr>
                     <tr>
-                        <td>{{product.group}}</td>
+                        <td>{{ product.group }}</td>
                     </tr>
                     <tr>
                         <th>Бренд</th>
                     </tr>
                     <tr>
-                        <td>{{product.brand}}</td>
+                        <td>{{ product.brand }}</td>
                     </tr>
                     <tr>
                         <th>Гарантійний термін</th>
                     </tr>
                     <tr>
-                        <td>{{product.warranty_terms}}</td>
+                        <td>{{ product.warranty_terms }}</td>
                     </tr>
                 </table>
             </div>

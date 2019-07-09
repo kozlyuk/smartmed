@@ -5,7 +5,8 @@ export const calcQuantity = () => {
         var price = document.getElementById('price').innerHTML;
         var priceNum = Number.parseFloat(price);
         var sumQuantity = quantityProduct * priceNum;
-        var sumQuantity = sumQuantity.toFixed(2);
+        var value = document.getElementById('countResult').innerHTML.replace(/[0-9, .]/g, '')
+        var sumQuantity = sumQuantity.toFixed(2) + " " + value;
         document.getElementById('countResult').innerHTML = sumQuantity;
     };
 };

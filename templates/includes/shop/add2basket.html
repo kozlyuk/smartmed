@@ -1,6 +1,7 @@
 {% load bootstrap4 %}   
 {% load i18n %} 
 {% load widget_tweaks %} 
+{% load ita_template_tags %}
 {% load staticfiles %}
 
 <div class="modal-dialog modal-lg">
@@ -42,9 +43,9 @@
                                 {{ form.quantity|add_class:"form-control" }}
                             </td>
                             <td>
-                                <div id="price">{{ unit_price }} {{ currency }}</div>
+                                <div id="price">{{ unit_price | value_format }}</div>
                             </td>
-                            <td><output id="countResult">{{ unit_price }}</output> {{ currency }}</td>
+                            <td><output id="countResult">{{ unit_price | value_format }}</output></td>
                         </tr>
                     </tbody>
                 </table>
