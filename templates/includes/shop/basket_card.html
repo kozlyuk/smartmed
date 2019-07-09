@@ -9,22 +9,20 @@
     <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">
-            {{ form.quantity|add_class:"form-control productQuantity" }}
-            <div class="form-group">
+            {{ form.quantity|attr:"class:form-control productQuantity"|attr:"oninput=count()" }}
             {{ form.non_field_errors }}
-                {% if field.errors %}
-                <ul class="form-errors">
-                    {% for error in field.errors %}
-                    <li><i class="material-icons">error</i> <strong>{{ error|escape }}</strong>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </div>
+            {% if field.errors %}
+            <ul class="form-errors">
+                {% for error in field.errors %}
+                <li><i class="material-icons">error</i> <strong>{{ error|escape }}</strong>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
     </td>
     <td id="value_{{ forloop.counter0 }}">{{ form.instance.unit_price | value_format }}</td>
-    <td id="countResult">{{ form.instance.value_total | value_format }}</td>
+    <td id="countResult_{{ forloop.counter0 }}">{{ form.instance.value_total | value_format }}</td>
     <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip"
                 data-placement="left" title="Відкрити в новому вікні"
                 class="btn btn-danger material-icons">delete</button></a></td>
@@ -34,7 +32,8 @@
 
 
 
-function calcPrice() {
+
+function count(){
     var productQuantity = document.getElementById('id_invoiceline_set-' + '{{ forloop.counter0 }}' + '-quantity').value;
     var pricePerUnit = document.getElementById('value_' + '{{ forloop.counter0 }}').innerHTML;
 
@@ -45,7 +44,7 @@ function calcPrice() {
     var sumPrice = sumPrice.toFixed(2);
     var sumPrice = sumPrice + " грн."
 
-    document.getElementById('countResult').innerHTML = sumPrice;
+    document.getElementById('countResult_' + '{{ forloop.counter0 }}').innerHTML = sumPrice;
 };
 
 
