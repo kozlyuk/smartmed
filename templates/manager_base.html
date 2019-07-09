@@ -10,7 +10,12 @@
 {% include 'includes/dashboard/css_list.html' %}
 
 </head>
+{% if user.employee.theme|lower == "bl" %}
+<body class="dark-edition">
+{% else %}
 <body>
+{% endif %}
+
     <div style="display:none" id="theme">{{user.employee.theme}}</div>
     <div class="wrapper ">
         
@@ -30,10 +35,10 @@
 {% include 'includes/dashboard/js_list.html' %}
 
 </body>
-<script type="module">
+<!--<script type="module">
     import {themeChecker} from "{% static 'jsComponents/dashboard/themeChecker.mjs' %}";
 
     let colorTheme = document.querySelector("#theme").innerText;
     
     themeChecker(colorTheme);
-</script>
+</script>-->
