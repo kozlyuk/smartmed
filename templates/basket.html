@@ -27,9 +27,9 @@
                     </div>
                     <div id="basket" class="col-lg-12">
                         <div class="box">
-                            <form method="post" action="">
-                            {{invoice_line_formset.management_form}}
-                            {% csrf_token %}
+                            <form id="BasketForm" method="post" enctype="multipart/form-data">
+                                {{invoice_line_formset.management_form}}
+                                {% csrf_token %}
                                 <h1>{% trans "Basket" %}</h1>
                                 <p class="text-muted">{% trans "Count of products in the basket:" %}
                                     {{ products_count }}</p>
@@ -53,7 +53,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th colspan="4">{% trans "Total" %}</th>
-                                                <th colspan="2">{{ order.value_total | value_format }}</th>
+                                                <th id="valueTotal" colspan="2">{{ order.value_total | value_format }}</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -61,14 +61,16 @@
                                 </div>
                                 <!-- /.table-responsive-->
                                 <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
-                                    <div class="left"><a href="category.html" class="btn btn-outline-secondary"><i
-                                                class="fa fa-chevron-left"></i> {% trans "Return to product list" %}</a>
+                                    <div class="left"><a href="{% url 'shop_home' %}"
+                                            class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>
+                                            {% trans "Return to main page" %}</a>
                                     </div>
                                     <div class="right">
-                                        <button class="btn btn-outline-secondary"><i class="fa fa-refresh"></i>
-                                            {% trans "Accept changes" %} </button>
-                                        <button type="submit" class="btn btn-primary">{% trans "Buy" %} <i
-                                                class="fa fa-chevron-right"></i></button>
+                                        <!--submit button-->
+                                        <button type="submit" class="btn btn-primary">{% trans "Buy" %} 
+                                        <i class="fa fa-chevron-right"></i>
+                                        </button>
+                                        <!--/submit button-->
                                     </div>
                                 </div>
                             </form>
@@ -96,38 +98,23 @@ DOMContentLoader(deleteProduct);
 
 </script>
 <script>
-//get first value
-// var quantity = document.getElementsByClassName('productQuantity');
-
-// var quantity = Array.prototype.slice.call(quantity);
-// var quantity = Array.from(quantity);
-
-// for (let i = 0; i < quantity.length; i++) {
-//     var quantity = quantity[i].value;
-    
-// }
-
-// var array = [1, 2, 3, 4]
-// array.map(Number);
-
-// ///
-// var sum = quantity.map(function (num, idx) {
-//   return num + array[idx];
-// });
-///
-
-// for (var i = 0; i < quantity.length; i++) {
-//     const element = array[i];
-//     var priceArray = array[i]
-//     var valueArray = Number(quantity[i].value);
-//     // console.log("value: " + valueArray + " id: " + i)
-//     console.log(priceArray[i] * valueArray[i]);
-// };
-
-//end get first value
-
-// document.addEventListener ("input", calcPrice)
-
+//valueTotal calc function
+window.onchange = function () {
+    let rowResult = document.getElementsByClassName('row_result');
+    //create array
+    let rowResultArray = [].slice.call(rowResult);
+    //get currency from valueTotal
+    let currency = document.getElementById('valueTotal').innerHTML.replace(/[0-9, .]/g, '')
+    var sum = 0;
+    //make a number function
+    rowResultArray.forEach(function(element) {
+        sum += Number.parseFloat(element.innerHTML)
+    });
+    //make string with valueTotal and currency
+    sum = sum.toFixed(2) + " " + currency;
+    //put sum in tag
+    document.getElementById('valueTotal').innerHTML = sum;
+}
 
 //onclick delete checkbox
 function deleteProduct(pk) {
@@ -145,7 +132,14 @@ function deleteProduct(pk) {
     
     var checkbox = document.getElementById("id_invoiceline_set-" + pk + "-DELETE")
     //change the checkbox ((need to toggle checkbox!!!))
-    checkbox.checked = "true";
+
+    if (checkbox.checked == false) {
+        checkbox.checked = true;
+    } else {
+        if (checkbox.checked == true) {
+            checkbox.checked = false;
+        };
+    };
 };
 
 </script>

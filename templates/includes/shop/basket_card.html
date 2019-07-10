@@ -3,73 +3,47 @@
 {% load static %}
 {% load widget_tweaks %} 
 {% for form in invoice_line_formset %}
+{{ form.non_field_errors }}
+{% if field.errors %}
+<ul class="form-errors">
+    {% for error in field.errors %}
+    <li><i class="material-icons">error</i> <strong>{{ error|escape }}</strong>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
 {{ form.DELETE | add_class:"hidden" }} {% comment %} <!--add |add_class:"hidden" in production--> {% endcomment %}
 <tr id="{{ forloop.counter0 }}">
     <td><a href="#"><img src="{{form.instance.product.get_image}}" alt="product image"></a></td>
     <td><a href="#">{{ form.instance.product }}</a></td>
     <td>
         <div class="form-group">
-            {{ form.quantity|attr:"class:form-control productQuantity"|attr:"oninput=count()" }}
-            {{ form.non_field_errors }}
-            {% if field.errors %}
-            <ul class="form-errors">
-                {% for error in field.errors %}
-                <li><i class="material-icons">error</i> <strong>{{ error|escape }}</strong>
-                </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+            <input id="quantity_{{ forloop.counter0 }}" type="number" value="{{form.instance.quantity}}" min="0"
+                oninput="getSumOfRow({{ forloop.counter0 }})" class="form-control">
+            {{ form.name.errors }}
         </div>
     </td>
     <td id="value_{{ forloop.counter0 }}">{{ form.instance.unit_price | value_format }}</td>
-    <td id="countResult_{{ forloop.counter0 }}">{{ form.instance.value_total | value_format }}</td>
+    <td id="countResult_{{ forloop.counter0 }}" class="row_result">{{ form.instance.value_total | value_format }}</td>
     <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip"
                 data-placement="left" title="Відкрити в новому вікні"
                 class="btn btn-danger material-icons">delete</button></a></td>
 </tr>
 
 <script>
+//multiply quantity and price per unit
+function getSumOfRow(counter) {
+    let productQuantity = document.getElementById('quantity_' + counter).value;
+    let pricePerUnit = document.getElementById('value_' + counter).innerHTML;
+    let currency = document.getElementById('value_' + counter).innerHTML.replace(/[0-9, .]/g, '');
+    //make pricePerUnit a number
+    let priceNum = Number.parseFloat(pricePerUnit);
+    //make productQuantity a number
+    let productQuantityNum = Number.parseFloat(productQuantity);
 
-
-
-
-function count(){
-    var productQuantity = document.getElementById('id_invoiceline_set-' + '{{ forloop.counter0 }}' + '-quantity').value;
-    var pricePerUnit = document.getElementById('value_' + '{{ forloop.counter0 }}').innerHTML;
-
-    var priceNum = Number.parseFloat(pricePerUnit);
-    var productQuantityNum = Number.parseFloat(productQuantity);
-
-    var sumPrice = productQuantityNum * priceNum;
-    var sumPrice = sumPrice.toFixed(2);
-    var sumPrice = sumPrice + " грн."
-
-    document.getElementById('countResult_' + '{{ forloop.counter0 }}').innerHTML = sumPrice;
+    let sumPrice = (productQuantityNum * priceNum).toFixed(2) + ' ' + currency;
+    //put result to html element
+    document.getElementById('countResult_' + counter).innerHTML = sumPrice;
 };
-
-
-
-
-{% comment %} 
-document.addEventListener ("input", calcPrice())
-
-
-function calcPrice() {
-        
-        var productQuantity = document.getElementById('id_invoiceline_set-' + '{{ forloop.counter0 }}' + '-quantity').value;
-        var pricePerUnit = document.getElementById('value_' + '{{ forloop.counter0 }}').innerHTML;
-
-        var priceNum = Number.parseFloat(pricePerUnit);
-        var productQuantityNum = Number.parseFloat(productQuantity);
-
-        var sumPrice = productQuantityNum * priceNum;
-        var sumPrice = sumPrice.toFixed(2);
-        var sumPrice = sumPrice + " грн."
-
-        document.getElementById('countResult').innerHTML = sumPrice;
-
-    }; {% endcomment %}
-
-
 </script>
 {% endfor %}
