@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="#"><img src="https://picsum.photos/id/165/50/50" alt="{{product.title}}"></a>
+                            <td><a href="#"><img style="width: 50px" src="{{ invoice_line.product.get_image }}" alt="{{product.title}}"></a>
                             </td>
                             <td>{{ product.title }}</td>
                             <td>
@@ -45,7 +45,7 @@
                             <td>
                                 <div id="price">{{ unit_price | value_format }}</div>
                             </td>
-                            <td><output id="countResult">{{ unit_price | value_format }}</output></td>
+                            <td><output id="countResult">{{ invoice_line.value_total | value_format }}</output></td>
                         </tr>
                     </tbody>
                 </table>
