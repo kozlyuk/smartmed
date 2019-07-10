@@ -32,4 +32,4 @@ class BasketForm(forms.ModelForm):
 
     class Meta:
         model = Purchase
-        fields = ['products', 'value', 'value']
+        fields = ['value']
