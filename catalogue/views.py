@@ -47,9 +47,9 @@ class ShopHome(ListView):
         context = super().get_context_data(**kwargs)
         context['products_count'] = Product.objects.all().count()
         context['products_filtered'] = self.get_queryset().count()
-        context['category'] = [(category.id, category.name) for category in Category.objects.all()]
-        context['group'] = [(group.id, group.name) for group in Group.objects.all()]
-        context['brand'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
+        context['categories'] = [(category.id, category.name) for category in Category.objects.all()]
+        context['groups'] = [(group.id, group.name) for group in Group.objects.all()]
+        context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
 
         self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
         if self.request.POST:
