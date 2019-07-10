@@ -132,7 +132,14 @@ function deleteProduct(pk) {
     
     var checkbox = document.getElementById("id_invoiceline_set-" + pk + "-DELETE")
     //change the checkbox ((need to toggle checkbox!!!))
-    checkbox.checked = "true";
+
+    if (checkbox.checked == false) {
+        checkbox.checked = true;
+    } else {
+        if (checkbox.checked == true) {
+            checkbox.checked = false;
+        };
+    };
 };
 
 </script>
