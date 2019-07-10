@@ -24,7 +24,7 @@
         </div>
     </td>
     <td id="value_{{ forloop.counter0 }}">{{ form.instance.unit_price | value_format }}</td>
-    <td id="countResult_{{ forloop.counter0 }}">{{ form.instance.value_total | value_format }}</td>
+    <td id="countResult_{{ forloop.counter0 }}" class="row_result">{{ form.instance.value_total | value_format }}</td>
     <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip"
                 data-placement="left" title="Відкрити в новому вікні"
                 class="btn btn-danger material-icons">delete</button></a></td>
@@ -35,7 +35,7 @@
 function getSumOfRow(counter) {
     let productQuantity = document.getElementById('quantity_' + counter).value;
     let pricePerUnit = document.getElementById('value_' + counter).innerHTML;
-    let currency = document.getElementById('value_' + counter).innerHTML.replace(/[0-9, .]/g, '')
+    let currency = document.getElementById('value_' + counter).innerHTML.replace(/[0-9, .]/g, '');
     //make pricePerUnit a number
     let priceNum = Number.parseFloat(pricePerUnit);
     //make productQuantity a number

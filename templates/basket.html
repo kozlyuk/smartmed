@@ -53,7 +53,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th colspan="4">{% trans "Total" %}</th>
-                                                <th colspan="2">{{ order.value_total | value_format }}</th>
+                                                <th id="valueTotal" colspan="2">{{ order.value_total | value_format }}</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -98,6 +98,24 @@ DOMContentLoader(deleteProduct);
 
 </script>
 <script>
+//valueTotal calc function
+window.onchange = function () {
+    let rowResult = document.getElementsByClassName('row_result');
+    //create array
+    let rowResultArray = [].slice.call(rowResult);
+    //get currency from valueTotal
+    let currency = document.getElementById('valueTotal').innerHTML.replace(/[0-9, .]/g, '')
+    var sum = 0;
+    //make a number function
+    rowResultArray.forEach(function(element) {
+        sum += Number.parseFloat(element.innerHTML)
+    });
+    //make string with valueTotal and currency
+    sum = sum.toFixed(2) + " " + currency;
+    //put sum in tag
+    document.getElementById('valueTotal').innerHTML = sum;
+}
+
 //onclick delete checkbox
 function deleteProduct(pk) {
 
