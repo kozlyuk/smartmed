@@ -25,11 +25,3 @@ class InvoiceLineInlineForm(forms.ModelForm):
 
 
 INVOICE_LINE_FORMSET = inlineformset_factory(Purchase, InvoiceLine, form=InvoiceLineInlineForm, extra=0)
-
-
-class BasketForm(forms.ModelForm):
-    """ ProductFilterForm - form for products filtering """
-
-    class Meta:
-        model = Purchase
-        fields = ['value']

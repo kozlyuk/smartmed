@@ -53,7 +53,9 @@
                                         <tfoot>
                                             <tr>
                                                 <th colspan="4">{% trans "Total" %}</th>
-                                                <th id="valueTotal" colspan="2">{{ order.value_total | value_format }}</th>
+                                                {% if order.value_total %}
+                                                    <th id="valueTotal" colspan="2">{{ order.value_total | value_format }}</th>
+                                                {% endif %}
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -87,59 +89,59 @@
     <!-- /footer-->
 </body>
 
-<script type="module">
-import {activateTooltips} from "{% static '/jsComponents/bootstrapToggler.mjs' %}";
-import {DOMContentLoader} from "{% static '/jsComponents/DOMContentLoader.mjs' %}";
+<!--<script type="module">-->
+<!--import {activateTooltips} from "{% static '/jsComponents/bootstrapToggler.mjs' %}";-->
+<!--import {DOMContentLoader} from "{% static '/jsComponents/DOMContentLoader.mjs' %}";-->
 
 
 
-activateTooltips();
-DOMContentLoader(deleteProduct);
+<!--activateTooltips();-->
+<!--DOMContentLoader(deleteProduct);-->
 
-</script>
-<script>
-//valueTotal calc function
-window.onchange = function () {
-    let rowResult = document.getElementsByClassName('row_result');
-    //create array
-    let rowResultArray = [].slice.call(rowResult);
-    //get currency from valueTotal
-    let currency = document.getElementById('valueTotal').innerHTML.replace(/[0-9, .]/g, '')
-    var sum = 0;
-    //make a number function
-    rowResultArray.forEach(function(element) {
-        sum += Number.parseFloat(element.innerHTML)
-    });
-    //make string with valueTotal and currency
-    sum = sum.toFixed(2) + " " + currency;
-    //put sum in tag
-    document.getElementById('valueTotal').innerHTML = sum;
-}
+<!--</script>-->
+<!--<script>-->
+<!--//valueTotal calc function-->
+<!--window.onchange = function () {-->
+<!--    let rowResult = document.getElementsByClassName('row_result');-->
+<!--    //create array-->
+<!--    let rowResultArray = [].slice.call(rowResult);-->
+<!--    //get currency from valueTotal-->
+<!--    let currency = document.getElementById('valueTotal').innerHTML.replace(/[0-9, .]/g, '')-->
+<!--    var sum = 0;-->
+<!--    //make a number function-->
+<!--    rowResultArray.forEach(function(element) {-->
+<!--        sum += Number.parseFloat(element.innerHTML)-->
+<!--    });-->
+<!--    //make string with valueTotal and currency-->
+<!--    sum = sum.toFixed(2) + " " + currency;-->
+<!--    //put sum in tag-->
+<!--    document.getElementById('valueTotal').innerHTML = sum;-->
+<!--}-->
 
-//onclick delete checkbox
-function deleteProduct(pk) {
+<!--//onclick delete checkbox-->
+<!--function deleteProduct(pk) {-->
 
-    //disabling standard actions
-    event.preventDefault();
+<!--    //disabling standard actions-->
+<!--    event.preventDefault();-->
 
-    var rowId = document.getElementById(pk);
-    //add blur effect to basket card
-    for (let index = 0; index < 5; index++) {
-        rowId.children[index].classList.toggle("basketDeleteProduct");
-    }
-    //change color of delete button
-    rowId.children[5].children[0].children[0].classList.toggle("return2basket");
-    
-    var checkbox = document.getElementById("id_invoiceline_set-" + pk + "-DELETE")
-    //change the checkbox ((need to toggle checkbox!!!))
+<!--    var rowId = document.getElementById(pk);-->
+<!--    //add blur effect to basket card-->
+<!--    for (let index = 0; index < 5; index++) {-->
+<!--        rowId.children[index].classList.toggle("basketDeleteProduct");-->
+<!--    }-->
+<!--    //change color of delete button-->
+<!--    rowId.children[5].children[0].children[0].classList.toggle("return2basket");-->
+<!--    -->
+<!--    var checkbox = document.getElementById("id_invoiceline_set-" + pk + "-DELETE")-->
+<!--    //change the checkbox ((need to toggle checkbox!!!))-->
 
-    if (checkbox.checked == false) {
-        checkbox.checked = true;
-    } else {
-        if (checkbox.checked == true) {
-            checkbox.checked = false;
-        };
-    };
-};
+<!--    if (checkbox.checked == false) {-->
+<!--        checkbox.checked = true;-->
+<!--    } else {-->
+<!--        if (checkbox.checked == true) {-->
+<!--            checkbox.checked = false;-->
+<!--        };-->
+<!--    };-->
+<!--};-->
 
-</script>
+<!--</script>-->

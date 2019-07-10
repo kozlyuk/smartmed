@@ -9,7 +9,7 @@ from django.conf import settings
 from django.views.generic.edit import UpdateView
 
 from purchases.models import Purchase, InvoiceLine
-from purchases.forms import BasketForm, AddToBasketForm
+from purchases.forms import AddToBasketForm
 from catalogue.models import Product
 from purchases.forms import INVOICE_LINE_FORMSET
 
@@ -56,8 +56,8 @@ class AddToBasketModal(UpdateView):
 class PurchaseUpdate(UpdateView):
     """ Order review and confirmation """
     template_name = 'basket.html'
-    form_class = BasketForm
     context_object_name = 'order'
+    fields = []
     success_url = reverse_lazy('shop_home')
 
     def get_object(self, queryset=None):
@@ -67,12 +67,6 @@ class PurchaseUpdate(UpdateView):
             obj = Purchase.objects.create(invoice_number='Basket')
             self.request.session['purchase_id'] = obj.id
         return obj
-
-    def get_initial(self):
-        initials = super().get_initial()
-        initials['invoice_number'] = self.object.invoice_number_generate()
-        initials['invoice_date'] = datetime.date.today()
-        return initials
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -96,5 +90,11 @@ class PurchaseUpdate(UpdateView):
         if invoice_line_formset.is_valid():
             invoice_line_formset.instance = self.object
             invoice_line_formset.save()
+            form.instance.invoice_number = self.object.invoice_number_generate()
+            form.instance.invoice_date = datetime.date.today()
+            form.instance.status = Purchase.Confirmed
+            form.instance.value = self.object.value_total()
+            if self.request.session.get('purchase_id'):
+                del self.request.session['purchase_id']
             return super().form_valid(form)
         return self.form_invalid(form)

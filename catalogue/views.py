@@ -13,6 +13,8 @@ from catalogue.forms import Product, ProductForm, ProductFilterForm
 from catalogue.forms import IMAGE_FORMSET, PRICE_RECORD_FORMSET, ATTRIBUTE_FORMSET
 from catalogue.forms import Category, CategoryForm, Group, GroupForm, Brand, BrandForm
 
+from purchases.models import InvoiceLine
+
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class ShopHome(ListView):
@@ -45,13 +47,17 @@ class ShopHome(ListView):
 
     def get_context_data(self, **kwargs):  # pylint: disable=W0221
         context = super().get_context_data(**kwargs)
-        context['products_count'] = Product.objects.all().count()
+        if self.request.session.get('purchase_id'):
+            context['basket_products_count'] = \
+                InvoiceLine.objects.filter(purchase=self.request.session.get('purchase_id')).count()
+        else:
+            context['basket_products_count'] = 0
         context['products_filtered'] = self.get_queryset().count()
         context['categories'] = [(category.id, category.name) for category in Category.objects.all()]
         context['groups'] = [(group.id, group.name) for group in Group.objects.all()]
         context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
 
-        self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
+        # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
         if self.request.POST:
             context['filter_form'] = ProductFilterForm(self.request.POST)
         else:
@@ -63,6 +69,7 @@ class ShopHome(ListView):
 class ProductList(ListView):
     """ ProductList - view for products listing """
     model = Product
+    form_class = ProductFilterForm
     context_object_name = 'products'  # Default: object_list
     paginate_by = 50
     success_url = reverse_lazy('manager_home')
