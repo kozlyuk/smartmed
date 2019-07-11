@@ -10,7 +10,7 @@ from django.views.generic.edit import UpdateView
 
 from purchases.models import Purchase, InvoiceLine
 from purchases.forms import AddToBasketForm
-from catalogue.models import Product
+from catalogue.models import Product, Category, Group, Brand
 from purchases.forms import INVOICE_LINE_FORMSET
 
 
