@@ -88,60 +88,51 @@
     {% include 'includes/shop/footer.html'%}
     <!-- /footer-->
 </body>
+<script type="module">
+import {activateTooltips} from "{% static '/jsComponents/bootstrapToggler.mjs' %}";
+import {DOMContentLoader} from "{% static '/jsComponents/DOMContentLoader.mjs' %}";
 
-<!--<script type="module">-->
-<!--import {activateTooltips} from "{% static '/jsComponents/bootstrapToggler.mjs' %}";-->
-<!--import {DOMContentLoader} from "{% static '/jsComponents/DOMContentLoader.mjs' %}";-->
-
-
-
-<!--activateTooltips();-->
-<!--DOMContentLoader(deleteProduct);-->
-
-<!--</script>-->
-<!--<script>-->
-<!--//valueTotal calc function-->
-<!--window.onchange = function () {-->
-<!--    let rowResult = document.getElementsByClassName('row_result');-->
-<!--    //create array-->
-<!--    let rowResultArray = [].slice.call(rowResult);-->
-<!--    //get currency from valueTotal-->
-<!--    let currency = document.getElementById('valueTotal').innerHTML.replace(/[0-9, .]/g, '')-->
-<!--    var sum = 0;-->
-<!--    //make a number function-->
-<!--    rowResultArray.forEach(function(element) {-->
-<!--        sum += Number.parseFloat(element.innerHTML)-->
-<!--    });-->
-<!--    //make string with valueTotal and currency-->
-<!--    sum = sum.toFixed(2) + " " + currency;-->
-<!--    //put sum in tag-->
-<!--    document.getElementById('valueTotal').innerHTML = sum;-->
-<!--}-->
-
-<!--//onclick delete checkbox-->
-<!--function deleteProduct(pk) {-->
-
-<!--    //disabling standard actions-->
-<!--    event.preventDefault();-->
-
-<!--    var rowId = document.getElementById(pk);-->
-<!--    //add blur effect to basket card-->
-<!--    for (let index = 0; index < 5; index++) {-->
-<!--        rowId.children[index].classList.toggle("basketDeleteProduct");-->
-<!--    }-->
-<!--    //change color of delete button-->
-<!--    rowId.children[5].children[0].children[0].classList.toggle("return2basket");-->
-<!--    -->
-<!--    var checkbox = document.getElementById("id_invoiceline_set-" + pk + "-DELETE")-->
-<!--    //change the checkbox ((need to toggle checkbox!!!))-->
-
-<!--    if (checkbox.checked == false) {-->
-<!--        checkbox.checked = true;-->
-<!--    } else {-->
-<!--        if (checkbox.checked == true) {-->
-<!--            checkbox.checked = false;-->
-<!--        };-->
-<!--    };-->
-<!--};-->
-
-<!--</script>-->
+activateTooltips();
+DOMContentLoader(deleteProduct);
+</script>
+<script>
+//valueTotal calc function
+window.onchange = function () {
+    let rowResult = document.getElementsByClassName('row_result');
+    //create array
+    let rowResultArray = [].slice.call(rowResult);
+    //get currency from valueTotal
+    let currency = document.getElementById('valueTotal').innerHTML.replace(/[0-9, .]/g, '')
+    var sum = 0;
+    //make a number function
+    rowResultArray.forEach(function(element) {
+        sum += Number.parseFloat(element.innerHTML)
+    });
+    //make string with valueTotal and currency
+    sum = sum.toFixed(2) + " " + currency;
+    //put sum in tag
+    document.getElementById('valueTotal').innerHTML = sum;
+}
+//onclick delete checkbox
+function deleteProduct(pk) {
+    //disabling standard actions
+    event.preventDefault();
+    var rowId = document.getElementById(pk);
+    //add blur effect to basket card
+    for (let index = 0; index < 5; index++) {
+        rowId.children[index].classList.toggle("basketDeleteProduct");
+    }
+    //change color of delete button
+    rowId.children[5].children[0].children[0].classList.toggle("return2basket");
+    
+    var checkbox = document.getElementById("id_invoiceline_set-" + pk + "-DELETE")
+    //change the checkbox ((need to toggle checkbox!!!))
+    if (checkbox.checked == false) {
+        checkbox.checked = true;
+    } else {
+        if (checkbox.checked == true) {
+            checkbox.checked = false;
+        };
+    };
+};
+</script>-->
