@@ -377,3 +377,8 @@ body {
 .modal-dialog {
   max-width: 750px;
 }
+
+@media (max-width: 983px) {
+.dropdown-menu {
+  top: 0px;
+}
