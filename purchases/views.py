@@ -24,11 +24,10 @@ class AddToBasketModal(UpdateView):
     def get_object(self, queryset=None):
         # get the existing object or created a new one
         product = Product.objects.get(pk=self.kwargs['product'])
-        if not self.request.session.get('purchase_id'):
-            purchase = Purchase.objects.create(invoice_number='Basket')
+        purchase, created = Purchase.objects.get_or_create(pk=self.request.session.get('purchase_id'),
+                                                           defaults={'invoice_number': 'Basket'})
+        if created:
             self.request.session['purchase_id'] = purchase.id
-        else:
-            purchase = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
         obj, created = InvoiceLine.objects.get_or_create(product=product,
                                                          purchase=purchase,
                                                          defaults={'unit_price': product.actual_price()})
@@ -61,12 +60,11 @@ class PurchaseUpdate(UpdateView):
     success_url = reverse_lazy('shop_home')
 
     def get_object(self, queryset=None):
-        if self.request.session.get('purchase_id'):
-            obj = Purchase.objects.get(pk=self.request.session.get('purchase_id'))
-        else:
-            obj = Purchase.objects.create(invoice_number='Basket')
-            self.request.session['purchase_id'] = obj.id
-        return obj
+        purchase, created = Purchase.objects.get_or_create(pk=self.request.session.get('purchase_id'),
+                                                           defaults={'invoice_number': 'Basket'})
+        if created:
+            self.request.session['purchase_id'] = purchase.id
+        return purchase
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,6 +73,9 @@ class PurchaseUpdate(UpdateView):
             context['products_count'] = InvoiceLine.objects.filter(purchase=purchase_id).count()
         else:
             context['products_count'] = 0
+        context['categories'] = [(category.id, category.name) for category in Category.objects.all()]
+        context['groups'] = [(group.id, group.name) for group in Group.objects.all()]
+        context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
         if self.request.POST:
             context['invoice_line_formset'] = INVOICE_LINE_FORMSET(self.request.POST, instance=self.object)
         else:
