@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css">
+
+<div class="col-4">
+    <div class="card">
+        <div class="card-header card-header-info">
+            {% trans "Atributes" %}
+        </div>
+        <div class="card-body">
+            <div class="row align-items-center"">
+                            <div class=" col-6">
+                <select class="names-select2">
+                    <option value="1">Lorem ipsum dolor.</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <input class="form-control" style="width: 70px" type="number" name="quantity"
+                            placeholder="quantity" id="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <i style="color:green; vertical-align: middle;" class="material-icons">add</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
+{% block extrascript %}
+<script>
+    $(".names-select2").select2({
+        minimumInputLength: 1, // минимальная длинна ввода, после которой можно отправлять запрос на сервер
+        allowClear: true,
+        placeholder: "—",
+        ajax: {
+            url: "/some/path", // адрес бэкэн-обработчика (url)
+            delay: 250,
+            type: "post",
+            dataType: "json",
+            cache: true,
+            // что будем отправлять на сервер в запросе
+            data: function (obj) {
+                console.log(obj);
+                /* obj.term --то что ввёл пользователь, 
+                 * но вы можете и обработать это ввод пред тем 
+                 * как отправлять на сервер, 
+                 * может добавитьдоп. парамерты */
+
+                return obj.term;
+            },
+            /* обрабатываем то, что пришло с сервера 
+             * (напр. просто берём подмассив) */
+            processResults: function (data, params) {
+                return {
+                    results: data.names
+                };
+            }
+        }
+    });
+
+
+    $(".names-select2").select2({
+        theme: "bootstrap"
+    });
+</script>

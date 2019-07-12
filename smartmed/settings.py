@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'fontawesome_5',
     'debug_toolbar',
+    'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
