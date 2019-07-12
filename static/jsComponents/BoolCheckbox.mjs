@@ -1,7 +1,7 @@
 const checkbox = () => {
-    var boolElem = document.getElementById("bool_check").value;
+    var boolElem = document.getElementById("is_active").value;
     if (boolElem != "true") {
-        document.getElementById("bool_check").checked = true;
+        document.getElementById("is_active").checked = true;
     }
 }
 export {checkbox};
