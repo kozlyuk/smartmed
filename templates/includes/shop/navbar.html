@@ -47,7 +47,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="categories">
                             {% for id, name in categories %}
-                            <a class="dropdown-item" href="?{% url_replace request 'category' id %}">{{ name }}</a>
+                            <a class="dropdown-item" href="{% url 'shop_home' %}?category={{ id }}">{{ name }}</a>
                             {% endfor %}
                         </div>
                     </li>
@@ -60,7 +60,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="groups">
                             {% for id, name in groups %}
-                            <a class="dropdown-item" href="?{% url_replace request 'group' id %}">{{ name }}</a>
+                            <a class="dropdown-item" href="{% url 'shop_home' %}?group={{ id }}">{{ name }}</a>
                             {% endfor %}
                         </div>
                     </li>
@@ -73,7 +73,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="brands">
                             {% for id, name in brands %}
-                            <a class="dropdown-item" href="?{% url_replace request 'brand' id %}">{{ name }}</a>
+                            <a class="dropdown-item" href="{% url 'shop_home' %}?brand={{ id }}">{{ name }}</a>
                             {% endfor %}
                         </div>
                     </li>
