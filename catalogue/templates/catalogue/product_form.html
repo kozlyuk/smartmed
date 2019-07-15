@@ -11,16 +11,17 @@
 {% block context %}
 <div class="content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        <div class="text-center">{{ product.title }}</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="col">
-                            <form method="post">
-                                {% csrf_token %}
+        <form method="post" id="productUpdate" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ image_formset.management_form }}
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="text-center">{{ product.title }}</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="col">
                                 <!--title and upc row-->
                                 <div class="row">
                                     <div class="col-5">
@@ -79,62 +80,129 @@
                                     </div>
                                 </div>
                                 <!--/warranty_terms, default_uom, pack_size and min_store_quantity row-->
-                            </form>
+                                <div class="d-flex align-items-end flex-row">
+                                    <a href="#" class="btn btn-sm btn-warning ml-auto" type="submit">{% trans "Save and go to attributes" %}</a>
+                                    <button class="btn btn-sm btn-success" type="submit">{% trans "Save" %}</button>
+                                </div>
+                            </div>
+                            <!--other product information-->
+                            <div class="card-footer text-center">
+                                <div class="col">
+                                    <p class="card-text"><small class="text-muted">{% trans "Created by:" %}
+                                            {{ product.created_by }}</small></p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text"><small class="text-muted">{% trans "Date created:" %}
+                                            {{ product.date_created }}</small></p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text"><small class="text-muted">{% trans "Date updated:" %}
+                                            {{ product.date_updated }}</small></p>
+                                </div>
+                            </div>
                             <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small></p>
+                            <!--/other product information-->
                         </div>
-                        <!--other product information-->
-                        <div class="card-footer text-center">
-                            <div class="col">
-                                <p class="card-text"><small class="text-muted">{% trans "Created by:" %}
-                                        {{ product.created_by }}</small></p>
-                            </div>
-                            <div class="col">
-                                <p class="card-text"><small class="text-muted">{% trans "Date created:" %}
-                                        {{ product.date_created }}</small></p>
-                            </div>
-                            <div class="col">
-                                <p class="card-text"><small class="text-muted">{% trans "Date updated:" %}
-                                        {{ product.date_updated }}</small></p>
-                            </div>
-                        </div>
-                        <!--/other product information-->
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        <div class="text-center">{% trans "Product photos" %}</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-header>
-                            <div class=" col-12">
-                            <h4 class="text-center">{% trans "Photo preview" %}</h4>
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                {% for image in image_formset %}
+                                <img src="{{ image.instance.image.url }}" class="card-img" alt="product image">
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{% trans "Upload new photo" %}</h5>
+                                    {% for form in image_formset %}
+                                    {{form.image}}
+                                    {{form.DELETE | attr:"hidden"}}
+                                    {% endfor %}
+                                    <label for="id_image_set-0-image" class="custom-file-upload">
+                                        <i class="material-icons">
+                                            cloud_upload
+                                        </i>
+                                    </label>
+                                    {% include '../includes/crop.html' %}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col"></div>
-                    <div class="col"></div>
-                </div>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col"></div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
-<form method="post" enctype="multipart/form-data" id="ProductImageForm">
-                            {% crispy image_formset %}
-                            {% for image in image_formset %}
-                            <img class="img" src="{{ image.instance.image.url }}" alt="product image">
-                            {% endfor %}
-                        </form>
+
+
 
 <script type="module">
 import { checkbox } from "{% static '/jsComponents/BoolCheckbox.mjs' %}";
             
     checkbox();
+</script>
+<script>
+$(function () {
+
+    /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+    $("#id_image_set-0-image").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#image").attr("src", e.target.result);
+                $("#modalCrop").modal("show");
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    /* SCRIPTS TO HANDLE THE CROPPER BOX */
+    var $image = $("#image");
+    var cropBoxData;
+    var canvasData;
+    $("#modalCrop").on("shown.bs.modal", function () {
+        $image.cropper({
+            viewMode: 1,
+            aspectRatio: 1 / 1,
+            minCropBoxWidth: 200,
+            minCropBoxHeight: 200,
+            ready: function () {
+                $image.cropper("setCanvasData", canvasData);
+                $image.cropper("setCropBoxData", cropBoxData);
+            }
+        });
+    }).on("hidden.bs.modal", function () {
+        cropBoxData = $image.cropper("getCropBoxData");
+        canvasData = $image.cropper("getCanvasData");
+        $image.cropper("destroy");
+    });
+
+    $(".js-zoom-in").click(function () {
+        $image.cropper("zoom", 0.1);
+    });
+
+    $(".js-zoom-out").click(function () {
+        $image.cropper("zoom", -0.1);
+    });
+
+    /* SCRIPT TO COLLECT THE DATA FROM AVATAR FIELD AND POST TO THE SERVER */
+    $(".js-crop-and-upload").click(function () {
+        var cropData = $image.cropper("getData");
+        $("#id_x").val(cropData["x"]);
+        $("#id_y").val(cropData["y"]);
+        $("#id_height").val(cropData["height"]);
+        $("#id_width").val(cropData["width"]);
+        $("#productUpdate").submit();
+    });
+
+	$( "#submit" ).click(function() {
+  		$( "#productUpdate" ).submit();
+	});
+
+});
 </script>
 {% endblock context %}
