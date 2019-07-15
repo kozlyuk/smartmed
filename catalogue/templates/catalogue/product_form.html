@@ -32,7 +32,8 @@
                                     <div class="col-2">
                                         <div class="form-check disabled ml-3">
                                             <label class="form-check-label">
-                                                <input id="id_is_active" class="form-check-input" name="is_active" type="checkbox" value="{{ product.is_active }}">
+                                                <input id="id_is_active" class="form-check-input" name="is_active"
+                                                    type="checkbox" value="{{ product.is_active }}">
                                                 Активний
                                                 <span class="form-check-sign">
                                                     <span class="check"></span>
@@ -105,26 +106,35 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <div class="text-center">Оновлення фото товару</div>
+                        <div class="text-center">{% trans "Product photos" %}</div>
                     </div>
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data" id="ProductImageForm">
-                            {% crispy image_formset %}
-                            {% for image in image_formset %}
-                            <img class="img" src="{{ image.instance.image.url }}" alt="product image">
-                            {% endfor %}
-                        </form>
+                        <div class="card-header>
+                            <div class=" col-12">
+                            <h4 class="text-center">{% trans "Photo preview" %}</h4>
+                        </div>
                     </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<form method="post" enctype="multipart/form-data" id="ProductImageForm">
+                            {% crispy image_formset %}
+                            {% for image in image_formset %}
+                            <img class="img" src="{{ image.instance.image.url }}" alt="product image">
+                            {% endfor %}
+                        </form>
 
 <script type="module">
-    import { checkbox } from "{% static '/jsComponents/BoolCheckbox.mjs' %}";
+import { checkbox } from "{% static '/jsComponents/BoolCheckbox.mjs' %}";
             
-            checkbox();
-        </script>
+    checkbox();
+</script>
 {% endblock context %}
