@@ -3,6 +3,8 @@
 from django import forms
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
+from PIL import Image as Img
+
 from catalogue.models import Product, Category, Group, Brand, Image, PriceRecord, Attribute
 
 
@@ -44,9 +46,26 @@ class ProductForm(forms.ModelForm):
 
 class ImageInlineForm(forms.ModelForm):
     """ ImageInlineForm - form for images inlines creating or updating """
+    x = forms.FloatField(widget=forms.HiddenInput())
+    y = forms.FloatField(widget=forms.HiddenInput())
+    width = forms.FloatField(widget=forms.HiddenInput())
+    height = forms.FloatField(widget=forms.HiddenInput())
+
     class Meta:
         model = Image
         fields = ['image', 'x', 'y', 'width', 'height']
+
+    def save(self, *args, **kwargs):  # pylint: disable=W0221
+        instance = super().save(*args, **kwargs)
+        pos_x = self.cleaned_data.get('x')
+        pos_y = self.cleaned_data.get('y')
+        width = self.cleaned_data.get('width')
+        height = self.cleaned_data.get('height')
+        image = Img.open(instance.avatar)
+        cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
+        resized_image = cropped_image.resize((200, 200), Img.ANTIALIAS)
+        resized_image.save(instance.avatar.path)
+        return instance
 
 
 IMAGE_FORMSET = inlineformset_factory(Product, Image, form=ImageInlineForm, extra=0)
