@@ -20,6 +20,8 @@ from catalogue.views import CategoryList, CategoryCreate, CategoryUpdate, Catego
 from catalogue.views import GroupList, GroupCreate, GroupUpdate, GroupDelete
 from catalogue.views import BrandList, BrandCreate, BrandUpdate, BrandDelete
 
+from django.views.generic import TemplateView                                                   ##delete after create view
+
 
 urlpatterns = [
     path('', ShopHome.as_view(), name='shop_home'),
@@ -28,6 +30,7 @@ urlpatterns = [
     path('product/create', ProductCreate.as_view(), name='product_create'),
     path('product/update/<int:pk>/', ProductUpdate.as_view(), name='product_update'),
     path('product/delete/<int:pk>/', ProductDelete.as_view(), name='product_delete'),
+    path('product/attributes/', TemplateView.as_view(template_name="product_attributes.html")),  ##change after create view
 
     path('category/list/', CategoryList.as_view(), name='category_list'),
     path('category/create', CategoryCreate.as_view(), name='category_create'),

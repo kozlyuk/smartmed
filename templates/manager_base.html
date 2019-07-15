@@ -9,6 +9,9 @@
     
 {% include 'includes/dashboard/css_list.html' %}
 
+{% block extrastyle %}
+{% endblock extrastyle %}
+
 </head>
 {% if user.employee.theme|lower == "bl" %}
 <body class="dark-edition">
@@ -31,14 +34,10 @@
         
         </div>
     </div>
-    
+
+{% block extrascript %}
+{% endblock extrascript %}
+
 {% include 'includes/dashboard/js_list.html' %}
 
 </body>
-<!--<script type="module">
-    import {themeChecker} from "{% static 'jsComponents/dashboard/themeChecker.mjs' %}";
-
-    let colorTheme = document.querySelector("#theme").innerText;
-    
-    themeChecker(colorTheme);
-</script>-->
