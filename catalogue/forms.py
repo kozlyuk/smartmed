@@ -46,7 +46,7 @@ class ImageInlineForm(forms.ModelForm):
     """ ImageInlineForm - form for images inlines creating or updating """
     class Meta:
         model = Image
-        fields = ['image']
+        fields = ['image', 'x', 'y', 'width', 'height']
 
 
 IMAGE_FORMSET = inlineformset_factory(Product, Image, form=ImageInlineForm, extra=0)
