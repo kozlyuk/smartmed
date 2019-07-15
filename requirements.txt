@@ -9,3 +9,4 @@ django-userforeignkey
 django-bootstrap4
 django-fontawesome-5
 django-debug-toolbar
+django-crispy-forms
