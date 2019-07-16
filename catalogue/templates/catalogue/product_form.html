@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col-8">
                     <div class="card mb-3">
                         <div class="row no-gutters">
                             <div class="col-md-4">
@@ -139,8 +139,6 @@
                                     {{ image_formset.management_form }}
                                     {{ price_records_formset.management_form }}
                                     {{ attribute_formset.management_form }}
-                                    
-
                                     <label for="id_image_set-0-image" class="custom-file-upload">
                                         <i class="material-icons">
                                             cloud_upload
@@ -149,6 +147,24 @@
                                 </div>
                                 {% include '../includes/crop.html' %}
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="text-center">{% trans "Price" %}</div>
+                        </div>
+                        <div class="card-body">
+                            {% for formset in price_records_formset %}
+                            {{ formset.non_field_errors }}
+                            {{ formset.errors }}
+                            {{ formset|crispy }}
+                            {% endfor %}
+                            <div class="d-flex align-items-end flex-row">
+                                <button class="btn btn-sm btn-success ml-auto" type="submit">{% trans "Save" %}</button>
+                            </div>
+                            <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small></p>
                         </div>
                     </div>
                 </div>
