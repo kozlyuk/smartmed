@@ -12,8 +12,9 @@
 <div class="content">
     <div class="container-fluid">
         <form method="post" id="productUpdate" enctype="multipart/form-data">
+            
             {% csrf_token %}
-            {{ image_formset.management_form }}
+            
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -81,7 +82,8 @@
                                 </div>
                                 <!--/warranty_terms, default_uom, pack_size and min_store_quantity row-->
                                 <div class="d-flex align-items-end flex-row">
-                                    <a href="#" class="btn btn-sm btn-warning ml-auto" type="submit">{% trans "Save and go to attributes" %}</a>
+                                    <a href="#" class="btn btn-sm btn-warning ml-auto"
+                                        type="submit">{% trans "Save and go to attributes" %}</a>
                                     <button class="btn btn-sm btn-success" type="submit">{% trans "Save" %}</button>
                                 </div>
                             </div>
@@ -122,32 +124,39 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{% trans "Upload new photo" %}</h5>
-                                    {% for form in image_formset %}
-                                    {{ form.non_field_errors }}
-                                    {{ form.errors }}
-                                    {{ form.image }}
-                                    {{ form.x }}
-                                    {{ form.y }}
-                                    {{ form.width }}
-                                    {{ form.height }}
-                                    {{ form.id }}
-                                    {{ form.DELETE | attr:"hidden" }}
+                                    
+                                    {% for formset in image_formset %}
+                                    {{ formset.non_field_errors }}
+                                    {{ formset.errors }}
+                                    {{ formset.image }}
+                                    {{ formset.x }}
+                                    {{ formset.y }}
+                                    {{ formset.width }}
+                                    {{ formset.height }}
+                                    {{ formset.id }}
+                                    {{ formset.DELETE | attr:"hidden" }}
                                     {% endfor %}
+                                    {{ image_formset.management_form }}
+                                    {{ price_records_formset.management_form }}
+                                    {{ attribute_formset.management_form }}
+                                    
+
                                     <label for="id_image_set-0-image" class="custom-file-upload">
                                         <i class="material-icons">
                                             cloud_upload
                                         </i>
                                     </label>
-                                    {% include '../includes/crop.html' %}
                                 </div>
+                                {% include '../includes/crop.html' %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
+
 
 
 

@@ -61,10 +61,10 @@ class ImageInlineForm(forms.ModelForm):
         pos_y = self.cleaned_data.get('y')
         width = self.cleaned_data.get('width')
         height = self.cleaned_data.get('height')
-        image = Img.open(instance.avatar)
+        image = Img.open(instance.image)
         cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
         resized_image = cropped_image.resize((200, 200), Img.ANTIALIAS)
-        resized_image.save(instance.avatar.path)
+        resized_image.save(instance.image.path)
         return instance
 
 

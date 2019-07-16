@@ -161,8 +161,8 @@ class ProductUpdate(UpdateView):
     context_object_name = 'product'
 
     def get_success_url(self):
-        self.success_url = reverse_lazy('product_list') + '?' +\
-                           self.request.session.get('product_query_string')
+        self.success_url = reverse_lazy('product_list') + '?'
+                        #    self.request.session.get('product_query_string')
         return self.success_url
 
     def get_context_data(self, **kwargs):
