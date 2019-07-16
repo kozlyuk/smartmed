@@ -45,7 +45,7 @@ class Partner(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT)
     name = models.CharField(_('Name'), max_length=45)
     fullname = models.CharField(_('Full name'), max_length=255)
-    address = models.CharField(_('Legal address'), max_length=255, blank=True)
+    legal_address = models.CharField(_('Legal address'), max_length=255, blank=True)
     requisites = models.CharField(_('Requisites'), max_length=255, blank=True)
     bank_requisites = models.CharField(_('Bank details'), max_length=255, blank=True)
     chief = models.CharField(_('Chief'), max_length=45, blank=True)
@@ -64,3 +64,30 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Address(models.Model):
+    """ Model contains Addresses of delivery of Partners """
+    DELIVERY_COMPANY_CHOICES = (
+        ('NP', _('NEW POST')),
+    )
+    DELIVERY_METHOD_CHOICES = (
+        ('OD', _('Delivery to post office')),
+        ('AD', _('Address delivery')),
+    )
+    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.CASCADE)
+    city = models.CharField(_('City'), max_length=45)
+    delivery_company = models.CharField(_('Delivery company'), max_length=2,
+                                        choices=DELIVERY_COMPANY_CHOICES, default='NP')
+    delivery_method = models.CharField(_('Delivery method'), max_length=2,
+                                       choices=DELIVERY_METHOD_CHOICES, default='OD')
+    address_line = models.CharField(_('Address'), max_length=255, blank=True)
+    post_office = models.PositiveSmallIntegerField(_('Post office number'), blank=True, null=True)
+    main = models.BooleanField(_('Main address'), default=False)
+
+    class Meta:
+        verbose_name = _('Address')
+        verbose_name_plural = _('Address')
+
+    def __str__(self):
+        return self.partner.name + self.get_delivery_method_display

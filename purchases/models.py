@@ -6,7 +6,8 @@ from django.db import models
 from django.db.models import F, FloatField, Sum
 from django.conf import settings
 from django_userforeignkey.models.fields import UserForeignKey
-from catalogue.models import Product
+
+from catalogue.models import Product, AttributeValue
 from accounts.models import Partner
 from warehouse.models import Warehouse
 from purchases.formatChecker import ContentTypeRestrictedFileField
@@ -42,42 +43,6 @@ class Company(models.Model):
         return self.name
 
 
-class Deal(models.Model):
-    """ Model contains Deals """
-    DEAL_CHOICES = (
-        ('sa', _('Sale')),
-        ('pu', _('Purchase')),
-    )
-    type = models.CharField(_('Deal type'), max_length=2, choices=DEAL_CHOICES, default='sa')
-    number = models.CharField(_('Deal number'), max_length=45)
-    date = models.DateField(_('Deal date'), default=datetime.date.today)
-    expire_date = models.DateField(_('Deal expire date'))
-    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT, null=True)
-    company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
-    comment = models.TextField(_('Comment'), blank=True)
-    upload = ContentTypeRestrictedFileField(_('Electronic copy'), upload_to=docs_directory_path,
-                                            content_types=['application/pdf',
-                                                           'application/vnd.openxmlformats-officedocument'
-                                                           '.spreadsheetml.sheet',
-                                                           'application/vnd.openxmlformats-officedocument'
-                                                           '.wordprocessingml.document'],
-                                            max_upload_size=26214400,
-                                            blank=True, null=True)
-    # Creator and Date information
-    created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
-    date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
-    date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
-
-    class Meta:
-        unique_together = ('number', 'partner')
-        verbose_name = _('Deal')
-        verbose_name_plural = _('Deals')
-        ordering = ['-date_created', 'partner', '-number']
-
-    def __str__(self):
-        return self.number + ' ' + self.partner.name
-
-
 class Purchase(models.Model):
     """ Model contains Purchases, Orders, Baskets """
     InBasket = 'IB'
@@ -104,7 +69,13 @@ class Purchase(models.Model):
         (AdvancePaid, 'Оплачений аванс'),
         (PaidUp, 'Оплачений')
         )
-    deal = models.ForeignKey(Deal, verbose_name=_('Deal'), blank=True, null=True, on_delete=models.PROTECT)
+    PURCHASE_CHOICES = (
+        ('sa', _('Sale')),
+        ('pu', _('Purchase')),
+    )
+    type = models.CharField(_('Purchase type'), max_length=2, choices=PURCHASE_CHOICES, default='sa')
+    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT, null=True)
+    company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
     status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES, default=InBasket)
     pay_status = models.CharField('Статус оплати', max_length=2, choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
     invoice_number = models.CharField(_('Invoice number'), max_length=45)
@@ -122,13 +93,13 @@ class Purchase(models.Model):
                                                            '.wordprocessingml.document'],
                                             max_upload_size=26214400,
                                             blank=True, null=True)
+    comment = models.TextField(_('Comment'), blank=True)
     # Creator and Date information
     created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
 
     class Meta:
-        unique_together = ('invoice_number', 'deal')
         verbose_name = _('Purchase')
         verbose_name_plural = _('Purchases')
         ordering = ['-date_created', '-invoice_number']
@@ -185,8 +156,7 @@ class InvoiceLine(models.Model):
     quantity = models.PositiveSmallIntegerField(_('Amount'), default=1)
     units = models.CharField(_('Units'), max_length=16, default=_('pcs.'))
     unit_price = models.DecimalField(_('Unit price'), max_digits=8, decimal_places=2, default=0)
-    warehouse = models.ForeignKey(Warehouse, verbose_name=_('Warehouse'), blank=True, null=True,
-                                  on_delete=models.PROTECT)
+    attribute_values = models.ManyToManyField(AttributeValue, verbose_name=_('Attributes'), blank=True)
 
     def value_total(self):
         """ return calculated invoice_line value"""

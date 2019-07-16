@@ -48,5 +48,5 @@ class PartnerSelfUpdateForm(forms.ModelForm):
     """ PartnerSelfUpdateForm - form for partners self-creating or self-updating """
     class Meta:
         model = Partner
-        fields = ['name', 'fullname', 'address', 'requisites', 'bank_requisites', 'chief',
+        fields = ['name', 'fullname', 'legal_address', 'requisites', 'bank_requisites', 'chief',
                   'phone', 'tax_system', 'avatar', 'birthday', 'theme']

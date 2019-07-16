@@ -17,6 +17,8 @@ def image_directory_path(instance, filename):
 class Category(models.Model):
     """ Model contains product Categories """
     name = models.CharField(_('Category name'), max_length=32, unique=True)
+    image = models.ImageField(_('Brand Image'), upload_to='categories/', blank=True, null=True)
+    is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
         verbose_name = _('Category')
@@ -30,6 +32,8 @@ class Category(models.Model):
 class Group(models.Model):
     """ Model contains product Groups """
     name = models.CharField(_('Group name'), max_length=32, unique=True)
+    image = models.ImageField(_('Brand Image'), upload_to='groups/', blank=True, null=True)
+    is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
         verbose_name = _('Group')
@@ -43,7 +47,7 @@ class Group(models.Model):
 class Brand(models.Model):
     """ Model contains product Brands """
     name = models.CharField(_('Brand name'), max_length=32, unique=True)
-    image = models.ImageField(_('Brand Image'), upload_to='brands/', default='brands/no_image.jpg')
+    image = models.ImageField(_('Brand Image'), upload_to='brands/', blank=True, null=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
@@ -60,6 +64,18 @@ class Brand(models.Model):
     products_count.short_description = _('Products count')
 
 
+class AttributeType(models.Model):
+    """ Model contains product attributes types """
+    name = models.CharField(_('Attribute'), max_length=32, unique=True)
+
+    class Meta:
+        verbose_name = _('Attribute type')
+        verbose_name_plural = _('Attribute types')
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     """ Model contains Products """
     title = models.CharField(_('Product title'), max_length=255)
@@ -67,6 +83,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name=_('Product Category'), on_delete=models.PROTECT)
     group = models.ForeignKey(Group, verbose_name=_('Product Group'), on_delete=models.PROTECT)
     brand = models.ForeignKey(Brand, verbose_name=_('Product Brand'), on_delete=models.PROTECT)
+    attributes = models.ManyToManyField(AttributeType, through='Attribute', verbose_name=_('Attributes'), blank=True)
     description = models.TextField(_('Product description'), blank=True)
     warranty_terms = models.PositiveSmallIntegerField(_('Warranty terms, months'), blank=True, null=True)
     default_uom = models.CharField(_('Default units of measurement'), max_length=8, default=_('pcs.'))
@@ -109,7 +126,8 @@ class Product(models.Model):
 class Image(models.Model):
     """ Model contains product Images """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(_('Product Image'), upload_to=image_directory_path)
+    image = models.ImageField(_('Product image'), upload_to=image_directory_path)
+    main = models.BooleanField(_('Is main image'), default=True)
 
     class Meta:
         verbose_name = _('Product Image')
@@ -138,18 +156,6 @@ class PriceRecord(models.Model):
 
     def __str__(self):
         return str(self.regular_price) + ' ' + settings.DEFAULT_CURRENCY
-
-
-class AttributeType(models.Model):
-    """ Model contains product attributes types """
-    name = models.CharField(_('Attribute'), max_length=32, unique=True)
-
-    class Meta:
-        verbose_name = _('Attribute type')
-        verbose_name_plural = _('Attribute types')
-
-    def __str__(self):
-        return self.name
 
 
 class Attribute(models.Model):
@@ -183,7 +189,7 @@ class ProductInstance(models.Model):
     instance_name = models.CharField(_('Instance name'), max_length=64, blank=True)
     serial_number = models.CharField(_('Serial Number'), max_length=32, unique=True)
     warranty_end_date = models.DateField(_('Warranty end date'))
-    attribute_value = models.ForeignKey(AttributeValue, on_delete=models.PROTECT)
+    attribute_values = models.ManyToManyField(AttributeValue, verbose_name=_('Attributes'), blank=True)
     stock = models.ForeignKey(Stock, on_delete=models.PROTECT)
     # Creator and Date information
     created_by = UserForeignKey(auto_user_add=True, verbose_name=_('Created by'))

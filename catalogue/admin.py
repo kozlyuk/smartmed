@@ -112,7 +112,7 @@ class AttributeAdmin(admin.ModelAdmin):
 
 @admin.register(ProductInstance)
 class ProductInstanceAdmin(admin.ModelAdmin):
-    list_display = ['product', 'instance_name', 'serial_number', 'attribute_value', 'stock']
+    list_display = ['product', 'instance_name', 'serial_number', 'stock']
     fieldsets = [
         (None, {'fields': [('product', 'instance_name'),
                            ('serial_number', 'warranty_end_date'),
