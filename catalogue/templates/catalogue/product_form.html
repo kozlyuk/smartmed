@@ -8,15 +8,20 @@
 {% block title %}
 <title>SmartMed | {{ product.title }}</title>
 {% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css">
+{% endblock extrastyle %}
 {% block context %}
 <div class="content">
     <div class="container-fluid">
         <form method="post" id="productUpdate" enctype="multipart/form-data">
-            
+
             {% csrf_token %}
-            
+
             <div class="row">
-                <div class="col">
+                <div class="col-8">
                     <div class="card">
                         <div class="card-header card-header-info">
                             <div class="text-center">{{ product.title }}</div>
@@ -82,8 +87,8 @@
                                 </div>
                                 <!--/warranty_terms, default_uom, pack_size and min_store_quantity row-->
                                 <div class="d-flex align-items-end flex-row">
-                                    <a href="#" class="btn btn-sm btn-warning ml-auto"
-                                        type="submit">{% trans "Save and go to attributes" %}</a>
+                                    <button href="#" class="btn btn-sm btn-warning ml-auto"
+                                        type="submit">{% trans "Save and go to attributes" %}</button>
                                     <button class="btn btn-sm btn-success" type="submit">{% trans "Save" %}</button>
                                 </div>
                             </div>
@@ -106,75 +111,128 @@
                             <!--/other product information-->
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="card mb-3">
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
-                                {% for image in image_formset %}
-                                {% if image.instance.image %}
-                                <img src="{{ image.instance.image.url }}" class="card-img" alt="product image">
-                                {% else %}
-                                <img src="{% static '/images/noimage.gif' %}">
-                                {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">{% trans "Upload new photo" %}</h5>
-                                    
-                                    {% for formset in image_formset %}
-                                    {{ formset.non_field_errors }}
-                                    {{ formset.errors }}
-                                    {{ formset.image }}
-                                    {{ formset.x }}
-                                    {{ formset.y }}
-                                    {{ formset.width }}
-                                    {{ formset.height }}
-                                    {{ formset.id }}
-                                    {{ formset.DELETE | attr:"hidden" }}
-                                    {% endfor %}
-                                    {{ image_formset.management_form }}
-                                    {{ price_records_formset.management_form }}
-                                    {{ attribute_formset.management_form }}
-                                    <label for="id_image_set-0-image" class="custom-file-upload">
-                                        <i class="material-icons">
-                                            cloud_upload
-                                        </i>
-                                    </label>
-                                </div>
-                                {% include '../includes/crop.html' %}
-                            </div>
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="text-center">{% trans "Attributes "%}</div>
+                        </div>
+                        <div class="card-body">
+                        <!--attribute row-->
+                            {% for formset in attribute_formset %}
+                            {{ formset.non_field_errors }}
+                            {{ formset.errors }}
+                            {{ formset.type|add_class:"names-select2" }}
+                            {% endfor %}
+                        <!--/attribute row-->
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="card">
-                        <div class="card-header card-header-info">
-                            <div class="text-center">{% trans "Price" %}</div>
-                        </div>
-                        <div class="card-body">
-                            {% for formset in price_records_formset %}
-                            {{ formset.non_field_errors }}
-                            {{ formset.errors }}
-                            {{ formset|crispy }}
-                            {% endfor %}
-                            <div class="d-flex align-items-end flex-row">
-                                <button class="btn btn-sm btn-success ml-auto" type="submit">{% trans "Save" %}</button>
+                    <div class="row">
+                        <div class="card mb-1">
+                            <div class="card-header card-header-info">
+                                <div class="text-center">{% trans "Price" %}</div>
                             </div>
-                            <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small></p>
+                            <div class="card-body">
+                                {% for formset in price_records_formset %}
+                                {{ formset.non_field_errors }}
+                                {{ formset.errors }}
+                                {{ formset|crispy }}
+                                {% endfor %}
+                                <div class="d-flex align-items-end flex-row">
+                                    <button class="btn btn-sm btn-success ml-auto"
+                                        type="submit">{% trans "Save" %}</button>
+                                </div>
+                                <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small>
+                                </p>
+                            </div>
                         </div>
+                        <div class="card mt-1">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    {% for image in image_formset %}
+                                    {% if image.instance.image %}
+                                    <img src="{{ image.instance.image.url }}" class="card-img" alt="product image">
+                                    {% else %}
+                                    <img src="{% static '/images/noimage.gif' %}">
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{% trans "Upload new photo" %}</h5>
+
+                                        {% for formset in image_formset %}
+                                        {{ formset.non_field_errors }}
+                                        {{ formset.errors }}
+                                        {{ formset.image }}
+                                        {{ formset.x }}
+                                        {{ formset.y }}
+                                        {{ formset.width }}
+                                        {{ formset.height }}
+                                        {{ formset.id }}
+                                        {{ formset.DELETE | attr:"hidden" }}
+                                        {% endfor %}
+                                        {{ image_formset.management_form }}
+                                        {{ price_records_formset.management_form }}
+                                        {{ attribute_formset.management_form }}
+                                        <label for="id_image_set-0-image" class="custom-file-upload">
+                                            <i class="material-icons">
+                                                cloud_upload
+                                            </i>
+                                        </label>
+                                    </div>
+                                    {% include '../includes/crop.html' %}
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
-        </div>
-    </form>
+            <div class="col-4">
+
+            </div>
+            <div class="row">
+
+
+            </div>
+        </form>
+    </div>
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script>
+    $(".names-select2").select2({
+        minimumInputLength: 1, // the minimum input length
+        allowClear: true,
+        placeholder: "—",
+        ajax: {
+            url: "/some/path", // backend address (url)
+            delay: 250,
+            type: "post",
+            dataType: "json",
+            cache: true,
+            // what we will send to the server in the request
+            data: function (obj) {
+                console.log(obj);
+                /* obj.term -- what the user entered */
+                return obj.term;
+            },
+            processResults: function (data, params) {
+                return {
+                    results: data.names
+                };
+            }
+        }
+    });
 
+    // assign theme pack to select2
+    $(".names-select2").select2({
+        theme: "bootstrap"
+    });
+</script>
 
 <script type="module">
 import { checkbox } from "{% static '/jsComponents/BoolCheckbox.mjs' %}";
@@ -241,4 +299,7 @@ $(function () {
 
 });
 </script>
+
+
+
 {% endblock context %}
