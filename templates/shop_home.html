@@ -13,54 +13,20 @@
         {% include 'includes/shop/modal.html' %}
         <!--card list-->
         <div class="container">
-        <div class="row">
-            {% include 'includes/shop/card.html' %}
-        </div>
+            <div class="row">
+                {% include 'includes/shop/card.html' %}
+            </div>
         </div>
         <!--/card list-->
-        <!--HOT PRODUCT SLIDESHOW-->
-        <div id="hot">
-            <div class="box py-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2 class="mb-0">Hot this week</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /#hot-->
-            <!-- *** HOT END ***-->
-        </div>
-        <!--GET INSPIRED ***-->
-        <div class="container">
-            <div class="col-md-12">
-                <div class="box slideshow">
-                    <h3>Get Inspired</h3>
-                    <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-                        officiis eveniet consectetur natus repellat accusamus optio, modi sunt enim
-                        reprehenderit aspernatur facere architecto, quos, numquam quis aut doloremque
-                        explicabo adipisci?</p>
-                    <div id="get-inspired" class="owl-carousel owl-theme">
-                        <div class="item"><a href="#"><img src="https://picsum.photos/id/237/900/700" alt="Get inspired"
-                                    class="img-fluid"></a></div>
-                        <div class="item"><a href="#"><img src="https://picsum.photos/id/238/900/700" alt="Get inspired"
-                                    class="img-fluid"></a></div>
-                        <div class="item"><a href="#"><img src="https://picsum.photos/id/239/900/700" alt="Get inspired"
-                                    class="img-fluid"></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--GET INSPIRED END-->
-        <!--BLOG HOMEPAGE-->
+
     </div>
 </div>
 <script type="module">
     import {lazyLoad} from "{% static '/assets/shop/jsComponents/lazyLoad.mjs' %}";
     import {calcQuantity} from "{% static '/jsComponents/productOperations.mjs' %}";
-    import {requestAjaxAdd2Modal} from "{% static '/jsComponents/requestAjaxAdd2Modal.mjs' %}"
+    import {requestAjaxAdd2Modal} from "{% static '/jsComponents/requestAjaxAdd2Modal.mjs' %}";
 
+    lazyLoad();
     calcQuantity();
     requestAjaxAdd2Modal();
 </script>
