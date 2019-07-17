@@ -115,20 +115,28 @@
                         <div class="card-header card-header-info">
                             <div class="text-center">{% trans "Attributes "%}</div>
                         </div>
-                        <div class="card-body">
-                        <!--attribute row-->
-                            {% for formset in attribute_formset %}
-                            {{ formset.non_field_errors }}
-                            {{ formset.errors }}
-                            {{ formset.type|add_class:"names-select2" }}
-                            {{ formset.id }}
+                        <div id="attributeListAll" class="card-body attributeList">
+                            <!--attribute row-->
+                            <div id="attributeList" class="row">
+                            <div class="col-11">
+                                {% for formset in attribute_formset %}
+                                {{ formset.non_field_errors }}
+                                {{ formset.errors }}
+                                {{ formset.type|add_class:"names-select2 mt-2" }}
+                                {{ formset.id }}
+                            </div>
+                            <div id="deleteCheckboxes" class="col-1">
+                                <i class="material-icons mt-1" >delete</i>
+                                    {{ formset.DELETE|attr:"hidden" }}
+                            </div>
+                            </div>
                             {% endfor %}
                             {{ attribute_formset.management_form }}
-                            <div class="card-footer text-muted">
+                            <!--/attribute row-->
+                        </div>
+                        <div class="card-footer text-muted">
                                 <button type="button" id="addForm" class="btn btn-sm btn-success ml-auto">{% trans "add new field" %}</button>
                             </div>
-                        <!--/attribute row-->
-                        </div>
                     </div>
                 </div>
                 <div class="col-4">
@@ -206,7 +214,7 @@
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.full.js"></script>
 
 <script type="module">
 import { addFormInFormset } from "{% static '/jsComponents/dashboard/addFormInFormset.mjs' %}";
@@ -238,7 +246,8 @@ document.getElementById("addForm").onclick = function() {addFormInFormset()};
 
     // assign theme pack to select2
     $(".names-select2").select2({
-        theme: "bootstrap"
+        theme: "bootstrap",
+        containerCssClass: 'mb-2',
     });
 </script>
 
