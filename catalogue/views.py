@@ -182,8 +182,7 @@ class ProductUpdate(UpdateView):
         image_formset = context['image_formset']
         price_records_formset = context['price_records_formset']
         attribute_formset = context['attribute_formset']
-        if image_formset.is_valid() and price_records_formset.is_valid()\
-                and attribute_formset.is_valid():
+        if image_formset.is_valid() and price_records_formset.is_valid() and attribute_formset.is_valid():
             image_formset.instance = self.object
             image_formset.save()
             price_records_formset.instance = self.object

@@ -15,10 +15,10 @@ class EmployeeForm(forms.ModelForm):
 
 class EmployeeSelfUpdateForm(forms.ModelForm):
     """ PartnerSelfUpdateForm - form for employees self-creating self-updating """
-    x = forms.FloatField(widget=forms.HiddenInput())
-    y = forms.FloatField(widget=forms.HiddenInput())
-    width = forms.FloatField(widget=forms.HiddenInput())
-    height = forms.FloatField(widget=forms.HiddenInput())
+    x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
+    y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
+    width = forms.FloatField(widget=forms.HiddenInput(), initial=0)
+    height = forms.FloatField(widget=forms.HiddenInput(), initial=0)
 
     class Meta:
         model = Employee
@@ -30,10 +30,11 @@ class EmployeeSelfUpdateForm(forms.ModelForm):
         pos_y = self.cleaned_data.get('y')
         width = self.cleaned_data.get('width')
         height = self.cleaned_data.get('height')
-        image = Image.open(instance.avatar)
-        cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
-        resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
-        resized_image.save(instance.avatar.path)
+        if width > 0 and height > 0:
+            image = Image.open(instance.avatar)
+            cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
+            resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
+            resized_image.save(instance.avatar.path)
         return instance
 
 
