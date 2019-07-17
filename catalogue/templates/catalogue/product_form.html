@@ -121,7 +121,12 @@
                             {{ formset.non_field_errors }}
                             {{ formset.errors }}
                             {{ formset.type|add_class:"names-select2" }}
+                            {{ formset.id }}
                             {% endfor %}
+                            {{ attribute_formset.management_form }}
+                            <div class="card-footer text-muted">
+                                <button type="button" id="addForm" class="btn btn-sm btn-success ml-auto">{% trans "add new field" %}</button>
+                            </div>
                         <!--/attribute row-->
                         </div>
                     </div>
@@ -138,6 +143,7 @@
                                 {{ formset.errors }}
                                 {{ formset|crispy }}
                                 {% endfor %}
+                                {{ price_records_formset.management_form }}
                                 <div class="d-flex align-items-end flex-row">
                                     <button class="btn btn-sm btn-success ml-auto"
                                         type="submit">{% trans "Save" %}</button>
@@ -173,8 +179,6 @@
                                         {{ formset.DELETE | attr:"hidden" }}
                                         {% endfor %}
                                         {{ image_formset.management_form }}
-                                        {{ price_records_formset.management_form }}
-                                        {{ attribute_formset.management_form }}
                                         <label for="id_image_set-0-image" class="custom-file-upload">
                                             <i class="material-icons">
                                                 cloud_upload
@@ -203,7 +207,11 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
-<script>
+
+<script type="module">
+import { addFormInFormset } from "{% static '/jsComponents/dashboard/addFormInFormset.mjs' %}";
+document.getElementById("addForm").onclick = function() {addFormInFormset()};
+
     $(".names-select2").select2({
         minimumInputLength: 1, // the minimum input length
         allowClear: true,
