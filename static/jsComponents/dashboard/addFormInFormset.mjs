@@ -1,5 +1,5 @@
 function addFormInFormset() {
-    $('.names-select2').select2();
+    addNewRow();
 
 }
 
