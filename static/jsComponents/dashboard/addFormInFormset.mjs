@@ -12,7 +12,7 @@ function addNewRow() {
   document.getElementById("attributeListAll").appendChild(clone);
 };
 
-function cnageLastHiddenInputForSelect(element) {
+function changeLastHiddenInputForSelect(element) {
     
 }
 

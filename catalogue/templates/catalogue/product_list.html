@@ -68,7 +68,7 @@
                                     <th><a href="?{% url_replace request 'o' 'brand' %}"> БРЕНД </a></th>
                                     <th><a href="?{% url_replace request 'o' 'category' %}"> КАТЕГОРІЯ {{ title }}</a></th>
                                     <th><a href="?{% url_replace request 'o' 'group' %}"> ГРУППА </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th>
+                                    {% comment %} <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th> {% endcomment %}
                                     <th>Дії</th>
                                 </thead>
                                 <tbody>
@@ -77,19 +77,23 @@
                                         <!--<td>-->
                                         <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
                                         <!--</td>-->
-                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a></td>
+                                        <td> {{ product.title }} </td>
                                         <td> {{ product.upc }}</td>
                                         <td> {{ product.brand }}</td>
                                         <td> {{ product.category }}</td>
                                         <td> {{ product.group }}</td>
-                                        <td> {{ product.is_active }}</td>
+                                        {% comment %} <td> {{ product.is_active }}</td> {% endcomment %}
                                         <td class="td-actions">
-                                              <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
-                                                  <i class="material-icons">settings</i>
-                                              </button>
-                                              <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                  <i class="material-icons">delete</i>
-                                              </button>
+                                            <button type="button" href="{% url 'product_update' product.id %}" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                                <a href="{% url 'product_update' product.id %}">
+                                                    <i class="material-icons">settings</i>
+                                                </a>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
+                                                <a href="{% url 'product_delete' product.id %}">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </button>
                                         </td>
                                     </tr>
                                     {% endfor %}
