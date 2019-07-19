@@ -90,7 +90,7 @@
                                                 </a>
                                             </button>
                                             <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                <a href="{% url 'product_delete' product.id %}">
+                                                <a data-toggle="modal" onclick="deleteProduct({{ product.pk }})" data-target="#modal" href="{% url 'product_delete' product.pk %}">
                                                     <i class="material-icons">delete</i>
                                                 </a>
                                             </button>
@@ -105,4 +105,22 @@
             </div>
         </div>
     </div>
-        {% endblock %}
+    {% include './product_confirm_delete.html' %}
+
+
+<script>
+
+// init modal and ajax request
+function deleteProduct(pk) {
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "/product/delete/" + pk,
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+};
+</script>
+{% endblock %}
