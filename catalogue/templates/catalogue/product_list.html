@@ -2,6 +2,7 @@
 {% load ita_template_tags %} 
 {% load staticfiles %} 
 {% load widget_tweaks %} 
+{% load i18n %}
 {% block title %}
 <title>SmartMed | Список товарів</title>
 {% endblock %}
@@ -14,20 +15,21 @@
             <div class="panel-heading">
                 <div class="panel-title">
                     <a class="accordion" data-toggle="collapse" data-parent="#accordion" href="#collapse_1" aria-expanded="false" style="
-                                            display: inline-block;
-                                            position: relative;
-                                            left: 50%;
-                                            top: 50%;
-                                            transform: translate(-50%, -50%);"> Фільтр </a>
+                                            display:   inline-block;
+                                            position:  relative;
+                                            left:      50%;
+                                            top:       50%;
+                                            transform: translate(-50%, -50%);"> {% trans "Filter" %} </a>
                 </div>
-                <div style="height:30px; bottom: 0px; float: right">
+                <div style="height: 30px;
+                            bottom: 0px;
+                            float:  right">
                 </div>
             </div>
             <div id="collapse_1" class="collapse" aria-expanded="false">
                 <div class="container-flex">
                     <form action="{% url 'product_list' %}" method="get">
                         {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
-
                         <div class="container-fluid">
                             <div class="row">
                             <tr>
@@ -49,27 +51,24 @@
             </div>
         </div>
     </div>
-
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Список товарів</h4>
+                        <h4 class="card-title">{% trans "Product list" %}</h4>
                         <!--<p class="card-category"> some text</p>-->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead class=" text-primary">
-                                    <th><a href="?{% url_replace request 'o' 'title' %}"> НАЗВА ТОВАРУ </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'upc' %}"> UPC </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'brand' %}"> БРЕНД </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'category' %}"> КАТЕГОРІЯ {{ title }}</a></th>
-                                    <th><a href="?{% url_replace request 'o' 'group' %}"> ГРУППА </a></th>
-                                    {% comment %} <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th> {% endcomment %}
-                                    <th>Дії</th>
+                                    <th><a href="?{% url_replace request 'o' 'title' %}"> {% trans "Product title" %} </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'upc' %}"> {% trans "Product UPC" %} </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'brand' %}"> {% trans "Product brand" %} </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'category' %}"> {% trans "Product category" %} {{ title }}</a></th>
+                                    <th><a href="?{% url_replace request 'o' 'group' %}"> {% trans "Product group" %} </a></th>
+                                    <th>{% trans "Action" %}</th>
                                 </thead>
                                 <tbody>
                                     {% for product in products %}
@@ -106,10 +105,7 @@
         </div>
     </div>
     {% include './product_confirm_delete.html' %}
-
-
 <script>
-
 // init modal and ajax request
 function deleteProduct(pk) {
     $('#modal').on('show.bs.modal', function (event) {
