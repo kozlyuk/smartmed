@@ -42,6 +42,8 @@ class ShopGroups(ListView):
         context['groups'] = [(group.id, group.name) for group in Group.objects.all()]
         context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
 
+        return context
+
         # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
 
 
