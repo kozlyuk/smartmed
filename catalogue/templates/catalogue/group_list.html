@@ -43,7 +43,9 @@
                                                 <i class="material-icons">settings</i>
                                             </button>
                                             <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                <i class="material-icons">delete</i>
+                                                <a data-toggle="modal" onclick="deleteGroup({{ group.id }})" data-target="#modal" href="{% url 'group_delete' group.id %}">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
                                             </button>
                                         </td>
                                     </tr>
@@ -57,4 +59,19 @@
         </div>
     </div>
 </div>
+
+<script>
+// init modal and ajax request
+function deleteGroup(id) {
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "/dashboard/group/delete/" + id,
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+};
+</script>
 {% endblock %}

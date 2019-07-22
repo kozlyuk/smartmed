@@ -291,6 +291,7 @@ class GroupDelete(DeleteView):
     """ GroupDelete - view for deleting groups """
     model = Group
     success_url = reverse_lazy('group_list')
+    template_name = 'catalogue/group_confirm_delete.html'
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
