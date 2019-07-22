@@ -320,4 +320,6 @@ class BrandUpdate(UpdateView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class BrandDelete(DeleteView):
     """ BrandDelete - view for deleting brands """
+    model = Brand
     success_url = reverse_lazy('brand_list')
+    template_name = 'catalogue/brand_confirm_delete.html'
