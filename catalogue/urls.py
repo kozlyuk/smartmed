@@ -24,9 +24,12 @@ from django.views.generic import TemplateView                                   
 
 
 urlpatterns = [
+
+    # shop url's
     path('', ShopGroups.as_view(), name='shop_home'),
     path('product/list/', ShopHome.as_view(), name='shop_product_list'),
 
+    # dashboard url's
     path('dashboard/product/list/', ProductList.as_view(), name='product_list'),
     path('dashboard/product/create', ProductCreate.as_view(), name='product_create'),
     path('dashboard/product/update/<int:pk>/', ProductUpdate.as_view(), name='product_update'),
