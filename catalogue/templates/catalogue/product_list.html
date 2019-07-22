@@ -89,7 +89,7 @@
                                                 </a>
                                             </button>
                                             <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                <a data-toggle="modal" onclick="deleteProduct({{ product.pk }})" data-target="#modal" href="{% url 'product_delete' product.pk %}">
+                                                <a data-toggle="modal" onclick="deleteProduct({{ product.id }})" data-target="#modal" href="{% url 'product_delete' product.pk %}">
                                                     <i class="material-icons">delete</i>
                                                 </a>
                                             </button>
@@ -111,7 +111,7 @@ function deleteProduct(pk) {
     $('#modal').on('show.bs.modal', function (event) {
         var modal = $(this)
         $.ajax({
-            url: "/product/delete/" + pk,
+            url: "/dashboard/product/delete/" + pk,
             context: document.body
         }).done(function (response) {
             modal.html(response);
