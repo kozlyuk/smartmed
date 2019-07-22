@@ -223,6 +223,7 @@ class ProductUpdate(UpdateView):
 class ProductDelete(DeleteView):
     """ ProductUpdate - view for deleting products """
     model = Product
+    template_name = 'catalogue/product_confirm_delete.html'
 
     def get_success_url(self):
         self.success_url = reverse_lazy('product_list') + '?' +\
