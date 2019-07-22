@@ -27,7 +27,7 @@ class ShopGroups(ListView):
     def get_queryset(self):
         groups = Group.objects.all()
         category = self.request.GET.get('category', '1')
-        groups = groups.filter(category=category)
+        # groups = groups.filter(category=category)
         return groups
 
     def get_context_data(self, **kwargs):  # pylint: disable=W0221
