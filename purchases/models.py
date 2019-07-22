@@ -74,8 +74,8 @@ class Purchase(models.Model):
         ('pu', _('Purchase')),
     )
     type = models.CharField(_('Purchase type'), max_length=2, choices=PURCHASE_CHOICES, default='sa')
-    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), on_delete=models.PROTECT, null=True)
-    company = models.ForeignKey(Company, verbose_name=_('Company'), on_delete=models.PROTECT)
+    partner = models.ForeignKey(Partner, verbose_name=_('Partner'), blank=True, null=True, on_delete=models.PROTECT)
+    company = models.ForeignKey(Company, verbose_name=_('Company'), blank=True, null=True, on_delete=models.PROTECT)
     status = models.CharField(_('Deal type'), max_length=2, choices=STATUS_CHOICES, default=InBasket)
     pay_status = models.CharField('Статус оплати', max_length=2, choices=PAYMENT_STATUS_CHOICES, default=NotPaid)
     invoice_number = models.CharField(_('Invoice number'), max_length=45)
