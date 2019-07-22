@@ -57,6 +57,7 @@ class EmployeeList(ListView):
     """ EmployeeList - view for employees listing """
     model = Employee
     context_object_name = 'employees'  # Default: object_list
+    template_name = 'employee_confirm_delete.html'
     success_url = reverse_lazy('manager_home')
 
 

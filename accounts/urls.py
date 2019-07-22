@@ -16,6 +16,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
+    # dashboard url's
     path('dashboard/', ManagerHome.as_view(), name='manager_home'),
 
     path('dashboard/employee/list/', EmployeeList.as_view(), name='employee_list'),
