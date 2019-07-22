@@ -17,6 +17,35 @@ from purchases.models import InvoiceLine
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
+class ShopGroups(ListView):
+    """ ShopGroups - view for shop template with product groups of a category"""
+    template_name = 'shop_groups.html'
+    model = Group
+    context_object_name = 'groups'  # Default: object_list
+    paginate_by = 12
+
+    def get_queryset(self):
+        groups = Group.objects.all()
+        category = self.request.GET.get('category', '1')
+        groups = groups.filter(category=category)
+        return groups
+
+    def get_context_data(self, **kwargs):  # pylint: disable=W0221
+        context = super().get_context_data(**kwargs)
+        if 'purchase_id' in self.request.session:
+            context['basket_products_count'] = \
+                InvoiceLine.objects.filter(purchase=self.request.session.get('purchase_id')).count()
+        else:
+            context['basket_products_count'] = 0
+        context['groups_count'] = self.get_queryset().count()
+        context['categories'] = [(category.id, category.name) for category in Category.objects.all()]
+        context['groups'] = [(group.id, group.name) for group in Group.objects.all()]
+        context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
+
+        # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
+
+
+@method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class ShopHome(ListView):
     """ ShopHome - view for main shop template """
     template_name = 'shop_home.html'
@@ -47,7 +76,7 @@ class ShopHome(ListView):
 
     def get_context_data(self, **kwargs):  # pylint: disable=W0221
         context = super().get_context_data(**kwargs)
-        if self.request.session.get('purchase_id'):
+        if 'purchase_id' in self.request.session:
             context['basket_products_count'] = \
                 InvoiceLine.objects.filter(purchase=self.request.session.get('purchase_id')).count()
         else:
@@ -58,11 +87,6 @@ class ShopHome(ListView):
         context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
 
         # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
-        if self.request.POST:
-            context['filter_form'] = ProductFilterForm(self.request.POST)
-        else:
-            context['filter_form'] = ProductFilterForm(self.request.GET)
-        return context
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
