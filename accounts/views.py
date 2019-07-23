@@ -57,7 +57,6 @@ class EmployeeList(ListView):
     """ EmployeeList - view for employees listing """
     model = Employee
     context_object_name = 'employees'  # Default: object_list
-    template_name = 'employee_confirm_delete.html'
     success_url = reverse_lazy('manager_home')
 
 
@@ -79,6 +78,7 @@ class EmployeeUpdate(UpdateView):
 class EmployeeDelete(DeleteView):
     """ EmployeeDelete - view for deleting employees """
     model = Employee
+    template_name = 'employee_confirm_delete.html'
     success_url = reverse_lazy('employee_list')
 
 
@@ -118,6 +118,7 @@ class PartnerUpdate(UpdateView):
 class PartnerDelete(DeleteView):
     """ PartnerDelete - view for partners deleting """
     model = Partner
+    template_name = 'partner_confirm_delete.html'
     success_url = reverse_lazy('partner_list')
 
 

@@ -27,7 +27,7 @@ class ShopGroups(ListView):
     def get_queryset(self):
         groups = Group.objects.all()
         category = self.request.GET.get('category', '1')
-        # groups = groups.filter(category=category)
+        groups = groups.filter(category=category)
         return groups
 
     def get_context_data(self, **kwargs):  # pylint: disable=W0221
@@ -41,10 +41,9 @@ class ShopGroups(ListView):
         context['categories'] = [(category.id, category.name) for category in Category.objects.all()]
         context['groups'] = [(group.id, group.name) for group in Group.objects.all()]
         context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
+        # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
 
         return context
-
-        # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
