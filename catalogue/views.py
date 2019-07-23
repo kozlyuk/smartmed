@@ -88,6 +88,7 @@ class ShopProducts(ListView):
         context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
 
         # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
+        return context
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
