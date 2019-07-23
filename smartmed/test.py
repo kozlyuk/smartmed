@@ -82,11 +82,11 @@ class DashboardPartnerUpdateTest(TestCase):
         response = self.client.get('/dashboard/partner/update/123', follow = True) 
         self.assertEqual(response.status_code, 200)
 
-class DashboardPartnerUpdateTest(TestCase):
+class DashboardPartnerSelfUpdateTest(TestCase):
     def setUp(self): 
         self.client = Client()
 
     def test(self):
-        response = self.client.get('dashboard/partner/self_update', follow = True) 
+        response = self.client.post('/dashboard/partner/self_update/', follow = True) 
         self.assertEqual(response.status_code, 200)
 
