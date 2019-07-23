@@ -19,6 +19,7 @@ from purchases.views import AddToBasketModal, PurchaseUpdate
 
 
 urlpatterns = [
+    # shop url's
     path('basket/', PurchaseUpdate.as_view(), name='basket'),
     path('basket/add/<int:product>/', AddToBasketModal.as_view(), name='invoice_line_create'),
 

@@ -50,6 +50,11 @@
                                                 <a target="_blank" href="{% url 'partner_update' partner.id %}" />
                                                 <i class="material-icons">open_in_new</i>
                                             </button>
+                                            <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
+                                                <a data-toggle="modal" onclick="deletePartner({{ partner.id }})" data-target="#modal" href="{% url 'partner_delete' partner.id %}">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </button>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -61,12 +66,26 @@
             </div>
         </div>
     </div>
+    {% include './modal.html' %}
 </div>
 {% block extrascripts %}
 <script>
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-})
+});
+
+// init modal and ajax request
+function deletePartner(id) {
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "/dashboard/partner/delete/" + id,
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+};
 </script>
 {% endblock extrascripts %}
 {% endblock %}

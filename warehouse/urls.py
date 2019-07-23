@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
-    path('warehouse/list/', TemplateView.as_view(template_name='warehouse_list.html'), name='warehouse_list'),
+    # dashboard url's
+    path('dashboard/warehouse/list/', TemplateView.as_view(template_name='warehouse_list.html'), name='warehouse_list'),
 
 ]

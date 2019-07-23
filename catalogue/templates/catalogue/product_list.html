@@ -4,7 +4,7 @@
 {% load widget_tweaks %} 
 {% load i18n %}
 {% block title %}
-<title>SmartMed | Список товарів</title>
+<title>SmartMed | {% trans "Product list" %}</title>
 {% endblock %}
 {% block sidebar %} 
 {% endblock %} 
@@ -89,7 +89,7 @@
                                                 </a>
                                             </button>
                                             <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                <a data-toggle="modal" onclick="deleteProduct({{ product.pk }})" data-target="#modal" href="{% url 'product_delete' product.pk %}">
+                                                <a data-toggle="modal" onclick="deleteProduct({{ product.id }})" data-target="#modal" href="{% url 'product_delete' product.pk %}">
                                                     <i class="material-icons">delete</i>
                                                 </a>
                                             </button>
@@ -104,14 +104,14 @@
             </div>
         </div>
     </div>
-    {% include './product_confirm_delete.html' %}
+    {% include './modal.html' %}
 <script>
 // init modal and ajax request
 function deleteProduct(pk) {
     $('#modal').on('show.bs.modal', function (event) {
         var modal = $(this)
         $.ajax({
-            url: "/product/delete/" + pk,
+            url: "/dashboard/product/delete/" + pk,
             context: document.body
         }).done(function (response) {
             modal.html(response);

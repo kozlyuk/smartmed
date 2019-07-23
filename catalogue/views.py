@@ -27,7 +27,7 @@ class ShopGroups(ListView):
     def get_queryset(self):
         groups = Group.objects.all()
         category = self.request.GET.get('category', '1')
-        groups = groups.filter(category=category)
+        # groups = groups.filter(category=category)
         return groups
 
     def get_context_data(self, **kwargs):  # pylint: disable=W0221
@@ -41,6 +41,8 @@ class ShopGroups(ListView):
         context['categories'] = [(category.id, category.name) for category in Category.objects.all()]
         context['groups'] = [(group.id, group.name) for group in Group.objects.all()]
         context['brands'] = [(brand.id, brand.name) for brand in Brand.objects.all()]
+
+        return context
 
         # self.request.session['products_query_string'] = self.request.META['QUERY_STRING']
 
@@ -221,6 +223,7 @@ class ProductUpdate(UpdateView):
 class ProductDelete(DeleteView):
     """ ProductUpdate - view for deleting products """
     model = Product
+    template_name = 'catalogue/product_confirm_delete.html'
 
     def get_success_url(self):
         self.success_url = reverse_lazy('product_list') + '?' +\
@@ -288,6 +291,7 @@ class GroupDelete(DeleteView):
     """ GroupDelete - view for deleting groups """
     model = Group
     success_url = reverse_lazy('group_list')
+    template_name = 'catalogue/group_confirm_delete.html'
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
@@ -317,4 +321,6 @@ class BrandUpdate(UpdateView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class BrandDelete(DeleteView):
     """ BrandDelete - view for deleting brands """
+    model = Brand
     success_url = reverse_lazy('brand_list')
+    template_name = 'catalogue/brand_confirm_delete.html'

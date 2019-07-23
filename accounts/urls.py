@@ -16,17 +16,18 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
+    # dashboard url's
     path('dashboard/', ManagerHome.as_view(), name='manager_home'),
 
-    path('employee/list/', EmployeeList.as_view(), name='employee_list'),
-    path('employee/create', EmployeeCreate.as_view(), name='employee_create'),
-    path('employee/update/<int:pk>/', EmployeeUpdate.as_view(), name='employee_update'),
-    path('employee/delete/<int:pk>/', EmployeeDelete.as_view(), name='employee_delete'),
-    path('employee/self_update/', EmployeeSelfUpdate.as_view(), name='employee_self_update'),
+    path('dashboard/employee/list/', EmployeeList.as_view(), name='employee_list'),
+    path('dashboard/employee/create', EmployeeCreate.as_view(), name='employee_create'),
+    path('dashboard/employee/update/<int:pk>/', EmployeeUpdate.as_view(), name='employee_update'),
+    path('dashboard/employee/delete/<int:pk>/', EmployeeDelete.as_view(), name='employee_delete'),
+    path('dashboard/employee/self_update/', EmployeeSelfUpdate.as_view(), name='employee_self_update'),
 
-    path('partner/list/', PartnerList.as_view(), name='partner_list'),
-    path('partner/create', PartnerCreate.as_view(), name='partner_create'),
-    path('partner/update/<int:pk>/', PartnerUpdate.as_view(), name='partner_update'),
-    path('partner/delete/<int:pk>/', PartnerDelete.as_view(), name='partner_delete'),
-    path('partner/self_update/', PartnerSelfUpdate.as_view(), name='partner_self_update'),
+    path('dashboard/partner/list/', PartnerList.as_view(), name='partner_list'),
+    path('dashboard/partner/create', PartnerCreate.as_view(), name='partner_create'),
+    path('dashboard/partner/update/<int:pk>/', PartnerUpdate.as_view(), name='partner_update'),
+    path('dashboard/partner/delete/<int:pk>/', PartnerDelete.as_view(), name='partner_delete'),
+    path('dashboard/partner/self_update/', PartnerSelfUpdate.as_view(), name='partner_self_update'),
 ]
