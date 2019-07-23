@@ -6,15 +6,15 @@
             <div class="row">
                 <div class="col-lg-6 offer mb-3 mb-lg-0">
                     <!-- <a href="#" class="btn btn-success btn-sm">Покупка дня</a> -->
-                    <p>Вітаю в інтернет-магазині SmartMed </p>
+                    <p>{% trans "Welcome to the online store" %} SmartMed </p>
                 </div>
                 <div class="col-lg-6 text-center text-lg-right">
                     <ul class="menu list-inline mb-0">
                         {% comment %} <li class="list-inline-item"><a href="#" data-toggle="modal"
                                 data-target="#login-modal">Вхід</a>
                         </li> {% endcomment %}
-                        <li class="list-inline-item"><a href="register.html">Реєстрація</a></li>
-                        <li class="list-inline-item"><a href="contact.html">Контакти</a></li>
+                        <li class="list-inline-item"><a href="register.html">{% trans "Registration"%}</a></li>
+                        <li class="list-inline-item"><a href="contact.html">{% trans "Contact's" %}</a></li>
                     </ul>
                 </div>
             </div>
@@ -23,23 +23,23 @@
         <!--TOP BAR END-->
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container"><a href="{% url 'shop_products' %}" class="navbar-brand home"><img
+        <div class="container"><a href="{% url 'shop_groups' %}" class="navbar-brand home"><img
                     src="{% static '/assets/img/logo.png' %}" alt="SmartMed logo" class="d-none d-md-inline-block"><img
                     src="{% static '/assets/img/logo.png' %}" alt="SmartMed logo" class="d-inline-block d-md-none"><span
-                    class="sr-only">SmartMed - go to homepage</span></a>
+                    class="sr-only">SmartMed - {% trans "go to homepage" %}</span></a>
             <div class="navbar-buttons">
                 <button type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation"
                     aria-expanded="false" aria-label="Toggle navigation"
-                    class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">Toggle navigation</span><i
+                    class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">{% trans "Toggle navigation" %}</span><i
                         class="fa fa-align-justify"></i></button>
                 <button type="button" data-toggle="collapse" data-target="#search"
-                    class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">Toggle search</span><i
+                    class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">{% trans "Toggle search" %}</span><i
                         class="fa fa-search"></i></button><a href="basket.html"
                     class="btn btn-outline-secondary navbar-toggler"><i class="fa fa-shopping-cart"></i></a>
             </div>
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a href="{% url 'shop_products' %}" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'shop_groups' %}" class="nav-link">{% trans "Home" %}</a></li>
                     <!--categories menu-->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="categories" data-toggle="dropdown"
@@ -79,9 +79,12 @@
                         </div>
                     </li>
                     <!--/brands menu-->
+                    {% if request.resolver_match.url_name == "shop_products" %}
+                    {% else %}
                     <!--all product button-->
                     <li class="nav-item"><a href="{% url 'shop_products' %}" class="nav-link">{% trans "All product's" %}</a></li>
                     <!--/all product button-->
+                    {% endif %}
                 </ul>
                 <div class="navbar-buttons d-flex justify-content-end">
                     <!-- /.nav-collapse-->
@@ -89,7 +92,7 @@
                     {% else %}
                     <div id="search-not-mobile" class="navbar-collapse collapse"></div><a data-toggle="collapse"
                         href="#search" class="btn navbar-btn btn-primary d-none d-lg-inline-block"><span
-                            class="sr-only">Пошук</span><i style="font-size: 15;" class="fa fa-search"></i></a>
+                            class="sr-only">{% trans "Search" %}</span><i style="font-size: 15;" class="fa fa-search"></i></a>
                     {% if basket_products_count|lower == "0" %}
                     <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
                         <button class="btn btn-primary navbar-btn" disabled>
@@ -114,7 +117,7 @@
         <form id="searchForm" role="search" class="ml-auto">
             <div class="container">
                 <div class="input-group">
-                    {{ filter_form.filter|attr:"type:text"|attr:"placeholder=Пошук..."|add_class:"form-control" }}
+                    {{ filter_form.filter|attr:"type:text"|attr:"placeholder=Search..."|add_class:"form-control" }}
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </div>
