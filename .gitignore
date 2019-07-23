@@ -1,7 +1,7 @@
 __pycache__
 venv/
 myvenv/
-*/migrations/
+# */migrations/
 media/
 .idea/
 */local_settings.py
