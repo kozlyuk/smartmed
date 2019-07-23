@@ -18,9 +18,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'category']
     fieldsets = [
         (None, {'fields': ['name',
+                           'category'
                            ]})
         ]
 
@@ -72,10 +73,10 @@ class AttributeInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'upc', 'brand', 'category', 'group', 'is_active']
+    list_display = ['title', 'upc', 'brand', 'group', 'is_active']
     fieldsets = [
         (None, {'fields': [('title', 'upc'),
-                           ('category', 'group', 'brand'),
+                           ('group', 'brand'),
                            ('pack_size', 'min_store_quantity', 'default_uom'),
                            ('warranty_terms', 'has_instances', 'is_discountable', 'is_active'),
                            'description',

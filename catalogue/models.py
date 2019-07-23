@@ -28,10 +28,16 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def groups_count(self):
+        """ return groups quantity of category"""
+        return self.group_set.all().count()
+    groups_count.short_description = _('Groups count')
+
 
 class Group(models.Model):
     """ Model contains product Groups """
     name = models.CharField(_('Group name'), max_length=32, unique=True)
+    category = models.ForeignKey(Category, verbose_name=_('Group Category'), on_delete=models.PROTECT)
     image = models.ImageField(_('Brand Image'), upload_to='groups/', blank=True, null=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
@@ -42,6 +48,11 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
+    def products_count(self):
+        """ return product quantity of group"""
+        return self.product_set.all().count()
+    products_count.short_description = _('Products count')
 
 
 class Brand(models.Model):
@@ -80,7 +91,6 @@ class Product(models.Model):
     """ Model contains Products """
     title = models.CharField(_('Product title'), max_length=255)
     upc = models.CharField(_('Product UPC'), max_length=32, unique=True)
-    category = models.ForeignKey(Category, verbose_name=_('Product Category'), on_delete=models.PROTECT)
     group = models.ForeignKey(Group, verbose_name=_('Product Group'), on_delete=models.PROTECT)
     brand = models.ForeignKey(Brand, verbose_name=_('Product Brand'), on_delete=models.PROTECT)
     attributes = models.ManyToManyField(AttributeType, through='Attribute', verbose_name=_('Attributes'), blank=True)

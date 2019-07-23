@@ -65,7 +65,7 @@ class ShopHome(ListView):
                                        Q(upc__icontains=word) |
                                        Q(description__icontains=word))
         if category != '0':
-            products = products.filter(category=category)
+            products = products.filter(group__category=category)
         if group != '0':
             products = products.filter(group=group)
         if brand != '0':
@@ -115,7 +115,7 @@ class ProductList(ListView):
                                        Q(upc__icontains=word) |
                                        Q(description__icontains=word))
         if category != '0':
-            products = products.filter(category=category)
+            products = products.filter(group__category=category)
         if group != '0':
             products = products.filter(group=group)
         if brand != '0':

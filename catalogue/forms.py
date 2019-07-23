@@ -39,7 +39,7 @@ class ProductForm(forms.ModelForm):
     """ ProductForm - form for products creating or updating """
     class Meta:
         model = Product
-        fields = ['title', 'upc', 'category', 'group', 'brand', 'description',
+        fields = ['title', 'upc', 'group', 'brand', 'description',
                   'warranty_terms', 'default_uom', 'pack_size', 'min_store_quantity',
                   'has_instances', 'is_discountable', 'is_active']
 
