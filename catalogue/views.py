@@ -47,9 +47,9 @@ class ShopGroups(ListView):
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
-class ShopHome(ListView):
-    """ ShopHome - view for main shop template """
-    template_name = 'shop_home.html'
+class ShopProducts(ListView):
+    """ ShopProducts - view for main shop template """
+    template_name = 'shop_products.html'
     model = Product
     context_object_name = 'products'  # Default: object_list
     paginate_by = 12

@@ -48,7 +48,7 @@ class AddToBasketModal(UpdateView):
     def get_success_url(self):
         if self.request.POST.get('save_go_basket'):
             return reverse('basket')
-        return reverse('shop_home')
+        return reverse('shop_products')
 
 
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
@@ -57,7 +57,7 @@ class PurchaseUpdate(UpdateView):
     template_name = 'basket.html'
     context_object_name = 'order'
     fields = []
-    success_url = reverse_lazy('shop_home')
+    success_url = reverse_lazy('shop_products')
 
     def get_object(self, queryset=None):
         if 'purchase_id' in self.request.session and \
