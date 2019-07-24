@@ -1,99 +1,120 @@
-function addFormInFormset() {
-    addNewRow();
-
+//price
+function updateElementIndex(el, prefix, ndx) {
+  var id_regex = new RegExp('(' + prefix + '-\\d+)');
+  var replacement = prefix + '-' + ndx;
+  if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+  if (el.id) el.id = el.id.replace(id_regex, replacement);
+  if (el.name) el.name = el.name.replace(id_regex, replacement);
 }
 
-function addNewRow() {
-  let targetFormRow = document.querySelector("#attributeList");
-  let clone = targetFormRow.cloneNode(true);
+function cloneMore(selector, prefix) {
+  var newElement = $(selector).clone(true);
+  var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+  newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function () {
+    var name = $(this).attr('name').replace('-' + (total - 1) + '-', '-' + total + '-');
+    var id = 'id_' + name;
+    $(this).attr({
+      'name': name,
+      'id': id
+    }).val('').removeAttr('checked');
+  });
+  newElement.find('label').each(function () {
+    var forValue = $(this).attr('for');
+    if (forValue) {
+      forValue = forValue.replace('-' + (total - 1) + '-', '-' + total + '-');
+      $(this).attr({
+        'for': forValue
+      });
+    }
+  });
+  total++;
+  $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+  $(selector).after(newElement);
+  var conditionRow = $('.form-row:nth-last-child(3)');
+  conditionRow.find('.btn.add-form-row')
+    .removeClass('btn-outline-success').addClass('btn-outline-danger')
+    .removeClass('add-form-row').addClass('remove-form-row')
+    .html('<i class="material-icons">remove</i>');
+  return false;
+}
 
-  changeLastHiddenInputForDelete(clone);
+function deleteForm(prefix, btn) {
+  var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+  if (total > 1) {
+    btn.closest('.form-row').remove();
+    var forms = $('.form-row');
+    $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+    for (var i = 0, formCount = forms.length; i < formCount; i++) {
+      $(forms.get(i)).find(':input').each(function () {
+        updateElementIndex(this, prefix, i);
+      });
+    }
+  }
+  return false;
+}
 
-  document.getElementById("attributeListAll").appendChild(clone);
+//attr
+function updateElementIndexAttr(el, prefix, ndx) {
+  var id_regex = new RegExp('(' + prefix + '-\\d+)');
+  var replacement = prefix + '-' + ndx;
+  if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+  if (el.id) el.id = el.id.replace(id_regex, replacement);
+  if (el.name) el.name = el.name.replace(id_regex, replacement);
+}
+
+function cloneMoreAttr(selector, prefix) {
+  var newElement = $(selector).clone(true);
+  var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+  newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function () {
+    var name = $(this).attr('name').replace('-' + (total - 1) + '-', '-' + total + '-');
+    var id = 'id_' + name;
+    $(this).attr({
+      'name': name,
+      'id': id
+    }).val('').removeAttr('checked');
+  });
+  newElement.find('label').each(function () {
+    var forValue = $(this).attr('for');
+    if (forValue) {
+      forValue = forValue.replace('-' + (total - 1) + '-', '-' + total + '-');
+      $(this).attr({
+        'for': forValue
+      });
+    }
+  });
+  total++;
+  $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+  $(selector).after(newElement);
+  var conditionRow = $('.form-row-attr:nth-last-child(3)');
+  conditionRow.find('.btn.add-form-row-attr')
+    .removeClass('btn-outline-success').addClass('btn-outline-danger')
+    .removeClass('add-form-row-attr').addClass('remove-form-row-attr')
+    .html('<i class="material-icons">remove</i>');
+  return false;
+}
+
+function deleteFormAttr(prefix, btn) {
+  var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+  if (total > 1) {
+    btn.closest('.form-row-attr').remove();
+    var forms = $('.form-row-attr');
+    $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+    for (var i = 0, formCount = forms.length; i < formCount; i++) {
+      $(forms.get(i)).find(':input').each(function () {
+        updateElementIndexAttr(this, prefix, i);
+      });
+    }
+  }
+  return false;
+}
+
+
+
+export {
+  cloneMore,
+  deleteForm,
+  updateElementIndex,
+  cloneMoreAttr,
+  deleteFormAttr,
+  updateElementIndexAttr,
 };
-
-function changeLastHiddenInputForSelect(element) {
-    
-}
-
-function changeLastHiddenInputForDelete(element) {
-  //get ALL existing inputs
-  let hiddenInput = document.querySelectorAll("#deleteCheckboxes>input");
-  //get last input from existing inputs
-  let lastHiddenInput = hiddenInput[hiddenInput.length - 1];
-  //remove all symbol before number
-  let getAttribute = lastHiddenInput
-    .getAttribute("name")
-    .replace(/attribute_set-/g, " ");
-
-  //convert str to int
-  let inputId = parseInt(getAttribute, 10); //get id from hidden input
-  let getParentDivCheckbox = element.lastElementChild;
-  let getCheckbox = getParentDivCheckbox.lastElementChild;
-  //create attribute
-  let attributeId = "id_attribute_set-" + (inputId + 1) + "-DELETE";
-  let attributeName = "attribute_set-" + (inputId + 1) + "-DELETE";
-
-  //remove id and name attributes
-  getCheckbox.removeAttribute("id");
-  getCheckbox.removeAttribute("name");
-  //put new attribute
-  getCheckbox.setAttribute("id", attributeId);
-  getCheckbox.setAttribute("name", attributeName);
-}
-
-function checkDeleteCheckboxes() {}
-
-export { addFormInFormset };
-
-// * * * * * * * * *
-//  jquery syntax
-// * * * * * * * * *
-
-// $(function() {
-//     setTimeout(function() {
-//     $('span.select2-container.select2-container--bootstrap').width('auto');
-//     }, 100);
-//     $('#ExecutorsTable tbody').formset({
-//         prefix: '{{ executors_formset.prefix }}',
-//         formCssClass: 'dynamic-formset1',
-//         addText: 'Додати Виконавця',
-//         deleteText: 'Видалити Виконавця',
-//         'added': function(row){
-//             //find the fields with the calendar widget
-//             $(row).find('.vDateField').each(function(i){
-//                 //remove the cloned spam element: it links to an incorrect calendar
-//                 $(this).parent().find('span').remove();
-//                 //DateTimeShortcuts is in the django admin widgets
-//                 DateTimeShortcuts.addCalendar(this);
-//             })
-//             $(row).find('.django-select2').djangoSelect2();
-//         }
-//     });
-//     $('#CostsTable tbody').formset({
-//         prefix: '{{ costs_formset.prefix }}',
-//         formCssClass: 'dynamic-formset2',
-//         addText: 'Додати Підрядника',
-//         deleteText: 'Видалити Підрядника',
-//         'added': function(row){
-//             $(row).find('.vDateField').each(function(i){
-//                 $(this).parent().find('span').remove();
-//                 DateTimeShortcuts.addCalendar(this);
-//                 });
-//             $(row).find('.django-select2').djangoSelect2();
-//         }
-//     });
-//     $('#SendingTable tbody').formset({
-//         prefix: '{{ sending_formset.prefix }}',
-//         formCssClass: 'dynamic-formset3',
-//         addText: 'Додати Відправку',
-//         deleteText: 'Видалити Відправку',
-//         'added': function(row){
-//             $(row).find('.vDateField').each(function(i){
-//                 $(this).parent().find('span').remove();
-//                 DateTimeShortcuts.addCalendar(this);
-//                 });
-//             $(row).find('.django-select2').djangoSelect2();
-//         }
-//     });
-// })

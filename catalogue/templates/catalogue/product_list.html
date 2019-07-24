@@ -10,35 +10,40 @@
 {% endblock %} 
 {% block context %}
 <div class="content">
-    <div class="panel-group accordion" id="accordion1">
+    <div class="panel-group">
         <div class="panel panel-default">
             <div class="container-flex">
-                <form style="margin-bottom: 0px" action="{% url 'product_list' %}" method="get">
-                    {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
-                    <div class="container-fluid">
-                        <div class="row">
-                            <tr>
-                                {% for field in filter_form.visible_fields|slice:":3" %}
-                                <div class="col-3 d-flex align-items-end">
-                                    {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }}
-                                    {% if field.help_text %}
-                                    <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <form style="margin-bottom: 0px" action="{% url 'product_list' %}" method="get">
+                                <div class="row">
+                                    {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
+                                    <tr>
+                                        {% for field in filter_form.visible_fields|slice:":3" %}
+                                        <div class="col-3 d-flex align-items-end">
+                                            {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }}
+                                            {% if field.help_text %}
+                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                        <div class="col d-flex align-items-end">
+                                            {% if perms.smartmed.add_product %}
+                                            <a href="{% url 'product_create' %}"
+                                                class="btn btn-block align-bottom btn-sm btn-success uppercase" <i
+                                                class="fa fa-plus"></i> Додати товар </a> {% endif %}
+                                        </div>
+                                    </tr>
                                 </div>
-                                {% endfor %}
-                                <div class="col d-flex align-items-end">
-                                    {% if perms.smartmed.add_product %}
-                                    <a href="{% url 'product_create' %}"
-                                        class="btn btn-block align-bottom btn-sm btn-success uppercase" <i
-                                        class="fa fa-plus"></i> Додати товар </a> {% endif %}
-                                </div>
-                            </tr>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-flex">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
