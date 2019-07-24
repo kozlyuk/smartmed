@@ -12,42 +12,29 @@
 <div class="content">
     <div class="panel-group accordion" id="accordion1">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <a class="accordion" data-toggle="collapse" data-parent="#accordion" href="#collapse_1" aria-expanded="false" style="
-                                            display:   inline-block;
-                                            position:  relative;
-                                            left:      50%;
-                                            top:       50%;
-                                            transform: translate(-50%, -50%);"> {% trans "Filter" %} </a>
-                </div>
-                <div style="height: 30px;
-                            bottom: 0px;
-                            float:  right">
-                </div>
-            </div>
-            <div id="collapse_1" class="collapse" aria-expanded="false">
-                <div class="container-flex">
-                    <form action="{% url 'product_list' %}" method="get">
-                        {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
-                        <div class="container-fluid">
-                            <div class="row">
+            <div class="container-flex">
+                <form style="margin-bottom: 0px" action="{% url 'product_list' %}" method="get">
+                    {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
+                    <div class="container-fluid">
+                        <div class="row">
                             <tr>
                                 {% for field in filter_form.visible_fields|slice:":3" %}
                                 <div class="col-3 d-flex align-items-end">
-                                    {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }} {% if field.help_text %}
+                                    {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }}
+                                    {% if field.help_text %}
                                     <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
                                 </div>
                                 {% endfor %}
                                 <div class="col d-flex align-items-end">
                                     {% if perms.smartmed.add_product %}
-                                    <a href="{% url 'product_create' %}" class="btn btn-block align-bottom btn-sm btn-success uppercase" <i class="fa fa-plus"></i> Додати товар </a> {% endif %}
+                                    <a href="{% url 'product_create' %}"
+                                        class="btn btn-block align-bottom btn-sm btn-success uppercase" <i
+                                        class="fa fa-plus"></i> Додати товар </a> {% endif %}
                                 </div>
                             </tr>
-                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -66,7 +53,6 @@
                                     <th><a href="?{% url_replace request 'o' 'title' %}"> {% trans "Product title" %} </a></th>
                                     <th><a href="?{% url_replace request 'o' 'upc' %}"> {% trans "Product UPC" %} </a></th>
                                     <th><a href="?{% url_replace request 'o' 'brand' %}"> {% trans "Product brand" %} </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'category' %}"> {% trans "Product category" %} {{ title }}</a></th>
                                     <th><a href="?{% url_replace request 'o' 'group' %}"> {% trans "Product group" %} </a></th>
                                     <th>{% trans "Action" %}</th>
                                 </thead>
@@ -79,7 +65,6 @@
                                         <td> {{ product.title }} </td>
                                         <td> {{ product.upc }}</td>
                                         <td> {{ product.brand }}</td>
-                                        <td> {{ product.category }}</td>
                                         <td> {{ product.group }}</td>
                                         {% comment %} <td> {{ product.is_active }}</td> {% endcomment %}
                                         <td class="td-actions">

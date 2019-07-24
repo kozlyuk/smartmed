@@ -11,7 +11,7 @@
         <div class="modal-body">
             <form method="post" action="{% url 'product_delete' object.id %}"> {% csrf_token %}
                 <p>{% trans "Are you sure you want to delete" %} "{{ object }}"?</p>
-                <input type="submit" value="{% trans 'Confirm?' %}">
+                <button class="btn btn-sm btn-danger" type="submit">{% trans 'Confirm' %}</button>
             </form>
         </div>
     </div><!-- /.modal-content -->
