@@ -120,7 +120,7 @@ class Product(models.Model):
         actual_price = None
         actual_from_date = None
         for price in self.pricerecord_set.all():
-            if price.from_date < datetime.date.today():
+            if price.from_date <= datetime.date.today():
                 if not actual_from_date or actual_from_date < price.from_date:
                     actual_from_date = price.from_date
                     actual_price = price.regular_price
