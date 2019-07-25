@@ -152,7 +152,7 @@
                                 </div>
                                         {{ formset.DELETE|attr:"hidden" }}
                                 <div class="col-2 text-muted">
-                                <button type="button" id="addFormPrice"
+                                <button type="button" id="addFormAttr"
                                     class="add-form-row-attr btn btn-sm btn-outline-success">
                                     <i class="material-icons">
                                         add
@@ -253,7 +253,7 @@ $(document).on('click', '.remove-form-row-attr', function (e) {
 
 $(document).on('click', '.add-form-row-attr', function (e) {
     e.preventDefault();
-    cloneMore('.form-row-attr:last', 'form');
+    cloneMoreAttr('.form-row-attr:last', 'form');
     return false;
 });
 

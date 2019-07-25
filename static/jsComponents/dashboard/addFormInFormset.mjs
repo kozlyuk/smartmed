@@ -30,7 +30,7 @@ function cloneMore(selector, prefix) {
   total++;
   $('#id_' + prefix + '-TOTAL_FORMS').val(total);
   $(selector).after(newElement);
-  var conditionRow = $('.form-row:nth-last-child(3)');
+  var conditionRow = $('.form-row:not(:last)');
   conditionRow.find('.btn.add-form-row')
     .removeClass('btn-outline-success').addClass('btn-outline-danger')
     .removeClass('add-form-row').addClass('remove-form-row')
@@ -85,7 +85,7 @@ function cloneMoreAttr(selector, prefix) {
   total++;
   $('#id_' + prefix + '-TOTAL_FORMS').val(total);
   $(selector).after(newElement);
-  var conditionRow = $('.form-row-attr:nth-last-child(3)');
+  var conditionRow = $('.form-row-attr:not(:last)');
   conditionRow.find('.btn.add-form-row-attr')
     .removeClass('btn-outline-success').addClass('btn-outline-danger')
     .removeClass('add-form-row-attr').addClass('remove-form-row-attr')
