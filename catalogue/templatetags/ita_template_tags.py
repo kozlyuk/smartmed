@@ -15,6 +15,8 @@ def url_replace(request, field, value):
 
 @register.filter
 def value_format(value):
+    if value is None:
+        return '0.00' + ' ' + settings.DEFAULT_CURRENCY
     return str(round(Decimal(value), 2)) + ' ' + settings.DEFAULT_CURRENCY
 
 

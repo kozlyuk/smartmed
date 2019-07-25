@@ -11,6 +11,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from catalogue.forms import Product, ProductForm, ProductFilterForm
 from catalogue.forms import IMAGE_FORMSET, PRICE_RECORD_FORMSET, ATTRIBUTE_FORMSET
+from catalogue.forms import IMAGE_FORMSET_EXTRA, PRICE_RECORD_FORMSET_EXTRA, ATTRIBUTE_FORMSET_EXTRA
 from catalogue.forms import Category, CategoryForm, Group, GroupForm, Brand, BrandForm
 
 from purchases.models import InvoiceLine
@@ -153,13 +154,13 @@ class ProductCreate(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
-            context['image_formset'] = IMAGE_FORMSET(self.request.POST, instance=self.object)
-            context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST, instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET_EXTRA(self.request.POST, instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA(self.request.POST, instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(self.request.POST, instance=self.object)
         else:
-            context['image_formset'] = IMAGE_FORMSET(instance=self.object)
-            context['price_records_formset'] = PRICE_RECORD_FORMSET(instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET_EXTRA(instance=self.object)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA(instance=self.object)
+            context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(instance=self.object)
         return context
 
     def form_valid(self, form):

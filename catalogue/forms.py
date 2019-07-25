@@ -70,6 +70,7 @@ class ImageInlineForm(forms.ModelForm):
 
 
 IMAGE_FORMSET = inlineformset_factory(Product, Image, form=ImageInlineForm, extra=0)
+IMAGE_FORMSET_EXTRA = inlineformset_factory(Product, Image, form=ImageInlineForm, extra=1   )
 
 
 class PriceRecordInlineForm(forms.ModelForm):
@@ -82,6 +83,8 @@ class PriceRecordInlineForm(forms.ModelForm):
 
 PRICE_RECORD_FORMSET = inlineformset_factory(Product, PriceRecord,
                                              form=PriceRecordInlineForm, extra=0)
+PRICE_RECORD_FORMSET_EXTRA = inlineformset_factory(Product, PriceRecord,
+                                                   form=PriceRecordInlineForm, extra=1)
 
 
 class AttributeInlineForm(forms.ModelForm):
@@ -93,6 +96,8 @@ class AttributeInlineForm(forms.ModelForm):
 
 ATTRIBUTE_FORMSET = inlineformset_factory(Product, Attribute,
                                           form=AttributeInlineForm, extra=0)
+ATTRIBUTE_FORMSET_EXTRA = inlineformset_factory(Product, Attribute,
+                                                form=AttributeInlineForm, extra=1)
 
 
 class CategoryForm(forms.ModelForm):
