@@ -150,18 +150,18 @@
                                     {{ formset.type|add_class:"names-select2 mt-2" }}
                                     {{ formset.id }}
                                 </div>
-                                        {{ formset.DELETE|attr:"hidden" }}
+                                {{ formset.DELETE|attr:"hidden" }}
                                 <div class="col-2 text-muted">
-                                <button type="button" id="addFormAttr"
-                                    class="add-form-row-attr btn btn-sm btn-outline-success">
-                                    <i class="material-icons">
-                                        add
-                                    </i>
-                                </button>
+                                    <button type="button" id="addFormAttr"
+                                        class="add-form-row-attr btn btn-sm btn-outline-success">
+                                        <i class="material-icons">
+                                            add
+                                        </i>
+                                    </button>
                                 </div>
+                                {{ attribute_formset.management_form }}
                             </div>
                             {% endfor %}
-                            {{ attribute_formset.management_form }}
                             <!--/attribute row-->
                         </div>
                         
@@ -234,26 +234,26 @@ import {
 //price listeners
 $(document).on('click', '.remove-form-row', function (e) {
     e.preventDefault();
-    deleteForm('form', $(this));
+    deleteForm('pricerecord_set', $(this));
     return false;
 });
 
 $(document).on('click', '.add-form-row', function (e) {
     e.preventDefault();
-    cloneMore('.form-row:last', 'form');
+    cloneMore('.form-row:last', 'pricerecord_set');
     return false;
 });
 
 //attr listeners
 $(document).on('click', '.remove-form-row-attr', function (e) {
     e.preventDefault();
-    deleteForm('form', $(this));
+    deleteFormAttr('attribute_set', $(this));
     return false;
 });
 
 $(document).on('click', '.add-form-row-attr', function (e) {
     e.preventDefault();
-    cloneMoreAttr('.form-row-attr:last', 'form');
+    cloneMoreAttr('.form-row-attr:last', 'attribute_set');
     return false;
 });
 
