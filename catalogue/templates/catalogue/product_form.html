@@ -119,16 +119,16 @@
                                 {{ formset.errors }}
                                 {{ formset|crispy }}
                                 {% endfor %}
-                                {{ price_records_formset.management_form }}
-                            <div class="btn-group float-right">
-                                <button type="button" id="addFormPrice"
-                                    class="add-form-row btn btn-sm btn-outline-success">
-                                    <i class="material-icons">
-                                        add
-                                    </i>
-                                </button>
+                                <div class="btn-group float-right">
+                                    <button type="button" id="addFormPrice"
+                                        class="add-form-row btn btn-sm btn-outline-success">
+                                        <i class="material-icons">
+                                            add
+                                        </i>
+                                    </button>
+                                </div>
                             </div>
-                            </div>
+                            {{ price_records_formset.management_form }}
                             <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small>
                             </p>
                         </div>
@@ -150,7 +150,7 @@
                                     {{ formset.type|add_class:"names-select2 mt-2" }}
                                     {{ formset.id }}
                                 </div>
-                                {{ formset.DELETE|attr:"hidden" }}
+                                
                                 <div class="col-2 text-muted">
                                     <button type="button" id="addFormAttr"
                                         class="add-form-row-attr btn btn-sm btn-outline-success">
@@ -159,8 +159,8 @@
                                         </i>
                                     </button>
                                 </div>
-                                {{ attribute_formset.management_form }}
                             </div>
+                            {{ attribute_formset.management_form }}
                             {% endfor %}
                             <!--/attribute row-->
                         </div>
