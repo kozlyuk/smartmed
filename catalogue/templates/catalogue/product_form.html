@@ -119,7 +119,6 @@
                                 {{ formset.errors }}
                                 {{ formset|crispy }}
                                 {% endfor %}
-                                {{ price_records_formset.management_form }}
                                 <div class="btn-group float-right">
                                     <button type="button" id="addFormPrice"
                                         class="add-form-row btn btn-sm btn-outline-success">
@@ -129,6 +128,7 @@
                                     </button>
                                 </div>
                             </div>
+                            {{ price_records_formset.management_form }}
                             <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small>
                             </p>
                         </div>
@@ -161,10 +161,9 @@
                                 </div>
                             </div>
                             {% endfor %}
-                            {{ attribute_formset.management_form }}
                             <!--/attribute row-->
                         </div>
-                        
+                        {{ attribute_formset.management_form }}
                     </div>
                         
                         <div class="card mt-1">
