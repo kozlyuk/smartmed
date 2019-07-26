@@ -13,6 +13,8 @@
                         {% comment %} <li class="list-inline-item"><a href="#" data-toggle="modal"
                                 data-target="#login-modal">Вхід</a>
                         </li> {% endcomment %}
+                        <li class="list-inline-item"><a href="{% url 'manager_home' %}">{% trans "Go to dashboard"%}</a>
+                        </li>
                         <li class="list-inline-item"><a href="register.html">{% trans "Registration"%}</a></li>
                         <li class="list-inline-item"><a href="contact.html">{% trans "Contact's" %}</a></li>
                     </ul>
@@ -30,12 +32,14 @@
             <div class="navbar-buttons">
                 <button type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation"
                     aria-expanded="false" aria-label="Toggle navigation"
-                    class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">{% trans "Toggle navigation" %}</span><i
+                    class="btn btn-outline-secondary navbar-toggler"><span
+                        class="sr-only">{% trans "Toggle navigation" %}</span><i
                         class="fa fa-align-justify"></i></button>
                 <button type="button" data-toggle="collapse" data-target="#search"
-                    class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">{% trans "Toggle search" %}</span><i
-                        class="fa fa-search"></i></button><a href="basket.html"
-                    class="btn btn-outline-secondary navbar-toggler"><i class="fa fa-shopping-cart"></i></a>
+                    class="btn btn-outline-secondary navbar-toggler"><span
+                        class="sr-only">{% trans "Toggle search" %}</span><i class="fa fa-search"></i></button><a
+                    href="basket.html" class="btn btn-outline-secondary navbar-toggler"><i
+                        class="fa fa-shopping-cart"></i></a>
             </div>
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav mr-auto">
@@ -82,7 +86,8 @@
                     {% if request.resolver_match.url_name == "shop_products" %}
                     {% else %}
                     <!--all product button-->
-                    <li class="nav-item"><a href="{% url 'shop_products' %}" class="nav-link">{% trans "All product's" %}</a></li>
+                    <li class="nav-item"><a href="{% url 'shop_products' %}"
+                            class="nav-link">{% trans "All product's" %}</a></li>
                     <!--/all product button-->
                     {% endif %}
                 </ul>
@@ -92,7 +97,8 @@
                     {% else %}
                     <div id="search-not-mobile" class="navbar-collapse collapse"></div><a data-toggle="collapse"
                         href="#search" class="btn navbar-btn btn-primary d-none d-lg-inline-block"><span
-                            class="sr-only">{% trans "Search" %}</span><i style="font-size: 15;" class="fa fa-search"></i></a>
+                            class="sr-only">{% trans "Search" %}</span><i style="font-size: 15;"
+                            class="fa fa-search"></i></a>
                     {% if basket_products_count|lower == "0" %}
                     <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
                         <button class="btn btn-primary navbar-btn" disabled>
