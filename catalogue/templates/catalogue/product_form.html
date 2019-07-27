@@ -113,12 +113,12 @@
                             <div class="text-center">{% trans "Price" %}</div>
                         </div>
                         <div class="card-body">
-                            <div id="priceList" class="form-row">
+                            <div id="priceList">
                                 {% for formset in price_records_formset %}
+                                <div class="row form-row">
                                 {{ formset.non_field_errors }}
                                 {{ formset.errors }}
                                 {{ formset|crispy }}
-                                {% endfor %}
                                 <div class="btn-group float-right">
                                     <button type="button" id="addFormPrice"
                                         class="add-form-row btn btn-sm btn-outline-success">
@@ -127,6 +127,8 @@
                                         </i>
                                     </button>
                                 </div>
+                                </div>
+                                {% endfor %}
                             </div>
                             {{ price_records_formset.management_form }}
                             <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small>
@@ -142,25 +144,27 @@
                         </div>
                         <div id="attributeListAll" class="card-body attributeList">
                             <!--attribute row-->
-                            <div id="attributeList" class="row form-row-attr">
-                                <div class="col-10">
+                            <div id="attributeList">
                                     {% for formset in attribute_formset %}
+                                    <div class="row form-row-attr">
                                     {{ formset.non_field_errors }}
                                     {{ formset.errors }}
+                                    <div class="col-10">
                                     {{ formset.type|add_class:"names-select2 mt-2" }}
+                                    </div>
                                     {{ formset.id }}
-                                </div>
+                                    <div class="col-2 text-muted">
+                                        <button type="button" id="addFormAttr"
+                                            class="add-form-row-attr btn btn-sm btn-outline-success">
+                                            <i class="material-icons">
+                                                add
+                                            </i>
+                                        </button>
+                                    </div>
+                                    {% endfor %}
                                 
-                                <div class="col-2 text-muted">
-                                    <button type="button" id="addFormAttr"
-                                        class="add-form-row-attr btn btn-sm btn-outline-success">
-                                        <i class="material-icons">
-                                            add
-                                        </i>
-                                    </button>
                                 </div>
                             </div>
-                            {% endfor %}
                             <!--/attribute row-->
                         </div>
                         {{ attribute_formset.management_form }}
