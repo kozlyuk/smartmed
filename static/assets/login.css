@@ -1,4 +1,7 @@
 @import url('https://rsms.me/inter/inter-ui.css');
+::-moz-selection {
+  background: #2D2F36;
+}
 ::selection {
   background: #2D2F36;
 }
@@ -20,8 +23,13 @@ body {
 
 .page {
   background: #e2e2e5;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: calc(100% - 40px);
   position: absolute;
   place-content: center;
@@ -37,6 +45,8 @@ body {
 }
 
 .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 320px;
   margin: 0 auto;
@@ -45,7 +55,10 @@ body {
 
 @media (max-width: 767px) {
   .container {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     height: 630px;
     width: 320px;
   }
@@ -86,7 +99,8 @@ body {
 
 .right {
   background: #474A59;
-  box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
+          box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
   color: #F1F1F2;
   position: relative;
   width: 50%;
@@ -95,7 +109,8 @@ body {
 
 @media (max-width: 767px) {
   .right {
-    flex-shrink: 0;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
     height: 100%;
     width: 100%;
     max-height: 350px;
@@ -145,10 +160,16 @@ input::-moz-focus-inner {
 }
 
 #submit, #registration, #passreset {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   color: #707075;
   margin-top: 20px;
+  -webkit-transition: color 300ms;
+  -o-transition: color 300ms;
   transition: color 300ms;
   cursor: pointer;
 }

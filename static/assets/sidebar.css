@@ -80,17 +80,13 @@
   .nav-open .offline-doc .navbar-wrapper,
   .nav-open .offline-doc .navbar-toggler {
     -webkit-transform: translate3d(-260px, 0, 0);
-    -moz-transform: translate3d(-260px, 0, 0);
-    -o-transform: translate3d(-260px, 0, 0);
     -ms-transform: translate3d(-260px, 0, 0);
     transform: translate3d(-260px, 0, 0);
   }
   .offline-doc .navbar-wrapper,
   .offline-doc .navbar-toggler {
     -webkit-transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);
-    -moz-transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);
     -o-transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);
-    -ms-transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);
     transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);
   }
   .offline-doc .navbar .collapse .navbar-nav .nav-item .nav-link {
