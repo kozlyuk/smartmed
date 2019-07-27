@@ -16,10 +16,9 @@
 {% block context %}
 <div class="content">
     <div class="container-fluid">
+        <!--form-->
         <form method="post" id="productUpdate" enctype="multipart/form-data">
-
             {% csrf_token %}
-
             <div class="row">
                 <div class="col-8">
                     <div class="card">
@@ -108,6 +107,7 @@
                             <!--/other product information-->
                         </div>
                     </div>
+                    <!--price card-->
                     <div class="card mb-1">
                         <div class="card-header card-header-info">
                             <div class="text-center">{% trans "Price" %}</div>
@@ -135,41 +135,41 @@
                             </p>
                         </div>
                     </div>
+                    <!--/price card-->
                 </div>
                 <div class="col-4">
                     <div class="row">
-                    <div class="card">
-                        <div class="card-header card-header-info">
-                            <div class="text-center">{% trans "Attributes"%}</div>
-                        </div>
-                        <div id="attributeListAll" class="card-body attributeList">
-                            <!--attribute row-->
-                            <div id="attributeList">
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <div class="text-center">{% trans "Attributes"%}</div>
+                            </div>
+                            <div id="attributeListAll" class="card-body attributeList">
+                                <!--attribute row-->
+                                <div id="attributeList">
                                     {% for formset in attribute_formset %}
                                     <div class="row form-row-attr">
-                                    {{ formset.non_field_errors }}
-                                    {{ formset.errors }}
-                                    <div class="col-10">
-                                    {{ formset.type|add_class:"names-select2 mt-2" }}
+                                        {{ formset.non_field_errors }}
+                                        {{ formset.errors }}
+                                        <div class="col-10">
+                                            {{ formset.type|add_class:"names-select2 mt-2" }}
+                                        </div>
+                                        {{ formset.id }}
+                                        <div class="col-2 text-muted">
+                                            <button type="button" id="addFormAttr"
+                                                class="add-form-row-attr btn btn-sm btn-outline-success">
+                                                <i class="material-icons">
+                                                    add
+                                                </i>
+                                            </button>
+                                        </div>
+                                        {% endfor %}
                                     </div>
-                                    {{ formset.id }}
-                                    <div class="col-2 text-muted">
-                                        <button type="button" id="addFormAttr"
-                                            class="add-form-row-attr btn btn-sm btn-outline-success">
-                                            <i class="material-icons">
-                                                add
-                                            </i>
-                                        </button>
-                                    </div>
-                                    {% endfor %}
-                                
                                 </div>
+                                <!--/attribute row-->
                             </div>
-                            <!--/attribute row-->
+                            {{ attribute_formset.management_form }}
                         </div>
-                        {{ attribute_formset.management_form }}
-                    </div>
-                        
+                        <!--photo update form-->
                         <div class="card mt-1">
                             <div class="row no-gutters">
                                 <div class="col-md-4">
@@ -184,7 +184,6 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">{% trans "Upload new photo" %}</h5>
-
                                         {% for formset in image_formset %}
                                         {{ formset.non_field_errors }}
                                         {{ formset.errors }}
@@ -203,23 +202,18 @@
                                             </i>
                                         </label>
                                     </div>
+                                    <!--cropper-->
                                     {% include '../includes/crop.html' %}
+                                    <!--/cropper-->
                                 </div>
                             </div>
                         </div>
-
+                        <!--/photo update form-->
                     </div>
                 </div>
-
-            </div>
-            <div class="col-4">
-
-            </div>
-            <div class="row">
-
-
             </div>
         </form>
+        <!--/form-->
     </div>
 </div>
 
