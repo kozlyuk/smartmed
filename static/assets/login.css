@@ -25,10 +25,12 @@ body {
   background: #e2e2e5;
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
+          -webkit-flex-direction: column;
           flex-direction: column;
   height: calc(100% - 40px);
   position: absolute;
@@ -47,6 +49,7 @@ body {
 .container {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   height: 320px;
   margin: 0 auto;
@@ -58,6 +61,7 @@ body {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
+            -webkit-flex-direction: column;
             flex-direction: column;
     height: 630px;
     width: 320px;
@@ -110,7 +114,8 @@ body {
 @media (max-width: 767px) {
   .right {
     -ms-flex-negative: 0;
-        flex-shrink: 0;
+        -webkit-flex-shrink: 0;
+            flex-shrink: 0;
     height: 100%;
     width: 100%;
     max-height: 350px;
@@ -162,9 +167,11 @@ input::-moz-focus-inner {
 #submit, #registration, #passreset {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
+          -webkit-justify-content: center;
           justify-content: center;
   color: #707075;
   margin-top: 20px;
@@ -203,7 +210,8 @@ input::-moz-focus-inner {
   background-image: url(img/logo.png);
   background-repeat: no-repeat;
   background-color: white;
-  border-radius: 10% 10% 0% 0%;
+  -webkit-border-radius: 10% 10% 0% 0%;
+          border-radius: 10% 10% 0% 0%;
 }
 
 @media (max-width: 767px) {
@@ -211,7 +219,8 @@ input::-moz-focus-inner {
     top: 180px;
     left: 25%;
     background-color: rgba(255, 255, 255, 0.025);
-    border-radius: 50%;
+    -webkit-border-radius: 50%;
+            border-radius: 50%;
     z-index: 20;
   }
   .login {
@@ -235,7 +244,8 @@ input::-moz-focus-inner {
   padding: .75rem 1.25rem;
   margin-bottom: 1rem;
   border: 1px solid transparent;
-  border-radius: .25rem;
+  -webkit-border-radius: .25rem;
+          border-radius: .25rem;
 }
 
 @media (max-width: 767px) {
