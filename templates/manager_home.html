@@ -1,6 +1,6 @@
-{% extends 'manager_base.html' %} {% load ita_template_tags %} {% load staticfiles %} {% load widget_tweaks %}
+{% extends 'manager_base.html' %} {% load ita_template_tags %} {% load staticfiles %} {% load widget_tweaks %} {% load i18n %}
 {% block title %}
-<title>SmartMed | Dashboard</title>
+<title>SmartMed | {% trans "Dashboard" %}</title>
 {% endblock %}
 {% block context %}
 <div class="content">
@@ -11,14 +11,14 @@
                     <div class="card-icon">
                         <i class="material-icons">content_copy</i>
                     </div>
-                    <p class="card-category">Кількість партнерів</p>
+                    <p class="card-category">{% trans "Partners count" %}</p>
                     <h3 class="card-title">{{ partners_count }}
                         <small>Осіб</small>
                     </h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <a href="#" class="info-link">Всього</a>
+                        <a href="#" class="info-link">{% trans "Summary" %}</a>
                     </div>
                 </div>
             </div>
@@ -29,12 +29,12 @@
                     <div class="card-icon">
                         <i class="material-icons">store</i>
                     </div>
-                    <p class="card-category">Продано товарів на:</p>
+                    <p class="card-category">{% trans "Product sold:" %}</p>
                     <h3 class="card-title">{{ sold }}</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">date_range</i> За останні 24 години
+                        <i class="material-icons">date_range</i> {% trans "Last 24 hours" %}
                     </div>
                 </div>
             </div>
@@ -45,12 +45,12 @@
                     <div class="card-icon">
                         <i class="material-icons">info_outline</i>
                     </div>
-                    <p class="card-category">Кількість замовлень в очікуванні</p>
+                    <p class="card-category">{% trans "New orders count" %}</p>
                     <h3 class="card-title">{{ new_orders_count }}</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">local_offer</i> Замовлення, що закріплені за Вами
+                        <i class="material-icons">local_offer</i> {% trans "info" %}
                     </div>
                 </div>
             </div>
@@ -62,21 +62,21 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-sm-6 text-left">
-                            <div class="card-category">Category</div>
-                            <div class="card-title">title</div>
+                            <div class="card-category">{% trans "Category" %}</div>
+                            <div class="card-title">{% trans "title" %}</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
                                 <label class="btn btn-sm btn-info btn-simple active" id="0">
                                     <input type="radio" name="options" checked="">
-                                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Accounts</span>
+                                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">{% trans "Accounts" %}</span>
                                     <span class="d-block d-sm-none">
                                         <i class="tim-icons icon-single-02"></i>
                                     </span>
                                 </label>
                                 <label class="btn btn-sm btn-info btn-simple" id="1">
                                     <input type="radio" class="d-none d-sm-none" name="options">
-                                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Purchases</span>
+                                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">{% trans "Purchases" %}</span>
                                     <span class="d-block d-sm-none">
                                         <i class="tim-icons icon-gift-2"></i>
                                     </span>
@@ -100,7 +100,7 @@
         <div class="col-lg-6 col-md-12 mt-5">
             <div class="card">
                 <div class="card-header card-header-info">
-                    <h4 class="card-title">Список працівників:</h4>
+                    <h4 class="card-title">{% trans "Employee list:" %}</h4>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table table-hover">
@@ -140,7 +140,7 @@
         <div class="col-lg-6 col-md-12 mt-5">
             <div class="card">
                 <div class="card-header card-header-info">
-                    <h4 class="card-title">Завдання:</h4>
+                    <h4 class="card-title">{% trans "Tasks:" %}</h4>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
