@@ -108,8 +108,6 @@ function deleteFormAttr(prefix, btn) {
     return false;
 }
 
-
-
 export {
     cloneMore,
     deleteForm,

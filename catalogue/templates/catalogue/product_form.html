@@ -150,18 +150,18 @@
                                     <div class="row form-row-attr">
                                         {{ formset.non_field_errors }}
                                         {{ formset.errors }}
-                                        <div class="col-10">
-                                            {{ formset.type|add_class:"names-select2 mt-2" }}
+                                        <div class="col">
+                                            {{ formset.type|attr:"class=names-select2 form-control"|attr:"multiple=multiple" }}
                                         </div>
                                         {{ formset.id }}
-                                        <div class="col-2 text-muted">
+                                        {% comment %} <div class="col-2 text-muted">
                                             <button type="button" id="addFormAttr"
                                                 class="add-form-row-attr btn btn-sm btn-outline-success">
                                                 <i class="material-icons">
                                                     add
                                                 </i>
                                             </button>
-                                        </div>
+                                        </div> {% endcomment %}
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -254,51 +254,16 @@ $(document).on('click', '.add-form-row-attr', function (e) {
     return false;
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//touch select2 to names-select2
 $(".names-select2").select2({
-    minimumInputLength: 1, // the minimum input length
     allowClear: true,
     placeholder: "—",
-    ajax: {
-        url: "/some/path", // backend address (url)
-        delay: 250,
-        type: "post",
-        dataType: "json",
-        cache: true,
-        // what we will send to the server in the request
-        data: function (obj) {
-            console.log(obj);
-            /* obj.term -- what the user entered */
-            return obj.term;
-        },
-        processResults: function (data, params) {
-            return {
-                results: data.names
-            };
-        }
-    }
-});
-
-// assign theme pack to select2
-$(".names-select2").select2({
+    tags: true,
+    tokenSeparators: [',', ' '],
     theme: "bootstrap",
     containerCssClass: 'mb-2',
 });
+
 </script>
 
 <script type="module">
