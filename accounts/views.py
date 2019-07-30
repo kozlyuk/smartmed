@@ -71,6 +71,7 @@ class EmployeeCreate(CreateView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeUpdate(UpdateView):
     """ EmployeeUpdate - view for updating employees """
+    model = Employee
     form_class = EmployeeForm
     success_url = reverse_lazy('employee_list')
 
