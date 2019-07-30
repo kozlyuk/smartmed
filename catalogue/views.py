@@ -10,8 +10,8 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from catalogue.forms import Product, ProductForm, ProductFilterForm
-from catalogue.forms import IMAGE_FORMSET, PRICE_RECORD_FORMSET, ATTRIBUTE_FORMSET
-from catalogue.forms import IMAGE_FORMSET_EXTRA, PRICE_RECORD_FORMSET_EXTRA, ATTRIBUTE_FORMSET_EXTRA
+from catalogue.forms import IMAGE_FORMSET, PRICE_RECORD_FORMSET #, ATTRIBUTE_FORMSET
+from catalogue.forms import IMAGE_FORMSET_EXTRA, PRICE_RECORD_FORMSET_EXTRA #, ATTRIBUTE_FORMSET_EXTRA
 from catalogue.forms import Category, CategoryForm, Group, GroupForm, Brand, BrandForm
 
 from purchases.models import InvoiceLine
@@ -156,26 +156,26 @@ class ProductCreate(CreateView):
         if self.request.POST:
             context['image_formset'] = IMAGE_FORMSET_EXTRA(self.request.POST, instance=self.object)
             context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA(self.request.POST, instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(self.request.POST, instance=self.object)
+            # context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(self.request.POST, instance=self.object)
         else:
             context['image_formset'] = IMAGE_FORMSET_EXTRA(instance=self.object)
             context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA(instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(instance=self.object)
+            # context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(instance=self.object)
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         image_formset = context['image_formset']
         price_records_formset = context['price_records_formset']
-        attribute_formset = context['attribute_formset']
-        if image_formset.is_valid() and price_records_formset.is_valid()\
-                and attribute_formset.is_valid():
-            image_formset.instance = self.object
+        # attribute_formset = context['attribute_formset']
+        if image_formset.is_valid() and price_records_formset.is_valid(): #and attribute_formset.is_valid():
+            product = form.save()
+            image_formset.instance = product
             image_formset.save()
-            price_records_formset.instance = self.object
+            price_records_formset.instance = product
             price_records_formset.save()
-            attribute_formset.instance = self.object
-            attribute_formset.save()
+            # attribute_formset.instance = self.object
+            # attribute_formset.save()
             return super().form_valid(form)
         return self.form_invalid(form)
 
@@ -197,25 +197,25 @@ class ProductUpdate(UpdateView):
         if self.request.POST:
             context['image_formset'] = IMAGE_FORMSET(self.request.POST, instance=self.object)
             context['price_records_formset'] = PRICE_RECORD_FORMSET(self.request.POST, instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
+            # context['attribute_formset'] = ATTRIBUTE_FORMSET(self.request.POST, instance=self.object)
         else:
             context['image_formset'] = IMAGE_FORMSET(instance=self.object)
             context['price_records_formset'] = PRICE_RECORD_FORMSET(instance=self.object)
-            context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
+            # context['attribute_formset'] = ATTRIBUTE_FORMSET(instance=self.object)
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         image_formset = context['image_formset']
         price_records_formset = context['price_records_formset']
-        attribute_formset = context['attribute_formset']
-        if image_formset.is_valid() and price_records_formset.is_valid() and attribute_formset.is_valid():
+        # attribute_formset = context['attribute_formset']
+        if image_formset.is_valid() and price_records_formset.is_valid(): #and attribute_formset.is_valid():
             image_formset.instance = self.object
             image_formset.save()
             price_records_formset.instance = self.object
             price_records_formset.save()
-            attribute_formset.instance = self.object
-            attribute_formset.save()
+            # attribute_formset.instance = self.object
+            # attribute_formset.save()
             return super().form_valid(form)
         return self.form_invalid(form)
 

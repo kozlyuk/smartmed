@@ -10,6 +10,7 @@ class EmployeeForm(forms.ModelForm):
     """ EmployeeForm - form for employees creating or updating """
     username = forms.CharField(label=_('Login'), max_length=255, required=True)
     password = forms.CharField(label=_('Password'), max_length=255, required=True)
+    password_confirm = forms.CharField(label=_('Confirm password'), max_length=255, required=True)
     email = forms.EmailField(label=_('Email'), max_length=255, required=True)
     x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
@@ -19,7 +20,7 @@ class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
         fields = '__all__'
-        widgets = {'password': forms.PasswordInput}
+        widgets = {'password': forms.PasswordInput, 'password_confirm': forms.PasswordInput}
 
 
 class EmployeeSelfUpdateForm(forms.ModelForm):

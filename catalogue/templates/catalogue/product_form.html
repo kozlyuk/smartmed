@@ -119,14 +119,14 @@
                                 {{ formset.non_field_errors }}
                                 {{ formset.errors }}
                                 {{ formset|crispy }}
-                                <div class="btn-group float-right">
-                                    <button type="button" id="addFormPrice"
-                                        class="add-form-row btn btn-sm btn-outline-success">
-                                        <i class="material-icons">
-                                            add
-                                        </i>
-                                    </button>
-                                </div>
+<!--                                <div class="btn-group float-right">-->
+<!--                                    <button type="button" id="addFormPrice"-->
+<!--                                        class="add-form-row btn btn-sm btn-outline-success">-->
+<!--                                        <i class="material-icons">-->
+<!--                                            add-->
+<!--                                        </i>-->
+<!--                                    </button>-->
+<!--                                </div>-->
                                 </div>
                                 {% endfor %}
                             </div>
@@ -146,23 +146,23 @@
                             <div id="attributeListAll" class="card-body attributeList">
                                 <!--attribute row-->
                                 <div id="attributeList">
-                                    {% for formset in attribute_formset %}
-                                    <div class="row form-row-attr">
-                                        {{ formset.non_field_errors }}
-                                        {{ formset.errors }}
+<!--                                    {% for formset in attribute_formset %}-->
+<!--                                    <div class="row form-row-attr">-->
+<!--                                        {{ formset.non_field_errors }}-->
+<!--                                        {{ formset.errors }}-->
                                         <div class="col">
-                                            {{ formset.type|attr:"class=names-select2 form-control"|attr:"multiple=multiple" }}
+                                            {{ product.attributes|attr:"class=names-select2 form-control"|attr:"multiple=multiple" }}
                                         </div>
-                                        {{ formset.id }}
-                                        {% comment %} <div class="col-2 text-muted">
-                                            <button type="button" id="addFormAttr"
-                                                class="add-form-row-attr btn btn-sm btn-outline-success">
-                                                <i class="material-icons">
-                                                    add
-                                                </i>
-                                            </button>
-                                        </div> {% endcomment %}
-                                        {% endfor %}
+<!--                                        {{ formset.id }}-->
+<!--                                        {% comment %} <div class="col-2 text-muted">-->
+<!--                                            <button type="button" id="addFormAttr"-->
+<!--                                                class="add-form-row-attr btn btn-sm btn-outline-success">-->
+<!--                                                <i class="material-icons">-->
+<!--                                                    add-->
+<!--                                                </i>-->
+<!--                                            </button>-->
+<!--                                        </div> {% endcomment %}-->
+<!--                                        {% endfor %}-->
                                     </div>
                                 </div>
                                 <!--/attribute row-->
