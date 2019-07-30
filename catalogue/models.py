@@ -4,7 +4,7 @@ import datetime
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from django.utils.timezone import now
+#from django.utils.timezone import now
 from django_userforeignkey.models.fields import UserForeignKey
 from warehouse.models import Stock
 
@@ -150,7 +150,7 @@ class Image(models.Model):
 class PriceRecord(models.Model):
     """ Model contains product Price records """
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    from_date = models.DateField(_('Actual from'), default=now)
+    from_date = models.DateField(_('Actual from'))
     regular_price = models.DecimalField(_('Product price'), max_digits=8, decimal_places=2, default=0)
     discount_price_1 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)
     discount_price_2 = models.DecimalField(_('Discount price'), max_digits=8, decimal_places=2, default=0)

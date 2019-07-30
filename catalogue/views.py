@@ -5,6 +5,8 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.db import transaction
+from django.shortcuts import redirect
 
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -154,12 +156,12 @@ class ProductCreate(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
-            context['image_formset'] = IMAGE_FORMSET_EXTRA(self.request.POST, instance=self.object)
-            context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA(self.request.POST, instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET_EXTRA(self.request.POST)
+            context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA(self.request.POST)
             # context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(self.request.POST, instance=self.object)
         else:
-            context['image_formset'] = IMAGE_FORMSET_EXTRA(instance=self.object)
-            context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA(instance=self.object)
+            context['image_formset'] = IMAGE_FORMSET_EXTRA()
+            context['price_records_formset'] = PRICE_RECORD_FORMSET_EXTRA()
             # context['attribute_formset'] = ATTRIBUTE_FORMSET_EXTRA(instance=self.object)
         return context
 
@@ -168,15 +170,17 @@ class ProductCreate(CreateView):
         image_formset = context['image_formset']
         price_records_formset = context['price_records_formset']
         # attribute_formset = context['attribute_formset']
-        if image_formset.is_valid() and price_records_formset.is_valid(): #and attribute_formset.is_valid():
-            product = form.save()
-            image_formset.instance = product
-            image_formset.save()
-            price_records_formset.instance = product
-            price_records_formset.save()
-            # attribute_formset.instance = self.object
-            # attribute_formset.save()
-            return super().form_valid(form)
+        if form.is_valid() and image_formset.is_valid() and price_records_formset.is_valid():
+            #and attribute_formset.is_valid():
+            with transaction.atomic():
+                product = form.save()
+                image_formset.instance = product
+                image_formset.save()
+                price_records_formset.instance = product
+                price_records_formset.save()
+                # attribute_formset.instance = product
+                # attribute_formset.save()
+            return redirect(self.get_success_url())
         return self.form_invalid(form)
 
 
@@ -209,14 +213,17 @@ class ProductUpdate(UpdateView):
         image_formset = context['image_formset']
         price_records_formset = context['price_records_formset']
         # attribute_formset = context['attribute_formset']
-        if image_formset.is_valid() and price_records_formset.is_valid(): #and attribute_formset.is_valid():
-            image_formset.instance = self.object
-            image_formset.save()
-            price_records_formset.instance = self.object
-            price_records_formset.save()
-            # attribute_formset.instance = self.object
-            # attribute_formset.save()
-            return super().form_valid(form)
+        if form.is_valid() and image_formset.is_valid() and price_records_formset.is_valid():
+            #and attribute_formset.is_valid():
+            with transaction.atomic():
+                product = form.save()
+                image_formset.instance = product
+                image_formset.save()
+                price_records_formset.instance = product
+                price_records_formset.save()
+                # attribute_formset.instance = product
+                # attribute_formset.save()
+            return redirect(self.get_success_url())
         return self.form_invalid(form)
 
 
