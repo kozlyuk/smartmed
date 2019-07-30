@@ -184,7 +184,28 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">{% trans "Upload new photo" %}</h5>
+                                        {% comment %} {% if image_formset|length == 0 %}
+                                        {{ formset.errors }}
+                                        <input type="file" name="image_set-0-image" accept="image/*" id="id_image_set-0-image">
+                                        <input type="hidden" name="image_set-0-x" value="0" id="id_image_set-0-x">
+                                        <input type="hidden" name="image_set-0-y" value="0" id="id_image_set-0-y">
+                                        <input type="hidden" name="image_set-0-width" value="0"
+                                            id="id_image_set-0-width">
+                                        <input type="hidden" name="image_set-0-height" value="0"
+                                            id="id_image_set-0-height">
+                                        <input type="hidden" name="image_set-0-id" value="4" id="id_image_set-0-id">
+                                        <input type="checkbox" name="image_set-0-DELETE" hidden=""
+                                            id="id_image_set-0-DELETE">
+                                        <input type="hidden" name="image_set-TOTAL_FORMS" value="1"
+                                            id="id_image_set-TOTAL_FORMS"><input type="hidden"
+                                            name="image_set-INITIAL_FORMS" value="1"
+                                            id="id_image_set-INITIAL_FORMS"><input type="hidden"
+                                            name="image_set-MIN_NUM_FORMS" value="0"
+                                            id="id_image_set-MIN_NUM_FORMS"><input type="hidden"
+                                            name="image_set-MAX_NUM_FORMS" value="1000" id="id_image_set-MAX_NUM_FORMS">
+                                        {% else %} {% endcomment %}
                                         {% for formset in image_formset %}
+                                        
                                         {{ formset.non_field_errors }}
                                         {{ formset.errors }}
                                         {{ formset.image }}
@@ -194,7 +215,11 @@
                                         {{ formset.height }}
                                         {{ formset.id }}
                                         {{ formset.DELETE | attr:"hidden" }}
+                                        
                                         {% endfor %}
+                                        {% comment %} {% endif %} {% endcomment %}
+                                        
+                                        
                                         {{ image_formset.management_form }}
                                         <label for="id_image_set-0-image" class="custom-file-upload">
                                             <i class="material-icons">

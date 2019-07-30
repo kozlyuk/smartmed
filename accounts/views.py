@@ -63,6 +63,7 @@ class EmployeeList(ListView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeCreate(CreateView):
     """ EmployeeCreate - view for creating employees """
+    template_name = 'employee_create.html'
     form_class = EmployeeForm
     success_url = reverse_lazy('employee_list')
 
