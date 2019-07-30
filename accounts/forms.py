@@ -1,16 +1,25 @@
 """ Forms for managing accounts """
 
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from PIL import Image
 from accounts.models import Employee, Partner
 
 
 class EmployeeForm(forms.ModelForm):
     """ EmployeeForm - form for employees creating or updating """
+    username = forms.CharField(label=_('Login'), max_length=255, required=True)
+    password = forms.CharField(label=_('Password'), max_length=255, required=True)
+    email = forms.EmailField(label=_('Email'), max_length=255, required=True)
+    x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
+    y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
+    width = forms.FloatField(widget=forms.HiddenInput(), initial=0)
+    height = forms.FloatField(widget=forms.HiddenInput(), initial=0)
 
     class Meta:
         model = Employee
         fields = '__all__'
+        widgets = {'password': forms.PasswordInput}
 
 
 class EmployeeSelfUpdateForm(forms.ModelForm):
