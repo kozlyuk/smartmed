@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 
 from smartmed.local_settings import *
-
+from django.conf.locale.uk import formats as uk_formats
 
 
 # Application definition
@@ -134,6 +134,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+uk_formats.DATE_FORMAT = 'd.m.Y'
+uk_formats.DATE_INPUT_FORMATS = ('%d.%m.%Y',)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
