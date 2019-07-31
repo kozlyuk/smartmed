@@ -15,6 +15,16 @@
 <div class="content">
     <div class="container-fluid">
     <form method="post" id="employeeCreate" enctype="multipart/form-data">
+    {% if form.errors %}
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		{% for field in form %} 
+			{% if field.errors %}
+			<li>{{ field.label }}: {{ field.errors|striptags }}</li>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}
     {% csrf_token %}
         <div class="row">
             <div class="col-md-12">
@@ -24,7 +34,6 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                        {{form.errors}}
                             <div class="col-3">
                                 {{ form.username|as_crispy_field }}
                             </div>
