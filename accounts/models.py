@@ -35,6 +35,10 @@ class Employee(models.Model):
     def __str__(self):
         return self.name
 
+    def delete(self, *args, **kwargs):  # pylint: disable=W0221
+        self.user.delete()
+        return super().delete(*args, **kwargs)
+
 
 class Partner(models.Model):
     """ Partner model - extending of User model for partners """
@@ -64,6 +68,10 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name
+
+    def delete(self, *args, **kwargs):  # pylint: disable=W0221
+        self.user.delete()
+        return super().delete(*args, **kwargs)
 
 
 class Address(models.Model):
