@@ -1,6 +1,7 @@
 {% extends 'manager_base.html' %}
 {% load ita_template_tags %}
 {% load widget_tweaks %} 
+{% load i18n %}
 {% load staticfiles %}
 {% load bootstrap4 %}
 {% block title %}
@@ -8,6 +9,9 @@
 {% endblock %}
 {% block sidebar %}
 {% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'assets/plugins/datepicker/datepicker.min.css' %}">
+{% endblock extrastyle %}
 {% block context %}
 <div class="content">
 	<form id="EmployeeSelfUpdateForm" enctype="multipart/form-data" method="post">
@@ -17,83 +21,50 @@
 				<div class="col-md-8">
 					<div class="card">
 						<div class="card-header card-header-info">
-							<h4 class="card-title">Редагування профілю</h4>
-							<p class="card-category">Заповніть данні про себе</p>
+							<h4 class="card-title">{% trans "Profile update" %}</h4>
+							<p class="card-category"><small>* - {% trans "required field" %}</small></p>
 						</div>
 						<div class="card-body">
 							<div class="row">
-								<div class="col-md-5">
+								<div class="col-4">
 									<div class="form-group">
-										<label class="bmd-label-floating">Компанія</label>
-										<input type="text" class="form-control" disabled>
+										<label class="bmd-label-floating">{% trans "Username" %}</label>
+										<input type="text" class="form-control" value="{{ user.get_username }}"
+											disabled>
 									</div>
 								</div>
-								<div class="col-md-3">
+								<div class="col-4">
 									<div class="form-group">
-										<label class="bmd-label-floating">{{ user.get_username }}</label>
-										<input type="text" class="form-control" disabled>
+										<label class="bmd-label-floating">{% trans "Email" %}</label>
+										<input type="email" class="form-control" value="{{ user.email }}" disabled>
 									</div>
 								</div>
-								<div class="col-md-4">
+								<div class="col-4">
 									<div class="form-group">
-										<label class="bmd-label-floating">{{ user.email }}</label>
-										<input type="email" class="form-control">
+										<label class="bmd-label-floating">{% trans "Name" %}</label>
+										{{ form.name|add_class:"form-control" }}
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="bmd-label-floating">Ім'я</label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">Прізвище</label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="bmd-label-floating">Адреса</label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="bmd-label-floating">Місто</label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="bmd-label-floating">Телефон</label>
+										<label class="bmd-label-floating">{% trans "Phone" %}</label>
 										{{ form.phone|add_class:"form-control" }}
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<div class="form-group">
-										<label>Додаткова інформація</label>
-										<div class="form-group">
-											<label class="bmd-label-floating"> Збережіть тут, все що вважаєте
-												потрібним.</label>
-											<textarea class="form-control" rows="5"></textarea>
-										</div>
+										<label class="bmd-label-floating">{% trans "Birthday" %}</label>
+										{{ form.birthday| append_attr:"class:form-control datepicker-here" }}
 									</div>
 								</div>
 							</div>
-							{% bootstrap_field form.theme %}
-							<button id="submit" class="btn btn-info btn-block">Оновити
-								інформацію</button>
+							<div class="form-group">
+								<label class="bmd-label-floating">{% trans "Birthday" %}</label>
+								{{ form.theme| append_attr:"class:form-control" }}
+							</div>
+							<button id="submit" class="btn btn-info btn-block">{% trans "Update information" %}</button>
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -102,34 +73,34 @@
 					<div class="row">
 						<div class="card card-profile">
 							<div class="card-avatar">
-								<a href="#pablo">
+								<a href="{{ employee.avatar.url }}" target="blank">
 									<img class="img" src="{{ employee.avatar.url }}">
 								</a>
 							</div>
 							<div class="card-body">
-								<h6 class="card-category">trader</h6>
+								<h6 class="card-category">{{ employee.position }}</h6>
 								<h4 class="card-title">{{ user.get_username }}</h4>
 								<p class="card-description">
-									Some information
+									{{ employee.name }}
 								</p>
 							</div>
 						</div>
 						<div class="card">
 							<div class="card-header card-header-info">
-								<h5>Оновити фотографію профілю</h5>
+								<h5>{% trans "Update profile photo" %}</h5>
 							</div>
 							<div class="card-body m-2">
 								<div class="container">
-									{{form.avatar}}
+									{{ form.avatar }}
 									<label for="id_avatar" class="custom-file-upload">
 										<i class="material-icons">
-											cloud_upload
+											add_a_photo
 										</i>
 									</label>
-									{{form.x}}
-									{{form.y}}
-									{{form.width}}
-									{{form.height}}
+									{{ form.x }}
+									{{ form.y }}
+									{{ form.width }}
+									{{ form.height }}
 								</div>
 							</div>
 						</div>
@@ -144,6 +115,9 @@
 		</div>
 	</form>
 </div>
+{% endblock %}
+{% block extrascript %}
+<script src="{% static 'assets/plugins/datepicker/datepicker.min.js' %}" type="text/javascript"></script>
 <script>
 $(function () {
 
@@ -204,4 +178,4 @@ $(function () {
 
 });
 </script>
-{% endblock %}
+{% endblock extrascript %}
