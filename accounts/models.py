@@ -18,7 +18,7 @@ def avatar_directory_path(instance, filename):
 
 class Employee(models.Model):
     """ Employee model - extending of User model for employees """
-    user = models.OneToOneField(User, null=True, on_delete=models.PROTECT)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField('ПІБ', max_length=50, unique=True)
     position = models.CharField('Посада', max_length=50)
     phone = models.CharField('Телефон', max_length=13, blank=True)
@@ -42,7 +42,7 @@ class Partner(models.Model):
         ('wvat', _('With VAT')),
         ('wovat', _('Without VAT')),
     )
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(_('Name'), max_length=45)
     fullname = models.CharField(_('Full name'), max_length=255)
     legal_address = models.CharField(_('Legal address'), max_length=255, blank=True)
