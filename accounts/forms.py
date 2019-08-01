@@ -17,7 +17,7 @@ class EmployeeForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ['name', 'position', 'phone', 'birthday', 'theme']
+        fields = ['name', 'position', 'password', 'avatar', 'email', 'phone', 'birthday', 'theme']
 
     def clean(self):
         cleaned_data = super().clean()

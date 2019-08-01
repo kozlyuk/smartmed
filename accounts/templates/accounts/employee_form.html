@@ -17,16 +17,7 @@
 	<form id="EmployeeSelfUpdateForm" enctype="multipart/form-data" method="post">
 		{% csrf_token %}
 		<div class="container-fluid">
-		{% if form.errors %}
-            <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                {% for field in form %}
-                {% if field.errors %}
-                <li>{{ field.label }}: {{ field.errors|striptags }}</li>
-                {% endif %}
-                {% endfor %}
-            </div>
-            {% endif %}
+		{% include 'includes/dashboard/form_errors.html' %}
 			<div class="row">
 				<div class="col-md-8">
 					<div class="card">
@@ -36,43 +27,78 @@
 						</div>
 						<div class="card-body">
 							<div class="row">
+							
+								{% if request.resolver_match.url_name == "employee_update" %}
 								<div class="col-4">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Username" %}</label>
-										<input type="text" class="form-control text-muted" value="{{ employee.user.get_username }}"
-											disabled>
+										{{ form.username | add_class:"form-control" }}
 									</div>
 								</div>
+								{% else %}
+								<div class="col-4">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Username" %}</label>
+										<input type="text" class="form-control text-muted" value="{{ employee.user.get_username }}">
+									</div>
+								</div>
+								{% endif %}
+
+								{% if request.resolver_match.url_name == "employee_update" %}
+								<div class="col-4">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Email" %}</label>
+										{{ form.email | add_class:"form-control" }}
+									</div>
+								</div>
+								{% else %}
 								<div class="col-4">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Email" %}</label>
 										<input type="email" class="form-control text-muted" value="{{ employee.user.email }}">
 									</div>
 								</div>
+								{% endif %}
 								<div class="col-4">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Name" %}</label>
-										{{ form.name|add_class:"form-control" }}
+										{{ form.name | add_class:"form-control" }}
 									</div>
 								</div>
 							</div>
+							{% if request.resolver_match.url_name == "employee_update" %}
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Position" %}</label>
+										{{ form.position | add_class:"form-control" }}
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Password" %}</label>
+										{{ form.password | append_attr:"class:form-control" | append_attr:"value:password" }}
+									</div>
+								</div>
+							</div>
+							{% endif %}
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Phone" %}</label>
-										{{ form.phone|add_class:"form-control" }}
+										{{ form.phone | add_class:"form-control" }}
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Birthday" %}</label>
-										{{ form.birthday| append_attr:"class:form-control datepicker-here" }}
+										{{ form.birthday | append_attr:"class:form-control datepicker-here" }}
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="bmd-label-floating">{% trans "Dashboard theme" %}</label>
-								{{ form.theme| append_attr:"class:form-control" }}
+								{{ form.theme | append_attr:"class:form-control" }}
 							</div>
 							<button id="submit" class="btn btn-info btn-block">{% trans "Update information" %}</button>
 							<div class="clearfix"></div>
