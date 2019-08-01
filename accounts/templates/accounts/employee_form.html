@@ -39,14 +39,14 @@
 								<div class="col-4">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Username" %}</label>
-										<input type="text" class="form-control text-muted" value="{{ user.get_username }}"
+										<input type="text" class="form-control text-muted" value="{{ employee.user.get_username }}"
 											disabled>
 									</div>
 								</div>
 								<div class="col-4">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Email" %}</label>
-										<input type="email" class="form-control text-muted" value="{{ user.email }}" disabled>
+										<input type="email" class="form-control text-muted" value="{{ employee.user.email }}">
 									</div>
 								</div>
 								<div class="col-4">
@@ -71,7 +71,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="bmd-label-floating">{% trans "Birthday" %}</label>
+								<label class="bmd-label-floating">{% trans "Dashboard theme" %}</label>
 								{{ form.theme| append_attr:"class:form-control" }}
 							</div>
 							<button id="submit" class="btn btn-info btn-block">{% trans "Update information" %}</button>
