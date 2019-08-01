@@ -1,8 +1,11 @@
-from django.urls import path
+"""account URL Configuration"""
+from django.urls import path, reverse_lazy
 
 from django.contrib.auth import views
 
-from accounts.views import *
+from accounts.views import ManagerHome
+from accounts.views import EmployeeList, EmployeeCreate, EmployeeUpdate, EmployeeDelete, EmployeeSelfUpdate
+from accounts.views import PartnerList, PartnerCreate, PartnerUpdate, PartnerDelete, PartnerSelfUpdate
 
 urlpatterns = [
     path('login/', views.LoginView.as_view(template_name='auth.html'), name='login'),
@@ -19,8 +22,8 @@ urlpatterns = [
     # dashboard url's
     path('dashboard/', ManagerHome.as_view(), name='manager_home'),
 
-    path('dashboard/employee/list/', EmployeeList.as_view(), name='employee_list'),
-    path('dashboard/employee/create', EmployeeCreate.as_view(), name='employee_create'),
+    path('dashboard/employee/', EmployeeList.as_view(), name='employee_list'),
+    path('dashboard/employee/create/', EmployeeCreate.as_view(), name='employee_create'),
     path('dashboard/employee/update/<int:pk>/', EmployeeUpdate.as_view(), name='employee_update'),
     path('dashboard/employee/delete/<int:pk>/', EmployeeDelete.as_view(), name='employee_delete'),
     path('dashboard/employee/self_update/', EmployeeSelfUpdate.as_view(), name='employee_self_update'),
