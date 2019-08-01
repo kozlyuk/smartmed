@@ -1,5 +1,6 @@
 {% extends 'manager_base.html' %}
 {% load ita_template_tags %} 
+{% load i18n %}
 {% load staticfiles %} 
 {% load widget_tweaks %} 
 {% block title %}
@@ -10,6 +11,11 @@
 {% block context %}
 <div class="content">
     <div class="container-fluid">
+    <div class="col-2 d-flex align-items-end">
+            <a href="{% url 'partner_create' %}"
+                class="btn btn-block align-bottom btn-sm btn-success uppercase" <i
+                class="fa fa-plus"></i> {% trans "add partner" %} </a>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">

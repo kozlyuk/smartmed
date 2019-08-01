@@ -32,3 +32,7 @@ def active_status_color(status):
     if status and 'true':
         return '#288c6c'
     return 'red'
+
+@register.filter
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()

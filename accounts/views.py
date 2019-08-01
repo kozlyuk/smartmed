@@ -105,6 +105,7 @@ class PartnerList(ListView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerCreate(CreateView):
     """ PartnerCreate - view for partners creating """
+    template_name = 'partner_create.html'
     form_class = PartnerForm
     success_url = reverse_lazy('partner_list')
 
@@ -112,6 +113,7 @@ class PartnerCreate(CreateView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerUpdate(UpdateView):
     """ PartnerUpdate - view for partners updating """
+    template_name = 'partner_form.html'
     form_class = PartnerForm
     success_url = reverse_lazy('partner_list')
 
