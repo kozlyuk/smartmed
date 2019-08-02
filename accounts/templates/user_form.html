@@ -4,6 +4,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load bootstrap4 %}
+{% load ita_template_tags %}
 {% block title %}
 <title>SmartMed | Профіль {{ user.get_username }}</title>
 {% endblock %}
@@ -28,58 +29,86 @@
 						<div class="card-body">
 							<div class="row">
 							
-								{% if request.resolver_match.url_name == "employee_update" %}
-								<div class="col-4">
+								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Username" %}</label>
-										{{ form.username | add_class:"form-control" }}
-									</div>
-								</div>
-								{% else %}
-								<div class="col-4">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Username" %}</label>
+										{% if request.user|has_group:"employees" %} 
 										<input type="text" class="form-control text-muted" value="{{ employee.user.get_username }}">
+										{% endif %}
+										{% if request.user|has_group:"partners" %} 
+										<input type="text" class="form-control text-muted" value="{{ partner.user.get_username }}">
+										{% endif %}
 									</div>
 								</div>
-								{% endif %}
 
-								{% if request.resolver_match.url_name == "employee_update" %}
-								<div class="col-4">
+								
+								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Email" %}</label>
-										{{ form.email | add_class:"form-control" }}
-									</div>
-								</div>
-								{% else %}
-								<div class="col-4">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Email" %}</label>
+										{% if request.user|has_group:"employees" %} 
 										<input type="email" class="form-control text-muted" value="{{ employee.user.email }}">
-									</div>
-								</div>
-								{% endif %}
-
-								<div class="col-4">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Name" %}</label>
-										{{ form.name | add_class:"form-control" }}
+										{% endif %}
+										{% if request.user|has_group:"partners" %}
+										<input type="email" class="form-control text-muted" value="{{ partner.user.email }}">
+										{% endif %}
 									</div>
 								</div>
 							</div>
 
-							{% if request.resolver_match.url_name == "employee_update" %}
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Name" %}</label>
+										{% if request.user|has_group:"employees" %} 
+										{{ form.name | add_class:"form-control" }}
+										{% endif %}
+										{% if request.user|has_group:"partners" %} 
+										{{ form.name | add_class:"form-control" }}
+										{% endif %}
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Fullname" %}</label>
+										{% if request.user|has_group:"employees" %} 
+										{{ form.fullname | add_class:"form-control" }}
+										{% endif %}
+										{% if request.user|has_group:"partners" %} 
+										{{ form.fullname | add_class:"form-control" }}
+										{% endif %}
+									</div>
+								</div>
+							</div>
+							{% if request.user|has_group:"employees" %}
+							<div class="row">
+								<div class="col-12">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Position" %}</label>
 										{{ form.position | add_class:"form-control" }}
 									</div>
 								</div>
-								<div class="col-md-4">
+							</div>
+							{% endif %}
+							{% if request.user|has_group:"partners" %}
+							<div class="row">
+								<div class="col-12">
 									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Password" %}</label>
-										{{ form.password | append_attr:"class:form-control" | append_attr:"value:password" }}
+										<label class="bmd-label-floating">{% trans "Address" %}</label>
+										{{ form.legal_address | add_class:"form-control" }}
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Requisites" %}</label>
+										{{ form.requisites | add_class:"form-control" }}
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Bank requisites" %}</label>
+										{{ form.bank_requisites | add_class:"form-control" }}
 									</div>
 								</div>
 							</div>
@@ -99,10 +128,28 @@
 									</div>
 								</div>
 							</div>
+							{% if request.user|has_group:"partners" %}
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Tax system" %}</label>
+										{{ form.tax_system | add_class:"form-control" }}
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Dashboard theme" %}</label>
+										{{ form.theme | append_attr:"class:form-control" }}
+									</div>
+								</div>
+							</div>
+							{% endif %}
+							{% if request.user|has_group:"employees" %}
 							<div class="form-group">
 								<label class="bmd-label-floating">{% trans "Dashboard theme" %}</label>
 								{{ form.theme | append_attr:"class:form-control" }}
 							</div>
+							{% endif %}
 							<button id="submit" class="btn btn-info btn-block">{% trans "Update information" %}</button>
 							<div class="clearfix"></div>
 						</div>
@@ -145,7 +192,7 @@
 						</div>
 						<!--Modal-->
 						<!--crop-->
-						{% include '../includes/crop.html' %}
+						{% include './includes/crop.html' %}
 						<!--crop-->
 						<!--Modal end-->
 					</div>
