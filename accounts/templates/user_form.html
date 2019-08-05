@@ -27,7 +27,7 @@
 						</div>
 						<div class="card-body">
 							<div class="row">
-							
+							<!--username-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Username" %}</label>
@@ -39,8 +39,8 @@
 										{% endif %}
 									</div>
 								</div>
-
-								
+							<!--/username-->
+							<!--email-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Email" %}</label>
@@ -52,9 +52,10 @@
 										{% endif %}
 									</div>
 								</div>
+							<!--/email-->
 							</div>
-
 							<div class="row">
+								<!--name-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Name" %}</label>
@@ -66,6 +67,8 @@
 										{% endif %}
 									</div>
 								</div>
+								<!--/name-->
+								<!--fullname-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Fullname" %}</label>
@@ -77,64 +80,80 @@
 										{% endif %}
 									</div>
 								</div>
+								<!--/fullname-->
 							</div>
 							{% if request.user|has_group:"employees" %}
 							<div class="row">
+								<!--position-->
 								<div class="col-12">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Position" %}</label>
 										{{ form.position | add_class:"form-control" }}
 									</div>
 								</div>
+								<!--/position-->
 							</div>
 							{% endif %}
 							{% if request.user|has_group:"partners" %}
 							<div class="row">
+								<!--address-->
 								<div class="col-12">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Address" %}</label>
 										{{ form.legal_address | add_class:"form-control" }}
 									</div>
 								</div>
+								<!--/address-->
 							</div>
 							<div class="row">
+								<!--requisites-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Requisites" %}</label>
 										{{ form.requisites | add_class:"form-control" }}
 									</div>
 								</div>
+								<!--/requisites-->
+								<!--bank requisites-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Bank requisites" %}</label>
 										{{ form.bank_requisites | add_class:"form-control" }}
 									</div>
 								</div>
+								<!--/bank requisites-->
 							</div>
 							{% endif %}
 							
 							<div class="row">
+								<!--phone-->
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Phone" %}</label>
 										{{ form.phone | add_class:"form-control" }}
 									</div>
 								</div>
+								<!--/phone-->
+								<!--birthday-->
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Birthday" %}</label>
 										{{ form.birthday | append_attr:"class:form-control datepicker-here" }}
 									</div>
 								</div>
+								<!--/birthday-->
 							</div>
 							{% if request.user|has_group:"partners" %}
 							<div class="row">
+								<!--tax system-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Tax system" %}</label>
 										{{ form.tax_system | add_class:"form-control" }}
 									</div>
 								</div>
+								<!--/tax system-->
+								<!--theme-->
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Dashboard theme" %}</label>
@@ -149,6 +168,7 @@
 								{{ form.theme | append_attr:"class:form-control" }}
 							</div>
 							{% endif %}
+							<!--/theme-->
 							<button id="submit" class="btn btn-info btn-block">{% trans "Update information" %}</button>
 							<div class="clearfix"></div>
 						</div>
@@ -157,11 +177,14 @@
 				<div class="col-md-4">
 					<div class="row">
 						<div class="card card-profile">
+							<!--avatar preview-->
 							<div class="card-avatar">
 								<a href="{{ employee.avatar.url }}" target="blank">
 									<img class="img" src="{{ employee.avatar.url }}">
 								</a>
 							</div>
+							<!--/avatar preview-->
+							<!--username, position and etc.-->
 							<div class="card-body">
 								{% if request.user|has_group:"employees" %}
 								<h6 class="card-category">{{ employee.position }}</h6>
@@ -176,8 +199,10 @@
 								{% endif %}
 								</p>
 							</div>
+							<!--/username, position and etc.-->
 						</div>
 						<div class="card">
+							<!--avatar upload form-->
 							<div class="card-header card-header-info">
 								<h5>{% trans "Update profile photo" %}</h5>
 							</div>
@@ -195,6 +220,7 @@
 									{{ form.height }}
 								</div>
 							</div>
+							<!--/avatar upload form-->
 						</div>
 						<!--Modal-->
 						<!--crop-->
