@@ -32,10 +32,10 @@
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Username" %}</label>
 										{% if request.user|has_group:"employees" %} 
-										<input type="text" class="form-control text-muted" value="{{ employee.user.get_username }}">
+										<input type="text" class="form-control text-muted" value="{{ employee.user.get_username }}" disabled>
 										{% endif %}
 										{% if request.user|has_group:"partners" %} 
-										<input type="text" class="form-control text-muted" value="{{ partner.user.get_username }}">
+										<input type="text" class="form-control text-muted" value="{{ partner.user.get_username }}" disabled>
 										{% endif %}
 									</div>
 								</div>
@@ -179,9 +179,16 @@
 						<div class="card card-profile">
 							<!--avatar preview-->
 							<div class="card-avatar">
+							{% if request.user|has_group:"employees" %}
 								<a href="{{ employee.avatar.url }}" target="blank">
 									<img class="img" src="{{ employee.avatar.url }}">
 								</a>
+							{% endif %}
+							{% if request.user|has_group:"partners" %}
+								<a href="{{ partner.avatar.url }}" target="blank">
+										<img class="img" src="{{ partner.avatar.url }}">
+								</a>
+							{% endif %}
 							</div>
 							<!--/avatar preview-->
 							<!--username, position and etc.-->
@@ -189,7 +196,17 @@
 								{% if request.user|has_group:"employees" %}
 								<h6 class="card-category">{{ employee.position }}</h6>
 								{% endif %}
-								<h4 class="card-title">{{ user.get_username }}</h4>
+								{% if request.user|has_group:"partners" %}
+								<h6 class="card-category">{% trans "Partner" %}</h6>
+								{% endif %}
+								<h4 class="card-title">
+								{% if request.user|has_group:"employees" %}
+								{{ employee.user.get_username }}
+								{% endif %}
+								{% if request.user|has_group:"partners" %}
+								{{ partner.user.get_username }}
+								{% endif %}
+								</h4>
 								<p class="card-description">
 								{% if request.user|has_group:"employees" %}
 									{{ employee.name }} {{ employee.fullname }}
@@ -222,11 +239,9 @@
 							</div>
 							<!--/avatar upload form-->
 						</div>
-						<!--Modal-->
-						<!--crop-->
+						<!--Modal with cropper-->
 						{% include './includes/crop.html' %}
-						<!--crop-->
-						<!--Modal end-->
+						<!--/Modal with cropper-->
 					</div>
 				</div>
 			</div>

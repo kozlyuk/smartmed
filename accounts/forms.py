@@ -93,7 +93,7 @@ class PartnerForm(forms.ModelForm):
     class Meta:
         model = Partner
         fields = ['name', 'fullname', 'legal_address', 'requisites', 'bank_requisites', 'chief',
-                  'phone', 'tax_system', 'birthday', 'theme']
+                  'phone', 'tax_system', 'birthday', 'theme', 'avatar']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -138,7 +138,7 @@ class PartnerSelfUpdateForm(forms.ModelForm):
     class Meta:
         model = Partner
         fields = ['name', 'fullname', 'legal_address', 'requisites', 'bank_requisites', 'chief',
-                  'phone', 'tax_system', 'birthday', 'theme']
+                  'phone', 'tax_system', 'birthday', 'theme', 'avatar']
 
     def save(self, *args, **kwargs):  # pylint: disable=W0221
         instance = super().save(*args, **kwargs)

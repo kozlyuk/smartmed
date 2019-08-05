@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 {% load ita_template_tags %}
 <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static '/assets/img/sidebar.jpg' %}">
       <div class="logo">
@@ -9,56 +10,56 @@
           <li class="nav-item {% if request.resolver_match.url_name == "manager_home" %}active{% endif %}">
             <a class="nav-link" href="{% url 'manager_home' %}">
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <p>{% trans "Dashboard" %}</p>
             </a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == "employee_list" %}active{% endif %}">
             <a class="nav-link" href="{% url 'employee_list' %}">
               <i class="material-icons">people</i>
-              <p>Працівники</p>
+              <p>{% trans "Employees" %}</p>
             </a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == "partner_list" %}active{% endif %}">
               <a class="nav-link" href="{% url 'partner_list' %}">
                 <i class="material-icons">business_center</i>
-                <p>Партнери</p>
+                <p>{% trans "Partners" %}</p>
               </a>
             </li>
           <li class="nav-item {% if request.resolver_match.url_name == "product_list" %}active{% endif %}">
             <a class="nav-link" href="{% url 'product_list' %}">
               <i class="material-icons">content_paste</i>
-              <p>Каталог</p>
+              <p>{% trans "Product list" %}</p>
             </a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == "brand_list" %}active{% endif %}"">
             <a class="nav-link" href="{% url 'brand_list' %}">
               <i class="material-icons">spa</i>
-              <p>Бренди</p>
+              <p>{% trans "Brands" %}</p>
             </a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == "category_list" %}active{% endif %}"">
             <a class="nav-link" href="{% url 'category_list' %}">
               <i class="material-icons">category</i>
-              <p>Категорії</p>
+              <p>{% trans "Categories" %}</p>
             </a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == "group_list" %}active{% endif %}"">
               <a class="nav-link" href="{% url 'group_list' %}">
                 <i class="material-icons">group</i>
-                <p>Групи</p>
+                <p>{% trans "Groups" %}</p>
               </a>
             </li>
           <li class="nav-item {% if request.resolver_match.url_name == "warehouse_list" %}active{% endif %}"">
             <a class="nav-link" href="{% url 'warehouse_list' %}">
               <i class="material-icons">store</i>
-              <p>Склад</p>
+              <p>{% trans "Warehouse" %}</p>
             </a>
           </li>
           {% if request.user|has_group:"partners" %} 
           <li class='nav-item {% if request.resolver_match.url_name == "partner_self_update" %}active{% endif %}'>
             <a class="nav-link" href="{% url 'partner_self_update' %}">
               <i class="material-icons">face</i>
-              <p>Профіль</p>
+              <p>{% trans "Profile" %}</p>
             </a>
           </li>
           {% endif %}
@@ -66,14 +67,14 @@
           <li class="nav-item {% if request.resolver_match.url_name == "employee_self_update" %}active{% endif %}">
             <a class="nav-link" href="{% url 'employee_self_update' %}">
               <i class="material-icons">face</i>
-              <p>Профіль</p>
+              <p>{% trans "Profile" %}</p>
             </a>
           </li>
           {% endif %}
           <li class="nav-item ">
             <a class="nav-link" href="{% url 'logout' %}">
               <i class="material-icons">power_settings_new</i>
-              <p>Вихід</p>
+              <p>{% trans "Logout" %}</p>
             </a>
           </li>
         </ul>

@@ -72,6 +72,7 @@ class EmployeeCreate(CreateView):
 class EmployeeUpdate(UpdateView):
     """ EmployeeUpdate - view for updating employees """
     model = Employee
+    template_name = 'user_form.html'
     form_class = EmployeeForm
     success_url = reverse_lazy('employee_list')
 
@@ -114,6 +115,8 @@ class PartnerCreate(CreateView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerUpdate(UpdateView):
     """ PartnerUpdate - view for partners updating """
+    model = Partner
+    template_name = 'user_form.html'
     form_class = PartnerForm
     success_url = reverse_lazy('partner_list')
 
