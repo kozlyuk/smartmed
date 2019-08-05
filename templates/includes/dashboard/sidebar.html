@@ -13,24 +13,28 @@
               <p>{% trans "Dashboard" %}</p>
             </a>
           </li>
+          {% if request.user|has_group:"employees" %} 
           <li class="nav-item {% if request.resolver_match.url_name == "employee_list" %}active{% endif %}">
             <a class="nav-link" href="{% url 'employee_list' %}">
               <i class="material-icons">people</i>
               <p>{% trans "Employees" %}</p>
             </a>
           </li>
+          {% endif %}
           <li class="nav-item {% if request.resolver_match.url_name == "partner_list" %}active{% endif %}">
               <a class="nav-link" href="{% url 'partner_list' %}">
                 <i class="material-icons">business_center</i>
                 <p>{% trans "Partners" %}</p>
               </a>
             </li>
+          {% if request.user|has_group:"employees" %} 
           <li class="nav-item {% if request.resolver_match.url_name == "product_list" %}active{% endif %}">
             <a class="nav-link" href="{% url 'product_list' %}">
               <i class="material-icons">content_paste</i>
               <p>{% trans "Product list" %}</p>
             </a>
           </li>
+          {% endif %}
           <li class="nav-item {% if request.resolver_match.url_name == "brand_list" %}active{% endif %}"">
             <a class="nav-link" href="{% url 'brand_list' %}">
               <i class="material-icons">spa</i>
