@@ -9,9 +9,9 @@
             <a style="color: #000000;" class="close" href="{{request.META.HTTP_REFERER}}">×</a>
         </div>
         <div class="modal-body">
-            <form method="post">{% csrf_token %}
+            <form method="post" action="{% url 'partner_delete' object.id %}"> {% csrf_token %}
                 <p>{% trans "Are you sure you want to delete" %} "{{ object }}"?</p>
-                <input type="submit" value="Confirm">
+                <button class="btn mb-auto p-2 btn-sm btn-success" type="submit">{% trans "Delete " %} {{ object }}</button>
             </form>
         </div>
     </div><!-- /.modal-content -->
