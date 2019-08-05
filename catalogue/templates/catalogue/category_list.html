@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'manager_base.html' %}
 {% load ita_template_tags %} 
 {% load staticfiles %} 
 {% load widget_tweaks %} 
@@ -21,29 +21,21 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead class=" text-primary">
-                                    <th><a href="?{% url_replace request 'o' 'brand_title' %}"> НАЗВА КАТЕГОРІЇ </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'product_count' %}"> КІЛЬКІСТЬ ТОВАРІВ </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th>
+                                    <th> </th>
+                                    <th><a href="?{% url_replace request 'o' 'name' %}"> НАЗВА КАТЕГОРІЇ </a></th>
                                     <th>Дії</th>
                                 </thead>
                                 <tbody>
-                                    {% for product in products %}
+                                    {% for category in categories %}
                                     <tr>
-                                        <!--<td>-->
-                                        <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
-                                        <!--</td>-->
-                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a></td>
-                                        <td> {{ product.UPC }}</td>
-                                        <td> {{ product.brand }}</td>
-                                        <td> {{ product.category }}</td>
-                                        <td> {{ product.group }}</td>
-                                        <td> {{ product.is_active }}</td>
+                                        <td>
+                                            <input type="checkbox" name="ids" value="{{ category.id }}" />
+                                        </td>
+                                        <td> {{ category.name }} </a></td>
                                         <td class="td-actions">
                                             <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                                <a href="{% url 'category_update' category.id %}">
                                                 <i class="material-icons">settings</i>
-                                            </button>
-                                            <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                <i class="material-icons">delete</i>
                                             </button>
                                         </td>
                                     </tr>

@@ -1,0 +1,33 @@
+{% load bootstrap4 %}
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="utf-8"/>
+    {% block title %}{% endblock %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    {% load ita_template_tags %} {% load staticfiles %} {% load widget_tweaks %}
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- css list -->
+    {% include 'includes/shop/css_list.html' %}
+    <!-- /css -->
+</head>
+<body>
+    {% bootstrap_messages %}
+    <!-- navbar -->
+    {% include 'includes/shop/navbar.html' %}
+    <!-- /navbar -->
+
+    {% block content %}
+    {% endblock content %}
+    
+    <!--footer-->
+    {% include 'includes/shop/footer.html'%}
+    <!-- /footer-->
+
+    <!-- js files-->
+    {% include 'includes/shop/js_list.html' %}
+    <!-- /JS -->
+</body>

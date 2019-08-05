@@ -1,0 +1,134 @@
+{% load ita_template_tags %} {% load staticfiles %} {% load widget_tweaks %} {% load i18n %}
+<header class="header mb-5">
+    <!--TOPBAR-->
+    <div id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offer mb-3 mb-lg-0">
+                    <!-- <a href="#" class="btn btn-success btn-sm">Покупка дня</a> -->
+                    <p>{% trans "Welcome to the online store" %} SmartMed </p>
+                </div>
+                <div class="col-lg-6 text-center text-lg-right">
+                    <ul class="menu list-inline mb-0">
+                        {% comment %} <li class="list-inline-item"><a href="#" data-toggle="modal"
+                                data-target="#login-modal">Вхід</a>
+                        </li> {% endcomment %}
+                        <li class="list-inline-item"><a href="{% url 'manager_home' %}">{% trans "Go to dashboard"%}</a>
+                        </li>
+                        <li class="list-inline-item"><a href="register.html">{% trans "Registration"%}</a></li>
+                        <li class="list-inline-item"><a href="contact.html">{% trans "Contact's" %}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% include 'includes/shop/login_modal.html' %}
+        <!--TOP BAR END-->
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container"><a href="{% url 'shop_groups' %}" class="navbar-brand home"><img
+                    src="{% static '/assets/img/logo.png' %}" alt="SmartMed logo" class="d-none d-md-inline-block"><img
+                    src="{% static '/assets/img/logo.png' %}" alt="SmartMed logo" class="d-inline-block d-md-none"><span
+                    class="sr-only">SmartMed - {% trans "go to homepage" %}</span></a>
+            <div class="navbar-buttons">
+                <button type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation"
+                    aria-expanded="false" aria-label="Toggle navigation"
+                    class="btn btn-outline-secondary navbar-toggler"><span
+                        class="sr-only">{% trans "Toggle navigation" %}</span><i
+                        class="fa fa-align-justify"></i></button>
+                <button type="button" data-toggle="collapse" data-target="#search"
+                    class="btn btn-outline-secondary navbar-toggler"><span
+                        class="sr-only">{% trans "Toggle search" %}</span><i class="fa fa-search"></i></button><a
+                    href="basket.html" class="btn btn-outline-secondary navbar-toggler"><i
+                        class="fa fa-shopping-cart"></i></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="{% url 'shop_groups' %}" class="nav-link">{% trans "Home" %}</a></li>
+                    <!--categories menu-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categories" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {% trans "Categories" %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="categories">
+                            {% for id, name in categories %}
+                            <a class="dropdown-item" href="{% url 'shop_products' %}?category={{ id }}">{{ name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <!--/categories menu-->
+                    <!--groups menu-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="groups" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {% trans "Groups" %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="groups">
+                            {% for id, name in groups %}
+                            <a class="dropdown-item" href="{% url 'shop_products' %}?group={{ id }}">{{ name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <!--/groups menu-->
+                    <!--brands menu-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="brands" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {% trans "Brands" %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="brands">
+                            {% for id, name in brands %}
+                            <a class="dropdown-item" href="{% url 'shop_products' %}?brand={{ id }}">{{ name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <!--/brands menu-->
+                    {% if request.resolver_match.url_name == "shop_products" %}
+                    {% else %}
+                    <!--all product button-->
+                    <li class="nav-item"><a href="{% url 'shop_products' %}"
+                            class="nav-link">{% trans "All product's" %}</a></li>
+                    <!--/all product button-->
+                    {% endif %}
+                </ul>
+                <div class="navbar-buttons d-flex justify-content-end">
+                    <!-- /.nav-collapse-->
+                    {% if request.resolver_match.url_name == "basket" %}
+                    {% else %}
+                    <div id="search-not-mobile" class="navbar-collapse collapse"></div><a data-toggle="collapse"
+                        href="#search" class="btn navbar-btn btn-primary d-none d-lg-inline-block"><span
+                            class="sr-only">{% trans "Search" %}</span><i style="font-size: 15;"
+                            class="fa fa-search"></i></a>
+                    {% if basket_products_count|lower == "0" %}
+                    <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
+                        <button class="btn btn-primary navbar-btn" disabled>
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>{% trans "No products in basket" %}</span>
+                        </button>
+                    </div>
+                    {% else %}
+                    <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
+                        <a class="btn btn-primary navbar-btn" href="{% url 'basket' %}">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>{% trans "Products in basket:" %} {{ basket_products_count }}</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="search" class="collapse">
+        <form id="searchForm" role="search" class="ml-auto">
+            <div class="container">
+                <div class="input-group">
+                    {{ filter_form.filter|attr:"type:text"|attr:"placeholder=Search..."|add_class:"form-control" }}
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</header>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from purchases.models import Company, Deal, Purchase, InvoiceLine
+from purchases.models import Company, Purchase, InvoiceLine
 
 
 @admin.register(Company)
@@ -16,16 +16,15 @@ class CompanyAdmin(admin.ModelAdmin):
         ]
 
 
-@admin.register(Deal)
-class DealAdmin(admin.ModelAdmin):
-    list_display = ['number', 'type', 'partner', 'company', 'expire_date', 'created_by']
+@admin.register(InvoiceLine)
+class InvoiceLineAdmin(admin.ModelAdmin):
+    list_display = ['purchase', 'product', 'unit_price', 'quantity', 'units']
     fieldsets = [
-        (None, {'fields': ['type',
-                           ('number', 'date'),
-                           ('partner', 'company'),
-                           'expire_date',
-                           'upload',
-                           'comment',
+        (None, {'fields': ['product',
+                           'purchase',
+                           'unit_price',
+                           'quantity',
+                           'units',
                            ]})
         ]
 
@@ -40,15 +39,16 @@ class InvoiceLineInline(admin.TabularInline):
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
 
-    list_display = ['deal', 'invoice_number', 'value_wc',
-                    'in_stock', 'created_by']
+    list_display = ['type', 'partner', 'company', 'invoice_number', 'value', 'in_stock', 'created_by']
     list_per_page = 50
     fieldsets = [
-        (None, {'fields': ['deal',
+        (None, {'fields': ['type',
+                           ('partner', 'company'),
                            ('invoice_number', 'invoice_date'),
-                           ('value', 'currency'),
-                           ('warehouse', 'in_stock'),
+                           'value',
+                           'in_stock',
                            'upload'
+                           'comment',
                            ]}),
         ]
     inlines = [InvoiceLineInline]

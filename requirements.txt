@@ -1,5 +1,4 @@
-Django==2.1.7
-django-stdimage==4.0.1
+Django==2.2.3
 Pillow==5.4.1
 progressbar2==3.39.3
 python-utils==2.3.0
@@ -7,3 +6,7 @@ pytz==2018.9
 six==1.12.0
 django-widget-tweaks
 django-userforeignkey
+django-bootstrap4
+django-fontawesome-5
+django-debug-toolbar
+django-crispy-forms

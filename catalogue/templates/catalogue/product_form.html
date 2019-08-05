@@ -1,208 +1,361 @@
-{% extends 'base.html' %} 
-{% load ita_template_tags %} 
-{% load staticfiles %} 
-{% load widget_tweaks %} 
+{% extends 'manager_base.html' %}
+{% load ita_template_tags %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
 {% block title %}
 <title>SmartMed | {{ product.title }}</title>
 {% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css">
+{% endblock extrastyle %}
 {% block context %}
 <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-8">
-                    <div class="card">
-                    <div class="card-header card-header-info">
-                        <div class="text-center">{{ product.title }}</div>
-                    </div>
-                    
-                    <!--<div class="btn-group">-->
-                    <!--    <button type="button" class="btn btn-danger btn-sm">{{ product.category }}</button>-->
-                    <!--    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                    <!--        <span class="sr-only">Toggle Dropdown</span>-->
-                    <!--    </button>-->
-                    <!--    <div class="dropdown-menu">-->
-                    <!--        <a class="dropdown-item" href="#">{{ product.category }}</a>-->
-                    <!--    </div>-->
-                    <!--</div>-->
-                    
-                    
-                    
-                    <p class="h5 m-3">Категорія товару: 
-                        <small class="text-muted">{{ form.category|add_class:"custom-select" }}</small>
-                        <i class="form-icons material-icons edit-icons">edit</i>
-                    </p>
-                    <p class="h5 m-3">Група товару: 
-                        <small class="text-muted">{{ form.group|add_class:"custom-select" }}</small>
-                        <i class="form-icons material-icons edit-icons">edit</i>
-                    </p>
-                    <p class="h5 m-3">Бренд: 
-                        <small class="text-muted">{{ form.brand|add_class:"custom-select" }}</small>
-                        <i class="form-icons material-icons edit-icons">edit</i>
-                    </p>
-                    <div class="form-group ml-3 mr-3">
-                        <label for="edit_product">Опис:</label>
-                        <textarea class="form-control"  rows="12">{{ form.description|attr:"id:edit_product" }}</textarea>
-                    </div>
-                    
-                    
-                    <div class="row">
-                    <p class="h6 m-3 col-3 small-text">Ким створений: {{ product.created_by }}</p>
-                    <p class="h6 m-3 col-3 small-text">Коли створений: {{ product.date_created }}</p>
-                    <p class="h6 m-3 col-3 small-text">Дата редагування: {{ product.date_updated }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <row>
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        update
-                    </div>
-                    
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_active }}" disabled>
-                            Активний
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.has_instances }}" disabled>
-                            has_instances
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.has_attributes }}" disabled>
-                            has_attributes
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="form-check disabled ml-3">
-                        <label class="form-check-label">
-                            <input id="bool_check" class="form-check-input" type="checkbox" value="{{ product.is_discountable }}" disabled>
-                            Акційний
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-                </row>
-                <row>
-                    <div class="card">
-                        <p class="h5 m-3">UPC: <small class="text-muted">{{ product.upc }}</small></p>
-                        <p class="h5 m-3">Міра виміру: <small class="text-muted">{{ product.default_uom }}</small></p>
-                        <p class="h5 m-3">Розмір упаковки: <small class="text-muted">{{ product.pack_size }}</small></p>
-                        <p class="h5 m-3">Мінімальна кількість замовлення: <small class="text-muted">{{ product.min_store_quantity }}</small></p>
-                        <p class="h5 m-3">Гарантійний термін: <small class="text-muted">{{ product.warranty_terms }}</small></p>
-                    </div>
-                </row>
-            </div>
-            </div>
+    <div class="container-fluid">
+        <!--form-->
+        <form method="post" id="productUpdate" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="row">
                 <div class="col-8">
                     <div class="card">
                         <div class="card-header card-header-info">
-                            <div class="text-center">Оновлення фото товару</div>
+                            <div class="text-center">{{ product.title }}</div>
                         </div>
-                        
-                        <!--crop-->
-                        
-                        {% include './includes/crop.html' %}
-                        
-                        <!--crop-->
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header card-header-info">
-                            <div class="text-center">Фото товару</div>
-                        </div>
-                        <!-- Swiper -->
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/city)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/cats)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/food)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/nature)"></div>
-                                <div class="swiper-slide" style="background-image:url(http://lorempixel.com/400/400/people)"></div>
-                            </div>
-        
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-                        
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-prev"></div>
-                            <div class="swiper-button-next"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header card-header-info">
-                            <div class="text-center">Фото товару</div>
-                        </div>
-                        <p class="h5 m-3 text-center">Оновлення фото</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-xl">Головне фото</button>
-                            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                   <div class="frame text-center" style="margin: 0 0.3em;">
-                                      <img id="photo" src="http://lorempixel.com/400/400">
+                        <div class="card-body">
+                            <div class="col">
+                                <!--title and upc row-->
+                                <div class="row">
+                                    <div class="col-5">
+                                        {{ form.title|as_crispy_field }}
                                     </div>
-                                 <!--Swiper -->
-                                     <form>
-                                      <div class="form-group">
-                                        <button for="main_photo">Example file input</label>
-                                        <input type="file" class="form-control" id="main_photo">
-                                      </div>
-                                    </form>
+                                    <div class="col-5">
+                                        {{ form.upc|as_crispy_field }}
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-check disabled ml-3">
+                                            <label class="form-check-label">
+                                                <input id="id_is_active" class="form-check-input" name="is_active"
+                                                    type="checkbox" value="{{ product.is_active }}">
+                                                Активний
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
-                            </div>
-                            <button type="button" class="btn btn-sm btn-warning btn-block" data-toggle="modal" data-target=".bd-example-modal-xl">Допоміжні фото</button>
-                            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
+                                <!--/title and upc row-->
+                                <!--group and brand row-->
+                                <div class="row">
+                                    <div class="col-6">
+                                        {{ form.group|as_crispy_field }}
+                                    </div>
+                                    <div class="col-6">
+                                        {{ form.brand|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <!--/group and brand row-->
+                                <!--description row-->
+                                <div class="row">
                                     <div class="col">
-                                  <div class="frame text-center" style="margin: 0 0.3em;">
-                                      <img id="photo" src="http://lorempixel.com/400/400">
+                                        {{ form.description|as_crispy_field }}
                                     </div>
-                                 <!--Swiper -->
-                                 </div>
-                                 <div class="row">
-                                     <form>
-                                      <div class="form-group">
-                                        <label for="sub_photo">Example file input</label>
-                                        <input type="file" class="form-control" id="sub_photo">
-                                      </div>
-                                    </form>
-                                 </div>
                                 </div>
-                              </div>
+                                <!--/description row-->
+                                <!--warranty_terms, default_uom, pack_size and min_store_quantity row-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        {{ form.warranty_terms|as_crispy_field }}
+                                    </div>
+                                    <div class="col-3">
+                                        {{ form.default_uom|as_crispy_field }}
+                                    </div>
+                                    <div class="col-3">
+                                        {{ form.pack_size|as_crispy_field }}
+                                    </div>
+                                    <div class="col-3">
+                                        {{ form.min_store_quantity|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <!--/warranty_terms, default_uom, pack_size and min_store_quantity row-->
+                                <div class="d-flex align-items-end flex-row btn-group">
+                                    <button href="#" class="btn btn-sm btn-warning ml-auto"
+                                        type="submit">{% trans "Save and go to attributes" %}</button>
+                                    <button class="btn btn-sm btn-success" type="submit">{% trans "Save" %}</button>
+                                </div>
+                            </div>
+                            <!--other product information-->
+                            <div class="card-footer text-center">
+                                <div class="col">
+                                    <p class="card-text"><small class="text-muted">{% trans "Created by:" %}
+                                            {{ product.created_by }}</small></p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text"><small class="text-muted">{% trans "Date created:" %}
+                                            {{ product.date_created }}</small></p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text"><small class="text-muted">{% trans "Date updated:" %}
+                                            {{ product.date_updated }}</small></p>
+                                </div>
+                            </div>
+                            <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small></p>
+                            <!--/other product information-->
+                        </div>
+                    </div>
+                    <!--price card-->
+                    <div class="card mb-1">
+                        <div class="card-header card-header-info">
+                            <div class="text-center">{% trans "Price" %}</div>
+                        </div>
+                        <div class="card-body">
+                            <div id="priceList">
+                                {% for formset in price_records_formset %}
+                                <div class="row form-row">
+                                {{ formset.non_field_errors }}
+                                {{ formset.errors }}
+                                {{ formset|crispy }}
+                                <div class="btn-group float-right">
+                                    <button type="button" id="addFormPrice"
+                                        class="add-form-row btn btn-sm btn-outline-success">
+                                        <i class="material-icons">
+                                            add
+                                        </i>
+                                    </button>
+                                </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {{ price_records_formset.management_form }}
+                            <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small>
+                            </p>
+                        </div>
+                    </div>
+                    <!--/price card-->
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <div class="text-center">{% trans "Attributes"%}</div>
+                            </div>
+                            <div id="attributeListAll" class="card-body attributeList">
+                                <!--attribute row-->
+                                <div id="attributeList">
+                                    {% for formset in attribute_formset %}
+                                    <div class="row form-row-attr">
+                                        {{ formset.non_field_errors }}
+                                        {{ formset.errors }}
+                                        <div class="col">
+                                            {{ formset.type|attr:"class=names-select2 form-control"|attr:"multiple=multiple" }}
+                                        </div>
+                                        {{ formset.id }}
+                                        {% comment %} <div class="col-2 text-muted">
+                                            <button type="button" id="addFormAttr"
+                                                class="add-form-row-attr btn btn-sm btn-outline-success">
+                                                <i class="material-icons">
+                                                    add
+                                                </i>
+                                            </button>
+                                        </div> {% endcomment %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--/attribute row-->
+                            </div>
+                            {{ attribute_formset.management_form }}
+                        </div>
+                        <!--photo update form-->
+                        <div class="card mt-1">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    {% for image in image_formset %}
+                                    {% if image.instance.image %}
+                                    <img src="{{ image.instance.image.url }}" class="card-img" alt="product image">
+                                    {% else %}
+                                    <img src="{% static '/images/noimage.gif' %}">
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{% trans "Upload new photo" %}</h5>
+                                        {% comment %} {% if image_formset|length == 0 %}
+                                        {{ formset.errors }}
+                                        <input type="file" name="image_set-0-image" accept="image/*" id="id_image_set-0-image">
+                                        <input type="hidden" name="image_set-0-x" value="0" id="id_image_set-0-x">
+                                        <input type="hidden" name="image_set-0-y" value="0" id="id_image_set-0-y">
+                                        <input type="hidden" name="image_set-0-width" value="0"
+                                            id="id_image_set-0-width">
+                                        <input type="hidden" name="image_set-0-height" value="0"
+                                            id="id_image_set-0-height">
+                                        <input type="hidden" name="image_set-0-id" value="4" id="id_image_set-0-id">
+                                        <input type="checkbox" name="image_set-0-DELETE" hidden=""
+                                            id="id_image_set-0-DELETE">
+                                        <input type="hidden" name="image_set-TOTAL_FORMS" value="1"
+                                            id="id_image_set-TOTAL_FORMS"><input type="hidden"
+                                            name="image_set-INITIAL_FORMS" value="1"
+                                            id="id_image_set-INITIAL_FORMS"><input type="hidden"
+                                            name="image_set-MIN_NUM_FORMS" value="0"
+                                            id="id_image_set-MIN_NUM_FORMS"><input type="hidden"
+                                            name="image_set-MAX_NUM_FORMS" value="1000" id="id_image_set-MAX_NUM_FORMS">
+                                        {% else %} {% endcomment %}
+                                        {% for formset in image_formset %}
+                                        
+                                        {{ formset.non_field_errors }}
+                                        {{ formset.errors }}
+                                        {{ formset.image }}
+                                        {{ formset.x }}
+                                        {{ formset.y }}
+                                        {{ formset.width }}
+                                        {{ formset.height }}
+                                        {{ formset.id }}
+                                        {{ formset.DELETE | attr:"hidden" }}
+                                        
+                                        {% endfor %}
+                                        {% comment %} {% endif %} {% endcomment %}
+                                        
+                                        
+                                        {{ image_formset.management_form }}
+                                        <label for="id_image_set-0-image" class="custom-file-upload">
+                                            <i class="material-icons">
+                                                cloud_upload
+                                            </i>
+                                        </label>
+                                    </div>
+                                    <!--cropper-->
+                                    {% include '../includes/crop.html' %}
+                                    <!--/cropper-->
+                                </div>
                             </div>
                         </div>
+                        <!--/photo update form-->
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-const checkbox = () => {
-  var checkbox = document.getElementById("bool_check");
-  var boolElem = document.getElementById("bool_check").value;
-  if (boolElem != "true") {
-      document.getElementById("bool_check").checked = true;
-  }}
-  checkbox();
-  </script>
-{% endblock %}
+        </form>
+        <!--/form-->
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.full.js"></script>
+
+<script type="module">
+import {
+    cloneMore,
+    deleteForm,
+    cloneMoreAttr,
+    deleteFormAttr,
+} from "{% static '/jsComponents/dashboard/addFormInFormset.mjs' %}";
+
+//price listeners
+$(document).on('click', '.remove-form-row', function (e) {
+    e.preventDefault();
+    deleteForm('pricerecord_set', $(this));
+    return false;
+});
+
+$(document).on('click', '.add-form-row', function (e) {
+    e.preventDefault();
+    cloneMore('.form-row:last', 'pricerecord_set');
+    return false;
+});
+
+//attr listeners
+$(document).on('click', '.remove-form-row-attr', function (e) {
+    e.preventDefault();
+    deleteFormAttr('attribute_set', $(this));
+    return false;
+});
+
+$(document).on('click', '.add-form-row-attr', function (e) {
+    e.preventDefault();
+    cloneMoreAttr('.form-row-attr:last', 'attribute_set');
+    return false;
+});
+
+//touch select2 to names-select2
+$(".names-select2").select2({
+    allowClear: true,
+    placeholder: "—",
+    tags: true,
+    tokenSeparators: [',', ' '],
+    theme: "bootstrap",
+    containerCssClass: 'mb-2',
+});
+
+</script>
+
+<script type="module">
+import { checkbox } from "{% static '/jsComponents/BoolCheckbox.mjs' %}";
+            
+checkbox();
+</script>
+<script>
+$(function () {
+    /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+    $("#id_image_set-0-image").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#image").attr("src", e.target.result);
+                $("#modalCrop").modal("show");
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    /* SCRIPTS TO HANDLE THE CROPPER BOX */
+    var $image = $("#image");
+    var cropBoxData;
+    var canvasData;
+    $("#modalCrop").on("shown.bs.modal", function () {
+        $image.cropper({
+            viewMode: 1,
+            aspectRatio: 1 / 1,
+            minCropBoxWidth: 200,
+            minCropBoxHeight: 200,
+            ready: function () {
+                $image.cropper("setCanvasData", canvasData);
+                $image.cropper("setCropBoxData", cropBoxData);
+            }
+        });
+    }).on("hidden.bs.modal", function () {
+        cropBoxData = $image.cropper("getCropBoxData");
+        canvasData = $image.cropper("getCanvasData");
+        $image.cropper("destroy");
+    });
+
+    $(".js-zoom-in").click(function () {
+        $image.cropper("zoom", 0.1);
+    });
+
+    $(".js-zoom-out").click(function () {
+        $image.cropper("zoom", -0.1);
+    });
+
+    /* SCRIPT TO COLLECT THE DATA FROM AVATAR FIELD AND POST TO THE SERVER */
+    $(".js-crop-and-upload").click(function () {
+        var cropData = $image.cropper("getData");
+        $("#id_image_set-0-x").val(cropData["x"]);
+        $("#id_image_set-0-y").val(cropData["y"]);
+        $("#id_image_set-0-height").val(cropData["height"]);
+        $("#id_image_set-0-width").val(cropData["width"]);
+        $("#productUpdate").submit();
+    });
+
+    $("#submit").click(function () {
+        $("#productUpdate").submit();
+    });
+
+});
+</script>
+
+
+
+{% endblock context %}

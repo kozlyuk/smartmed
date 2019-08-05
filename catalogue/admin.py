@@ -18,9 +18,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'category']
     fieldsets = [
         (None, {'fields': ['name',
+                           'category'
                            ]})
         ]
 
@@ -43,9 +44,10 @@ class AdminImageWidget(AdminFileWidget):
             image_url = value.url
             file_name = str(value)
             output.append(
-                u' <a href="%s" target="_blank"><img src="%s" alt="%s" width="150" height="150"  style="object-fit: cover;"/></a> %s ' % \
+                u' <a href="%s" target="_blank"><img src="%s" alt="%s" width="150" '
+                u'height="150"  style="object-fit: cover;"/></a> %s ' % \
                 (image_url, image_url, file_name, _('')))
-        output.append(super(AdminFileWidget, self).render(name, value, attrs, renderer))
+        output.append(super().render(name, value, attrs, renderer))
         return mark_safe(u''.join(output))
 
 
@@ -71,12 +73,12 @@ class AttributeInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'upc', 'brand', 'category', 'group', 'is_active']
+    list_display = ['title', 'upc', 'brand', 'group', 'is_active']
     fieldsets = [
         (None, {'fields': [('title', 'upc'),
-                           ('category', 'group', 'brand'),
+                           ('group', 'brand'),
                            ('pack_size', 'min_store_quantity', 'default_uom'),
-                           ('warranty_terms', 'has_instances', 'has_attributes', 'is_discountable', 'is_active'),
+                           ('warranty_terms', 'has_instances', 'is_discountable', 'is_active'),
                            'description',
                            ]})
         ]
@@ -111,7 +113,7 @@ class AttributeAdmin(admin.ModelAdmin):
 
 @admin.register(ProductInstance)
 class ProductInstanceAdmin(admin.ModelAdmin):
-    list_display = ['product', 'instance_name', 'serial_number', 'attribute_value', 'stock']
+    list_display = ['product', 'instance_name', 'serial_number', 'stock']
     fieldsets = [
         (None, {'fields': [('product', 'instance_name'),
                            ('serial_number', 'warranty_end_date'),

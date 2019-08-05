@@ -1,0 +1,23 @@
+{% load i18n %} 
+{% load ita_template_tags %}
+{% load static %}
+
+{% for id, name in groups %}
+<div class="col-xl-4 col-lg-4 col-sm-6">
+    <a href="{% url 'shop_products' %}?group={{ id }}">
+        <div style="height: 350px;" class="wrapper">
+            <div class="container">
+                <img class="top lazy" src="{% static '/images/product_lazy_pic.png' %}" data-src="{{product.get_image}}"
+                    alt="product image">
+                <div style="width: 90%;" class="bottom">
+                    <div class="container">
+                        <div class="details text-center">
+                            <h5>{{ name }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+{% endfor %}

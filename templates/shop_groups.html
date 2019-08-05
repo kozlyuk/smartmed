@@ -1,0 +1,13 @@
+{% extends 'shop_base.html' %} 
+{% load staticfiles %}
+{% block title %}
+<title>SmartMed | Інтернет-магазин</title>
+
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% include "includes/shop/groups_card.html" %}
+    </div>
+</div>
+{% endblock %}

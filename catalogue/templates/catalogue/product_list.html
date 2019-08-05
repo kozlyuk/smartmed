@@ -1,75 +1,65 @@
-{% extends 'base.html' %} 
+{% extends 'manager_base.html' %}
 {% load ita_template_tags %} 
 {% load staticfiles %} 
 {% load widget_tweaks %} 
+{% load i18n %}
 {% block title %}
-<title>SmartMed | Список товарів</title>
+<title>SmartMed | {% trans "Product list" %}</title>
 {% endblock %}
 {% block sidebar %} 
 {% endblock %} 
 {% block context %}
 <div class="content">
-    <div class="panel-group accordion" id="accordion1">
+    <div class="panel-group">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <a class="accordion" data-toggle="collapse" data-parent="#accordion" href="#collapse_1" aria-expanded="false" style="
-                                            display: inline-block;
-                                            position: relative;
-                                            left: 50%;
-                                            top: 50%;
-                                            transform: translate(-50%, -50%);"> Фільтр </a>
-                </div>
-                <div style="height:30px; bottom: 0px; float: right">
-                </div>
-            </div>
-            <div id="collapse_1" class="collapse" aria-expanded="false">
-                <div class="card-body container" style="display:block">
-                    <form action="{% url 'product_list' %}" method="get">
-                        {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
-
-                        <div class="container-fluid">
-                            <div class="row">
-                            <tr>
-                                {% for field in filter_form.visible_fields|slice:":3" %}
-                                <div class="col-3">
-                                    {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }} {% if field.help_text %}
-                                    <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
+            <div class="container-flex">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <form style="margin-bottom: 0px" action="{% url 'product_list' %}" method="get">
+                                <div class="row">
+                                    {% for hidden_field in filter_form.hidden_fields %} {{ hidden_field }} {% endfor %}
+                                    <tr>
+                                        {% for field in filter_form.visible_fields|slice:":3" %}
+                                        <div class="col-3 d-flex align-items-end">
+                                            {{ field.label_tag }} {{ field|add_class:"form-control form-control-sm" }}
+                                            {% if field.help_text %}
+                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                        <div class="col d-flex align-items-end">
+                                            {% if perms.smartmed.add_product %}
+                                            <a href="{% url 'product_create' %}"
+                                                class="btn btn-block align-bottom btn-sm btn-success uppercase" <i
+                                                class="fa fa-plus"></i> Додати товар </a> {% endif %}
+                                        </div>
+                                    </tr>
                                 </div>
-                                {% endfor %}
-                                <div class="col-3">
-                                    {% if perms.smartmed.add_product %}
-                                    <a href="{% url 'product_create' %}" class="btn btn-sm btn-success uppercase" <i class="fa fa-plus"></i> Додати товар </a> {% endif %}
-                                </div>
-                            </tr>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <div class="container-fluid">
+    <div class="container-flex">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Список товарів</h4>
+                        <h4 class="card-title">{% trans "Product list" %}</h4>
                         <!--<p class="card-category"> some text</p>-->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead class=" text-primary">
-                                    <th><a href="?{% url_replace request 'o' 'title' %}"> НАЗВА ТОВАРУ </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'upc' %}"> UPC </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'brand' %}"> БРЕНД </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'category' %}"> КАТЕГОРІЯ {{ title }}</a></th>
-                                    <th><a href="?{% url_replace request 'o' 'group' %}"> ГРУППА </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th>
-                                    <th>Дії</th>
+                                    <th><a href="?{% url_replace request 'o' 'title' %}"> {% trans "Product title" %} </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'upc' %}"> {% trans "Product UPC" %} </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'brand' %}"> {% trans "Product brand" %} </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'group' %}"> {% trans "Product group" %} </a></th>
+                                    <th>{% trans "Action" %}</th>
                                 </thead>
                                 <tbody>
                                     {% for product in products %}
@@ -77,19 +67,22 @@
                                         <!--<td>-->
                                         <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
                                         <!--</td>-->
-                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a></td>
-                                        <td> {{ product.UPC }}</td>
+                                        <td> {{ product.title }} </td>
+                                        <td> {{ product.upc }}</td>
                                         <td> {{ product.brand }}</td>
-                                        <td> {{ product.category }}</td>
                                         <td> {{ product.group }}</td>
-                                        <td> {{ product.is_active }}</td>
+                                        {% comment %} <td> {{ product.is_active }}</td> {% endcomment %}
                                         <td class="td-actions">
-                                              <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
-                                                  <i class="material-icons">settings</i>
-                                              </button>
-                                              <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                  <i class="material-icons">delete</i>
-                                              </button>
+                                            <button type="button" href="{% url 'product_update' product.id %}" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                                <a href="{% url 'product_update' product.id %}">
+                                                    <i class="material-icons">settings</i>
+                                                </a>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
+                                                <a data-toggle="modal" onclick="deleteProduct({{ product.id }})" data-target="#modal" href="{% url 'product_delete' product.pk %}">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </button>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -101,4 +94,19 @@
             </div>
         </div>
     </div>
-        {% endblock %}
+    {% include './modal.html' %}
+<script>
+// init modal and ajax request
+function deleteProduct(pk) {
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "/dashboard/product/delete/" + pk,
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+};
+</script>
+{% endblock %}

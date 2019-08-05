@@ -1,0 +1,20 @@
+{% for form in attribute_formset %}
+{{form}}
+{% endfor %}
+<div class="card-body">
+    <div class="row align-items-center">
+        <div class="col">
+            <select style="width: 100%;" class="names-select2">
+                <option value="1">Incoming value</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <input class="form-control" style="width: 100%" type="number" name="quantity" placeholder="quantity"
+                        id="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

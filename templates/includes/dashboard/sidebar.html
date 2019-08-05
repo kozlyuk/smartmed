@@ -1,0 +1,81 @@
+{% load staticfiles %}
+{% load ita_template_tags %}
+<div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static '/assets/img/sidebar.jpg' %}">
+      <div class="logo">
+        <a id="logo" href="{% url 'manager_home' %}"><img src="{% static '/assets/img/logo.png' %}" alt="SmartMed" height="100px" width="" /></a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item {% if request.resolver_match.url_name == "manager_home" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'manager_home' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "employee_list" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'employee_list' %}">
+              <i class="material-icons">people</i>
+              <p>Працівники</p>
+            </a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "partner_list" %}active{% endif %}">
+              <a class="nav-link" href="{% url 'partner_list' %}">
+                <i class="material-icons">business_center</i>
+                <p>Партнери</p>
+              </a>
+            </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "product_list" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'product_list' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Каталог</p>
+            </a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "brand_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'brand_list' %}">
+              <i class="material-icons">spa</i>
+              <p>Бренди</p>
+            </a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "category_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'category_list' %}">
+              <i class="material-icons">category</i>
+              <p>Категорії</p>
+            </a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "group_list" %}active{% endif %}"">
+              <a class="nav-link" href="{% url 'group_list' %}">
+                <i class="material-icons">group</i>
+                <p>Групи</p>
+              </a>
+            </li>
+          <li class="nav-item {% if request.resolver_match.url_name == "warehouse_list" %}active{% endif %}"">
+            <a class="nav-link" href="{% url 'warehouse_list' %}">
+              <i class="material-icons">store</i>
+              <p>Склад</p>
+            </a>
+          </li>
+          {% if request.user|has_group:"partners" %} 
+          <li class='nav-item {% if request.resolver_match.url_name == "partner_self_update" %}active{% endif %}'>
+            <a class="nav-link" href="{% url 'partner_self_update' %}">
+              <i class="material-icons">face</i>
+              <p>Профіль</p>
+            </a>
+          </li>
+          {% endif %}
+          {% if request.user|has_group:"employees" %} 
+          <li class="nav-item {% if request.resolver_match.url_name == "employee_self_update" %}active{% endif %}">
+            <a class="nav-link" href="{% url 'employee_self_update' %}">
+              <i class="material-icons">face</i>
+              <p>Профіль</p>
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="material-icons">power_settings_new</i>
+              <p>Вихід</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>

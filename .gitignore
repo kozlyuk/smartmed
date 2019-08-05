@@ -1,10 +1,11 @@
 __pycache__
 venv/
 myvenv/
-*/migrations/
+# */migrations/
 media/
 .idea/
 */local_settings.py
+static_production/
 
 # Windows image file caches
 Thumbs.db

@@ -1,0 +1,49 @@
+{% load ita_template_tags %}
+{% load bootstrap4 %}
+{% load static %}
+{% load widget_tweaks %}
+
+{{ invoice_line_formset.non_form_errors }}
+{% for form in invoice_line_formset %}
+{% if form.fields.errors %}
+<ul class="form-errors">
+    {% for error in field.errors %}
+    <li><i class="material-icons">error</i> <strong>{{ error|escape }}</strong>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{{ form.DELETE | add_class:"hidden" }} {% comment %} <!--add |add_class:"hidden" in production--> {% endcomment %}
+<tr id="{{ forloop.counter0 }}">
+    <td><a href="#"><img src="{{form.instance.product.get_image}}" alt="product image"></a></td>
+    <td><a href="#">{{ form.instance.product }}</a></td>
+    <td>
+        <div class="form-group">
+            <input type="number" name="invoiceline_set-{{ forloop.counter0 }}-quantity" value="{{ form.instance.quantity }}" min="0"
+                id="id_invoiceline_set-{{ forloop.counter0 }}-quantity" oninput="getSumOfRow({{ forloop.counter0 }})"
+                class="form-control">
+            {{ form.id }}
+            {{ form.errors }}
+        </div>
+    </td>
+    <td id="value_{{ forloop.counter0 }}">{{ form.instance.unit_price | value_format }}</td>
+    <td id="countResult_{{ forloop.counter0 }}" class="row_result">{{ form.instance.value_total | value_format }}</td>
+    <td><a href="#" onclick="deleteProduct({{ forloop.counter0 }})"><button type="button" data-toggle="tooltip" data-placement="left" title="Відкрити в новому вікні" class="btn btn-danger material-icons">delete</button></a></td>
+</tr>
+
+<script>
+//multiply quantity and price per unit
+function getSumOfRow(counter) {
+    let productQuantity = document.getElementById('id_invoiceline_set-' + counter + "-quantity").value;
+    let pricePerUnit = document.getElementById('value_' + counter).innerHTML;
+    let currency = document.getElementById('value_' + counter).innerHTML.replace(/[0-9, .]/g, '');
+    //make pricePerUnit a number
+    let priceNum = Number.parseFloat(pricePerUnit);
+    //make productQuantity a number
+    let productQuantityNum = Number.parseFloat(productQuantity);
+    let sumPrice = (productQuantityNum * priceNum).toFixed(2) + ' ' + currency;
+    //put result to html element
+    document.getElementById('countResult_' + counter).innerHTML = sumPrice;
+};
+</script>
+{% endfor %}

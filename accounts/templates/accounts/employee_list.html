@@ -1,15 +1,21 @@
-{% extends 'base.html' %} 
-{% load ita_template_tags %} 
-{% load staticfiles %} 
-{% load widget_tweaks %} 
+{% extends 'manager_base.html' %}
+{% load ita_template_tags %}
+{% load i18n %}
+{% load staticfiles %}
+{% load widget_tweaks %}
 {% block title %}
 <title>SmartMed | Список працівників</title>
 {% endblock %}
-{% block sidebar %} 
-{% endblock %} 
+{% block sidebar %}
+{% endblock %}
 {% block context %}
 <div class="content">
     <div class="container-fluid">
+        <div class="col-2 d-flex align-items-end">
+            <a href="{% url 'employee_create' %}"
+                class="btn btn-block align-bottom btn-sm btn-success uppercase" <i
+                class="fa fa-plus"></i> {% trans "add employee" %} </a>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -21,29 +27,34 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead class=" text-primary">
-                                    <th><a href="?{% url_replace request 'o' 'employee_full_name' %}"> ПІБ </a></th>
+                                    <th></th>
+                                    <th><a href="?{% url_replace request 'o' 'employee_employee_name' %}"> ПІБ </a></th>
                                     <th><a href="?{% url_replace request 'o' 'employee_position' %}"> Посада </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th>
                                     <th>Дії</th>
                                 </thead>
                                 <tbody>
-                                    {% for product in products %}
+                                    {% for employee in employees %}
                                     <tr>
-                                        <!--<td>-->
-                                        <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
-                                        <!--</td>-->
-                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a></td>
-                                        <td> {{ product.UPC }}</td>
-                                        <td> {{ product.brand }}</td>
-                                        <td> {{ product.category }}</td>
-                                        <td> {{ product.group }}</td>
-                                        <td> {{ product.is_active }}</td>
+                                        <td><input type="checkbox" name="ids" value="{{ employee.id }}" /></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src={{employee.avatar.url}}>">
+                                        {{ employee.name }}
+                                        </td>
+                                        <td> {{ employee.position }}</td>
                                         <td class="td-actions">
-                                            <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Редагувати користувача"
+                                                class="btn btn-success btn-round btn-icon">
+                                                <a href="{% url 'employee_update' employee.id %}"/>
                                                 <i class="material-icons">settings</i>
                                             </button>
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Відкрити в новому вікні" 
+                                                class="btn btn-warning btn-round btn-icon">
+                                                <a target="_blank" href="{% url 'employee_update' employee.id %}"/>
+                                                <i class="material-icons">open_in_new</i>
+                                            </button>
                                             <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                <i class="material-icons">delete</i>
+                                                <a data-toggle="modal" onclick="deleteEmployee({{ employee.id }})" data-target="#modal" href="{% url 'employee_delete' employee.id %}">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
                                             </button>
                                         </td>
                                     </tr>
@@ -56,5 +67,26 @@
             </div>
         </div>
     </div>
+    {% include './modal.html' %}
 </div>
+{% block extrascripts %}
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+// init modal and ajax request
+function deleteEmployee(id) {
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "/dashboard/employee/delete/" + id,
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+};
+</script>
+{% endblock extrascripts %}
 {% endblock %}

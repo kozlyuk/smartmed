@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load ita_template_tags %}
+<head>
+    <meta charset="utf-8"/>
+    {% block title %} {% endblock %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    
+{% include 'includes/dashboard/css_list.html' %}
+
+{% block extrastyle %}
+{% endblock extrastyle %}
+
+</head>
+{% if request.user|has_group:"employees" %}
+    {% if user.employee.theme|lower == "bl" %}
+    <body class="dark-edition">
+    {% else %}
+    <body>
+    {% endif %}
+{% endif %}
+{% if request.user|has_group:"partners" %}
+    {% if user.partner.theme|lower == "bl" %}
+    <body class="dark-edition">
+    {% else %}
+    <body>
+    {% endif %}
+{% endif %}
+
+    <div style="display:none" id="theme">{{user.employee.theme}}</div>
+    <div class="wrapper ">
+        
+{% include 'includes/dashboard/sidebar.html' %}
+
+        <div class="main-panel ps-container ps-theme-default">
+            
+        {% include 'includes/dashboard/navbar.html' %}
+        
+        {% block context %}
+        
+        {% endblock %}
+        
+        </div>
+    </div>
+
+{% block extrascript %}
+{% endblock extrascript %}
+
+{% include 'includes/dashboard/js_list.html' %}
+
+</body>

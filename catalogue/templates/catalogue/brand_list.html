@@ -1,7 +1,8 @@
-{% extends 'base.html' %} 
+{% extends 'manager_base.html' %}
 {% load ita_template_tags %} 
 {% load staticfiles %} 
 {% load widget_tweaks %} 
+{% load ita_template_tags %}
 {% block title %}
 <title>SmartMed | Список брендів</title>
 {% endblock %}
@@ -21,30 +22,32 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead class=" text-primary">
-                                    <th><a href="?{% url_replace request 'o' 'brand_title' %}"> НАЗВА БРЕНДУ </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'phone_number' %}"> КОНТАКТНИЙ НОМЕР </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'product_count' %}"> КІЛЬКІСТЬ ТОВАРІВ </a></th>
+                                    <th> </th>
+                                    <th><a href="?{% url_replace request 'o' 'name' %}"> НАЗВА БРЕНДУ </a></th>
                                     <th><a href="?{% url_replace request 'o' 'is_active' %}"> АКТИВНИЙ </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'products_count' %}"> КІЛЬКІСТЬ ТОВАРІВ </a></th>
                                     <th>Дії</th>
                                 </thead>
                                 <tbody>
-                                    {% for product in products %}
+                                    {% for brand in brands %}
                                     <tr>
-                                        <!--<td>-->
-                                        <!--    <input type="checkbox" name="ids" value="{{ product.id }}" />-->
-                                        <!--</td>-->
-                                        <td><a href="{% url 'product_update' product.id %}"> {{ product.title }} </a></td>
-                                        <td> {{ product.UPC }}</td>
-                                        <td> {{ product.brand }}</td>
-                                        <td> {{ product.category }}</td>
-                                        <td> {{ product.group }}</td>
-                                        <td> {{ product.is_active }}</td>
+                                        <td>
+                                            <input type="checkbox" name="ids" value="{{ brand.id }}"/>
+                                        </td>
+                                        <td data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src={{brand.image.url}}>">
+                                        {{ brand.name }}
+                                        </td>
+                                        <td> <i style="color:{% active_status_color brand.is_active %}" class="material-icons">{% active_status_icon brand.is_active %} </td>
+                                        <td> {{ brand.products_count }}</td>
                                         <td class="td-actions">
                                             <button type="button" rel="tooltip" class="btn btn-success btn-round btn-icon">
+                                                <a href="{% url 'brand_update' brand.id %}"/>
                                                 <i class="material-icons">settings</i>
                                             </button>
                                             <button type="button" rel="tooltip" class="btn btn-danger btn-round btn-icon">
-                                                <i class="material-icons">delete</i>
+                                                <a data-toggle="modal" onclick="deleteBrand({{ brand.id }})" data-target="#modal" href="{% url 'brand_delete' brand.id %}">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
                                             </button>
                                         </td>
                                     </tr>
@@ -57,5 +60,26 @@
             </div>
         </div>
     </div>
+    {% include './modal.html' %}
 </div>
+{% block extrascripts %}
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+// init modal and ajax request
+function deleteBrand(id) {
+    $('#modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "/dashboard/brand/delete/" + id,
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+};
+</script>
+{% endblock extrascripts %}
 {% endblock %}

@@ -1,0 +1,33 @@
+
+{% extends 'shop_base.html' %} 
+{% load staticfiles %}
+{% block title %}
+<title>SmartMed | Інтернет-магазин</title>
+
+{% endblock %}
+{% block content %}
+<!-- content -->
+<div id="all">
+    <div id="success"></div>
+    <div id="content">
+        {% include 'includes/shop/modal.html' %}
+        <!--card list-->
+        <div class="container">
+            <div class="row">
+                {% include 'includes/shop/card.html' %}
+            </div>
+        </div>
+        <!--/card list-->
+
+    </div>
+</div>
+<script type="module">
+    import {lazyLoad} from "{% static '/assets/shop/jsComponents/lazyLoad.mjs' %}";
+    import {calcQuantity} from "{% static '/jsComponents/productOperations.mjs' %}";
+    import {requestAjaxAdd2Modal} from "{% static '/jsComponents/requestAjaxAdd2Modal.mjs' %}";
+
+    lazyLoad();
+    calcQuantity();
+    requestAjaxAdd2Modal();
+</script>
+{% endblock content %}
