@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load ita_template_tags %}
 <head>
     <meta charset="utf-8"/>
     {% block title %} {% endblock %}
@@ -13,10 +14,19 @@
 {% endblock extrastyle %}
 
 </head>
-{% if user.employee.theme|lower == "bl" %}
-<body class="dark-edition">
-{% else %}
-<body>
+{% if request.user|has_group:"employees" %}
+    {% if user.employee.theme|lower == "bl" %}
+    <body class="dark-edition">
+    {% else %}
+    <body>
+    {% endif %}
+{% endif %}
+{% if request.user|has_group:"partners" %}
+    {% if user.partner.theme|lower == "bl" %}
+    <body class="dark-edition">
+    {% else %}
+    <body>
+    {% endif %}
 {% endif %}
 
     <div style="display:none" id="theme">{{user.employee.theme}}</div>
