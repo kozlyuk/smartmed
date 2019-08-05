@@ -11,10 +11,9 @@
 {% block context %}
 <div class="content">
     <div class="container-fluid">
-    <div class="col-2 d-flex align-items-end">
-            <a href="{% url 'partner_create' %}"
-                class="btn btn-block align-bottom btn-sm btn-success uppercase" <i
-                class="fa fa-plus"></i> {% trans "add partner" %} </a>
+    <div class="d-flex align-items-center flex-column">
+            <a href="{% url 'employee_create' %}"
+                class="btn mb-auto p-2 btn-sm btn-success uppercase"> <i class="material-icons">add</i>{% trans "add partner" %} </a>
         </div>
         <div class="row">
             <div class="col-md-12">
