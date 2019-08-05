@@ -4,7 +4,7 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 {% block title %}
-<title>SmartMed | Список працівників</title>
+<title>SmartMed | {% trans "Employees list" %}</title>
 {% endblock %}
 {% block sidebar %}
 {% endblock %}
@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Список працівників</h4>
+                        <h4 class="card-title ">{% trans "Employees list" %}</h4>
                         <!-- <p class="card-category"> some text</p> -->
                     </div>
                     <div class="card-body">
@@ -28,9 +28,9 @@
                             <table class="table table-hover">
                                 <thead class=" text-primary">
                                     <th></th>
-                                    <th><a href="?{% url_replace request 'o' 'employee_employee_name' %}"> ПІБ </a></th>
-                                    <th><a href="?{% url_replace request 'o' 'employee_position' %}"> Посада </a></th>
-                                    <th>Дії</th>
+                                    <th><a href="?{% url_replace request 'o' 'employee_employee_name' %}"> {% trans "Name" %} </a></th>
+                                    <th><a href="?{% url_replace request 'o' 'employee_position' %}"> {% trans "Position" %} </a></th>
+                                    <th>{% trans "Action" %}</th>
                                 </thead>
                                 <tbody>
                                     {% for employee in employees %}

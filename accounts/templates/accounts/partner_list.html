@@ -4,7 +4,7 @@
 {% load staticfiles %} 
 {% load widget_tweaks %} 
 {% block title %}
-<title>SmartMed | Список партнерів</title>
+<title>SmartMed | {% trans "Partners list" %}</title>
 {% endblock %}
 {% block sidebar %} 
 {% endblock %} 
@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Список партнерів</h4>
+                        <h4 class="card-title ">{% trans "Partners list" %}</h4>
                         <!-- <p class="card-category"> some text</p> -->
                     </div>
                     <div class="card-body">
@@ -28,9 +28,9 @@
                             <table class="table table-hover">
                                 <thead class=" text-primary">
                                     <th></th>
-                                    <th><a href="?{% url_replace request 'o' 'partner_name' %}"> ПІБ </a></th>
-                                    <th> Контактний телефон</th>
-                                    <th>Дії</th>
+                                    <th><a href="?{% url_replace request 'o' 'partner_name' %}"> {% trans "Name" %} </a></th>
+                                    <th>{% trans "Phone" %}</th>
+                                    <th>{% trans "Action" %}</th>
                                 </thead>
                                 <tbody>
                                     {% for partner in partners %}
