@@ -22878,6 +22878,10 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
   display:inline-block;
 }
 
+.dark-edition option {
+  background: rgb(121, 121, 121);
+  color: rgb(255, 255, 255);
+}
 
 .h5, .h6 {
   color:#AAAAAA;

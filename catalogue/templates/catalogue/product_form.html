@@ -151,7 +151,10 @@
                                         {{ formset.non_field_errors }}
                                         {{ formset.errors }}
                                         <div class="col">
-                                            {{ formset.type|attr:"class=names-select2 form-control"|attr:"multiple=multiple" }}
+                                            <div class="form-group">
+                                            <label for="id_attribute_set-0-type">{% trans "Attributes" %}</label>
+                                                {{ formset.type|attr:"class=form-control" }}
+                                            </div>
                                         </div>
                                         {{ formset.id }}
                                         {% comment %} <div class="col-2 text-muted">
