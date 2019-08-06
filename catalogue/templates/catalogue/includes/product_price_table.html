@@ -1,56 +1,44 @@
 {% load i18n %}
 {% load widget_tweaks %}
-<div class="card mb-1">
-    <!--header-->
+{% load static %}
+<div class="card">
     <div class="card-header card-header-info">
         <div class="text-center">{% trans "Price" %}</div>
     </div>
-    <!--/header-->
-    <!--body-->
     <div class="card-body">
-        <div id="priceList">
-            {% for formset in price_records_formset %}
-            <div class="form-row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">{% trans "Actual from" %}</th>
+                    <th class="text-center">{% trans "Product price" %}</th>
+                    <th class="text-center">{% trans "Discount price" %}</th>
+                    <th class="text-center">{% trans "Discount price" %}</th>
+                    <th class="text-center">{% trans "Discount price" %}</th>
+                    <th class="text-right">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for formset in price_records_formset %}
                 {{ formset.non_field_errors }}
                 {{ formset.errors }}
                 {{ formset.id }}
-                <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <label>{{ formset.from_date.label }}</label>
-                    {{ formset.from_date | add_class:"form-control" }}
+                <div class="form-row">
+                    <tr>
+                        <td>{{ formset.from_date | append_attr:"class:form-control datepicker-here text-center" }}</td>
+                        <td>{{ formset.regular_price | add_class:"form-control text-center" }}</td>
+                        <td>{{ formset.discount_price_1 | add_class:"form-control text-center" }}</td>
+                        <td>{{ formset.discount_price_2 | add_class:"form-control text-center" }}</td>
+                        <td class="text-right">{{ formset.discount_price_3 | add_class:"form-control text-center" }}
+                        </td>
+                        <td class="td-actions text-right">
+                            <button type="button" rel="tooltip" class="btn btn-success add-form-row">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </td>
+                    </tr>
                 </div>
-                <div class="form-group col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                    <label>{{ formset.regular_price.label }}</label>
-                    {{ formset.regular_price | add_class:"form-control" }}
-                </div>
-                <div class="form-group col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                    <label>{{ formset.discount_price_1.label }}</label>
-                    {{ formset.discount_price_1 | add_class:"form-control" }}
-                </div>
-                <div class="form-group col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                    <label>{{ formset.discount_price_2.label }}</label>
-                    {{ formset.discount_price_2 | add_class:"form-control" }}
-                </div>
-                <div class="form-group col-xl-2 col-lg-4 col-md-6 col-sm-12">
-                    <label>{{ formset.discount_price_3.label }}</label>
-                    {{ formset.discount_price_3 | add_class:"form-control" }}
-                </div>
-                <div class="form-group col-xl-1 col-lg-4 col-md-6 col-sm-12">
-                    <div class="btn-group float-right">
-                        <button type="button" id="addFormPrice" class="add-form-row btn btn-sm btn-outline-success">
-                            <i class="material-icons">
-                                add
-                            </i>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
-            {% endfor %}
-        </div>
-        {{ price_records_formset.management_form }}
-        <p class="card-text"><small class="text-muted">{% trans "* - required field" %}</small>
-        </p>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <!--/body-->
 </div>
