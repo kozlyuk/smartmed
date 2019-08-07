@@ -72,7 +72,7 @@ class EmployeeCreate(CreateView):
 class EmployeeUpdate(UpdateView):
     """ EmployeeUpdate - view for updating employees """
     model = Employee
-    template_name = 'user_form.html'
+    template_name = 'employee_form.html'
     form_class = EmployeeUpdateForm
     success_url = reverse_lazy('employee_list')
 
@@ -88,7 +88,7 @@ class EmployeeDelete(DeleteView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class EmployeeSelfUpdate(UpdateView):
     """ EmployeeSelfUpdate - view for employees self updating """
-    template_name = 'user_form.html'
+    template_name = 'employee_form.html'
     form_class = EmployeeUpdateForm
     success_url = reverse_lazy('manager_home')
 
@@ -116,7 +116,7 @@ class PartnerCreate(CreateView):
 class PartnerUpdate(UpdateView):
     """ PartnerUpdate - view for partners updating """
     model = Partner
-    template_name = 'user_form.html'
+    template_name = 'partner_form.html'
     form_class = PartnerUpdateForm
     success_url = reverse_lazy('partner_list')
 
@@ -132,7 +132,7 @@ class PartnerDelete(DeleteView):
 @method_decorator(login_required, name='dispatch')  # pylint: disable=too-many-ancestors
 class PartnerSelfUpdate(UpdateView):
     """ PartnerSelfUpdate - view for partners self updating """
-    template_name = 'user_form.html'
+    template_name = 'partner_form.html'
     form_class = PartnerUpdateForm
     success_url = reverse_lazy('manager_home')
 
