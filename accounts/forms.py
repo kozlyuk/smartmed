@@ -100,6 +100,7 @@ class EmployeeUpdateForm(forms.ModelForm):
 
         if commit:
             user.save()
+            instance.save()
             if width > 0 and height > 0:
                 image = Image.open(instance.avatar)
                 cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
@@ -195,6 +196,7 @@ class PartnerUpdateForm(forms.ModelForm):
 
         if commit:
             user.save()
+            instance.save()
             if width > 0 and height > 0:
                 image = Image.open(instance.avatar)
                 cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
