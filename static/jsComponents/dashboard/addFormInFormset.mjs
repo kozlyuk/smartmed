@@ -30,9 +30,9 @@ function cloneMore(selector, prefix) {
     total++;
     $('#id_' + prefix + '-TOTAL_FORMS').val(total);
     $(selector).after(newElement);
-    var conditionRow = $('.form-row:not(:last)');
-    conditionRow.find('.btn.add-form-row')
-        .removeClass('btn-outline-success').addClass('btn-outline-danger')
+    var conditionRow = $('.price-actions:not(:last)');
+    conditionRow
+        .removeClass('btn-success').addClass('btn-danger')
         .removeClass('add-form-row').addClass('remove-form-row')
         .html('<i class="material-icons">remove</i>');
     return false;
@@ -41,8 +41,8 @@ function cloneMore(selector, prefix) {
 function deleteForm(prefix, btn) {
     var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
     if (total > 1) {
-        btn.closest('.form-row').remove();
-        var forms = $('.form-row');
+        btn.closest('.price-row').remove();
+        var forms = $('.price-row');
         $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
         for (var i = 0, formCount = forms.length; i < formCount; i++) {
             $(forms.get(i)).find(':input').each(function () {
