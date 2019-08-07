@@ -19,12 +19,12 @@ def avatar_directory_path(instance, filename):
 class Employee(models.Model):
     """ Employee model - extending of User model for employees """
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    name = models.CharField('ПІБ', max_length=50, unique=True)
-    position = models.CharField('Посада', max_length=50)
-    phone = models.CharField('Телефон', max_length=13, blank=True)
-    avatar = models.ImageField('Фото', upload_to=avatar_directory_path,
+    name = models.CharField(_('Full name'), max_length=50, unique=True)
+    position = models.CharField(_('Position'), max_length=50)
+    phone = models.CharField(_('Phone'), max_length=13, blank=True)
+    avatar = models.ImageField(_('Photo'), upload_to=avatar_directory_path,
                                default='avatars/no_image.jpg')
-    birthday = models.DateField('День народження', blank=True, null=True)
+    birthday = models.DateField(_('Birthday'), blank=True, null=True)
     theme = models.CharField(_('Theme'), max_length=2, choices=THEME_CHOICES, default='bl')
 
     class Meta:

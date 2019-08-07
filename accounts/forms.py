@@ -7,7 +7,7 @@ from PIL import Image
 from accounts.models import Employee, Partner
 
 
-class EmployeeForm(forms.ModelForm):
+class EmployeeCreateForm(forms.ModelForm):
     """ EmployeeForm - form for employees creating or updating """
     username = forms.CharField(label=_('Login'), max_length=255, required=True)
     password = forms.CharField(label=_('Password'), max_length=255, required=True, widget=forms.PasswordInput)
@@ -17,14 +17,14 @@ class EmployeeForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ['name', 'position', 'password', 'avatar', 'email', 'phone', 'birthday', 'theme']
+        fields = ['name', 'position', 'avatar', 'phone', 'birthday', 'theme']
 
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         password_confirm = cleaned_data.get('password_confirm')
         username = cleaned_data.get('username')
-        pib_name = self.cleaned_data.get('name').split()
+        pib_name = cleaned_data.get('name').split()
         email = cleaned_data.get('email')
 
         if password != password_confirm:
@@ -57,8 +57,10 @@ class EmployeeForm(forms.ModelForm):
         return instance
 
 
-class EmployeeSelfUpdateForm(forms.ModelForm):
+class EmployeeUpdateForm(forms.ModelForm):
     """ EmployeeSelfUpdateForm - form for employees self-creating self-updating """
+    username = forms.CharField(label=_('Login'), max_length=255, required=True)
+    email = forms.EmailField(label=_('Email'), max_length=255, required=True)
     x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     width = forms.FloatField(widget=forms.HiddenInput(), initial=0)
@@ -66,10 +68,30 @@ class EmployeeSelfUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ['name', 'phone', 'avatar', 'theme', 'birthday', 'position']
+        fields = ['name', 'position', 'avatar', 'phone', 'birthday', 'theme', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].initial = self.instance.user.first_name + ' ' + self.instance.user.last_name
+        self.fields['email'].initial = self.instance.user.email
+
+    def clean(self):
+        cleaned_data = super().clean()
+        pib_name = cleaned_data.get('name').split()
+        email = cleaned_data.get('email')
+
+        if pib_name in self.changed_data and len(pib_name) < 2:
+            self.add_error('name', _('Please write full name of employee'))
+        if email in self.changed_data and User.objects.filter(email=email).exists():
+            self.add_error('email', _('User with such email already exist'))
 
     def save(self, *args, **kwargs):  # pylint: disable=W0221
         instance = super().save(*args, **kwargs)
+
+        username = self.cleaned_data.get('username')
+        pib_name = self.cleaned_data.get('name').split()
+        email = self.cleaned_data.get('email')
+
         pos_x = self.cleaned_data.get('x')
         pos_y = self.cleaned_data.get('y')
         width = self.cleaned_data.get('width')
