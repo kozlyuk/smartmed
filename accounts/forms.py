@@ -73,6 +73,8 @@ class EmployeeUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].initial = self.instance.user.username
+        self.fields['username'].widget.attrs['disabled'] = True
+        self.fields['username'].required = False
         self.fields['email'].initial = self.instance.user.email
 
     def clean(self):
@@ -172,6 +174,8 @@ class PartnerUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].initial = self.instance.user.username
+        self.fields['username'].widget.attrs['disabled'] = True
+        self.fields['username'].required = False
         self.fields['email'].initial = self.instance.user.email
 
     def clean(self):
