@@ -91,8 +91,7 @@ class EmployeeUpdateForm(forms.ModelForm):
         instance = super().save(commit=False)
 
         email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        user = User.objects.get(username=username)
+        user = User.objects.get(id=self.instance.user.pk)
         user.email = email
 
         pos_x = self.cleaned_data.get('x')
@@ -189,8 +188,7 @@ class PartnerUpdateForm(forms.ModelForm):
         instance = super().save(commit=False)
 
         email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        user = User.objects.get(username=username)
+        user = User.objects.get(id=self.instance.user.pk)
         user.email = email
 
         pos_x = self.cleaned_data.get('x')
