@@ -12,7 +12,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from accounts.models import Employee, Partner
-from accounts.forms import EmployeeCreateForm, EmployeeUpdateForm, PartnerForm, PartnerSelfUpdateForm
+from accounts.forms import EmployeeCreateForm, EmployeeUpdateForm, PartnerCreateForm, PartnerUpdateForm
 from purchases.models import Purchase
 
 
@@ -108,7 +108,7 @@ class PartnerList(ListView):
 class PartnerCreate(CreateView):
     """ PartnerCreate - view for partners creating """
     template_name = 'partner_create.html'
-    form_class = PartnerForm
+    form_class = PartnerCreateForm
     success_url = reverse_lazy('partner_list')
 
 
@@ -117,7 +117,7 @@ class PartnerUpdate(UpdateView):
     """ PartnerUpdate - view for partners updating """
     model = Partner
     template_name = 'user_form.html'
-    form_class = PartnerForm
+    form_class = PartnerUpdateForm
     success_url = reverse_lazy('partner_list')
 
 
@@ -133,7 +133,7 @@ class PartnerDelete(DeleteView):
 class PartnerSelfUpdate(UpdateView):
     """ PartnerSelfUpdate - view for partners self updating """
     template_name = 'user_form.html'
-    form_class = PartnerSelfUpdateForm
+    form_class = PartnerUpdateForm
     success_url = reverse_lazy('manager_home')
 
     def get_object(self, queryset=None):

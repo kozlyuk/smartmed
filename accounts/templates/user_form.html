@@ -31,12 +31,7 @@
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Username" %}</label>
-										{% if request.user|has_group:"employees" %} 
-										<input type="text" class="form-control text-muted" value="{{ employee.user.get_username }}" disabled>
-										{% endif %}
-										{% if request.user|has_group:"partners" %} 
-										<input type="text" class="form-control text-muted" value="{{ partner.user.get_username }}" disabled>
-										{% endif %}
+										{{ form.username | add_class:"form-control" }}
 									</div>
 								</div>
 							<!--/username-->
@@ -44,12 +39,7 @@
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Email" %}</label>
-										{% if request.user|has_group:"employees" %} 
-										<input type="email" class="form-control text-muted" value="{{ employee.user.email }}">
-										{% endif %}
-										{% if request.user|has_group:"partners" %}
-										<input type="email" class="form-control text-muted" value="{{ partner.user.email }}">
-										{% endif %}
+										{{ form.email | add_class:"form-control" }}
 									</div>
 								</div>
 							<!--/email-->

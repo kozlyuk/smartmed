@@ -44,21 +44,12 @@
 								</div>
 								{% endif %}
 
-								{% if request.resolver_match.url_name == "employee_update" %}
 								<div class="col-4">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Email" %}</label>
 										{{ form.email | add_class:"form-control" }}
 									</div>
 								</div>
-								{% else %}
-								<div class="col-4">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Email" %}</label>
-										<input type="email" class="form-control text-muted" value="{{ employee.user.email }}">
-									</div>
-								</div>
-								{% endif %}
 
 								<div class="col-4">
 									<div class="form-group">

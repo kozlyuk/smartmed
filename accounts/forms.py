@@ -59,7 +59,7 @@ class EmployeeCreateForm(forms.ModelForm):
 
 class EmployeeUpdateForm(forms.ModelForm):
     """ EmployeeSelfUpdateForm - form for employees self-creating self-updating """
-    username = forms.CharField(label=_('Login'), max_length=255, required=True)
+    username = forms.CharField(label=_('Username'), max_length=255, required=True)
     email = forms.EmailField(label=_('Email'), max_length=255, required=True)
     x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
@@ -68,11 +68,11 @@ class EmployeeUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ['name', 'position', 'avatar', 'phone', 'birthday', 'theme', 'email']
+        fields = ['name', 'position', 'avatar', 'phone', 'birthday', 'theme']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].initial = self.instance.user.first_name + ' ' + self.instance.user.last_name
+        self.fields['username'].initial = self.instance.user.username
         self.fields['email'].initial = self.instance.user.email
 
     def clean(self):
@@ -80,31 +80,35 @@ class EmployeeUpdateForm(forms.ModelForm):
         pib_name = cleaned_data.get('name').split()
         email = cleaned_data.get('email')
 
-        if pib_name in self.changed_data and len(pib_name) < 2:
+        if 'pib_name' in self.changed_data and len(pib_name) < 2:
             self.add_error('name', _('Please write full name of employee'))
-        if email in self.changed_data and User.objects.filter(email=email).exists():
+        if 'email' in self.changed_data and User.objects.filter(email=email).exists():
             self.add_error('email', _('User with such email already exist'))
 
-    def save(self, *args, **kwargs):  # pylint: disable=W0221
-        instance = super().save(*args, **kwargs)
+    def save(self, commit=True):  # pylint: disable=W0221
+        instance = super().save(commit=False)
 
-        username = self.cleaned_data.get('username')
-        pib_name = self.cleaned_data.get('name').split()
         email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        user = User.objects.get(username=username)
+        user.email = email
 
         pos_x = self.cleaned_data.get('x')
         pos_y = self.cleaned_data.get('y')
         width = self.cleaned_data.get('width')
         height = self.cleaned_data.get('height')
-        if width > 0 and height > 0:
-            image = Image.open(instance.avatar)
-            cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
-            resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
-            resized_image.save(instance.avatar.path)
+
+        if commit:
+            user.save()
+            if width > 0 and height > 0:
+                image = Image.open(instance.avatar)
+                cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
+                resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
+                resized_image.save(instance.avatar.path)
         return instance
 
 
-class PartnerForm(forms.ModelForm):
+class PartnerCreateForm(forms.ModelForm):
     """ PartnerForm - form for partners creating or updating """
     username = forms.CharField(label=_('Login'), max_length=255, required=True)
     password = forms.CharField(label=_('Password'), max_length=255, required=True, widget=forms.PasswordInput)
@@ -150,8 +154,10 @@ class PartnerForm(forms.ModelForm):
         return instance
 
 
-class PartnerSelfUpdateForm(forms.ModelForm):
+class PartnerUpdateForm(forms.ModelForm):
     """ PartnerSelfUpdateForm - form for partners self-creating or self-updating """
+    username = forms.CharField(label=_('Username'), max_length=255, required=True)
+    email = forms.EmailField(label=_('Email'), max_length=255, required=True)
     x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     width = forms.FloatField(widget=forms.HiddenInput(), initial=0)
@@ -162,15 +168,36 @@ class PartnerSelfUpdateForm(forms.ModelForm):
         fields = ['name', 'fullname', 'legal_address', 'requisites', 'bank_requisites', 'chief',
                   'phone', 'tax_system', 'birthday', 'theme', 'avatar']
 
-    def save(self, *args, **kwargs):  # pylint: disable=W0221
-        instance = super().save(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].initial = self.instance.user.username
+        self.fields['email'].initial = self.instance.user.email
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+
+        if 'email' in self.changed_data and User.objects.filter(email=email).exists():
+            self.add_error('email', _('User with such email already exist'))
+
+    def save(self, commit=True):  # pylint: disable=W0221
+        instance = super().save(commit=False)
+
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        user = User.objects.get(username=username)
+        user.email = email
+
         pos_x = self.cleaned_data.get('x')
         pos_y = self.cleaned_data.get('y')
         width = self.cleaned_data.get('width')
         height = self.cleaned_data.get('height')
-        if width > 0 and height > 0:
-            image = Image.open(instance.avatar)
-            cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
-            resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
-            resized_image.save(instance.avatar.path)
+
+        if commit:
+            user.save()
+            if width > 0 and height > 0:
+                image = Image.open(instance.avatar)
+                cropped_image = image.crop((pos_x, pos_y, width+pos_x, height+pos_y))
+                resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
+                resized_image.save(instance.avatar.path)
         return instance
