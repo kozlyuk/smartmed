@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from accounts.models import Employee, Partner
 
 
 @admin.register(Employee)
@@ -21,7 +21,6 @@ class PartnerAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': [('user', 'name'),
                            'fullname',
-                           'address',
                            'requisites',
                            'bank_requisites',
                            ('chief', 'phone'),

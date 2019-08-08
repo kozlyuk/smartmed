@@ -116,7 +116,7 @@ class PartnerCreateForm(forms.ModelForm):
 
     class Meta:
         model = Partner
-        fields = ['name', 'fullname', 'legal_address', 'requisites', 'bank_requisites', 'chief',
+        fields = ['name', 'fullname', 'requisites', 'bank_requisites', 'chief',
                   'phone', 'tax_system', 'birthday', 'theme', 'avatar']
 
     def clean(self):
@@ -162,7 +162,7 @@ class PartnerUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Partner
-        fields = ['name', 'fullname', 'legal_address', 'requisites', 'bank_requisites', 'chief',
+        fields = ['name', 'fullname', 'requisites', 'bank_requisites', 'chief',
                   'phone', 'tax_system', 'birthday', 'theme', 'avatar']
 
     def __init__(self, *args, **kwargs):
