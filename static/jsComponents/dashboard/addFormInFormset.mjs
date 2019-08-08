@@ -18,6 +18,7 @@ function cloneMore(selector, prefix) {
             'id': id
         }).val('').removeAttr('checked');
     });
+    newElement.find('.date')
     newElement.find('label').each(function () {
         var forValue = $(this).attr('for');
         if (forValue) {
@@ -27,6 +28,7 @@ function cloneMore(selector, prefix) {
             });
         }
     });
+
     total++;
     $('#id_' + prefix + '-TOTAL_FORMS').val(total);
     $(selector).after(newElement);
@@ -36,6 +38,12 @@ function cloneMore(selector, prefix) {
         .removeClass('add-form-row').addClass('remove-form-row')
         .html('<i class="material-icons">remove</i>');
     return false;
+}
+
+function updateDatepicker() {
+    var delDatepicker = $(':input.date:last');
+    delDatepicker.data('datepicker').destroy();
+    $('#id_pricerecord_set-4-from_date').datepicker()
 }
 
 function deleteForm(prefix, btn) {

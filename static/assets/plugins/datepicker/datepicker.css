@@ -163,22 +163,16 @@
   .datepickers-container {
     position: absolute;
     left: 0;
-    top: 0; }
-    @media print {
-      .datepickers-container {
-        display: none; } }
-  
-  .datepicker {
-    background: #fff;
-    border: 1px solid #dbdbdb;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-radius: 4px;
-    box-sizing: content-box;
-    font-family: Tahoma, sans-serif;
-    font-size: 14px;
-    color: #4a4a4a;
-    width: 250px;
-    position: absolute;
+}
+.datepicker-dropdown:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #999;
+  border-top: 0;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
     left: -100000px;
     opacity: 0;
     transition: opacity 0.3s ease, left 0s 0.3s, -webkit-transform 0.3s ease;
@@ -319,8 +313,9 @@
     width: 32px;
     border-radius: 4px;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
             user-select: none; }
     .datepicker--nav-action:hover {
       background: #f0f0f0; }

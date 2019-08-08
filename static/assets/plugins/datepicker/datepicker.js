@@ -23,7 +23,7 @@
             toggleSelected: true,
             keyboardNav: true,
 
-            position: 'bottom left',
+            position: 'top right',
             offset: 12,
 
             view: 'days',

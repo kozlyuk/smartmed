@@ -1,6 +1,9 @@
 {% load i18n %}
 {% load widget_tweaks %}
 {% load static %}
+{% block extrastyle %}
+{{ form.media.css }}
+{% endblock extrastyle %}
 <div class="card">
     <div class="card-header card-header-info">
         <div class="text-center">{% trans "Price" %}</div>
@@ -23,12 +26,12 @@
                     {{ formset.non_field_errors }}
                     {{ formset.errors }}
                     {{ formset.id }}
-                    <td>{{ formset.from_date | append_attr:"class:form-control text-center" }}</td>
+                    <td width="100%">{{ formset.from_date | append_attr:"class:form-control" }}</td>
                     <td>{{ formset.regular_price | add_class:"form-control text-center" }}</td>
                     <td>{{ formset.discount_price_1 | add_class:"form-control text-center" }}</td>
                     <td>{{ formset.discount_price_2 | add_class:"form-control text-center" }}</td>
                     <td class="text-right">{{ formset.discount_price_3 | add_class:"form-control text-center" }}</td>
-                    <td class="td-actions text-right">
+                    <td width="5%" class="td-actions text-right">
                         <button type="button" rel="tooltip" class="btn btn-success price-actions add-form-row">
                             <i class="material-icons">add</i>
                         </button>

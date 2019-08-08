@@ -13,7 +13,10 @@
 {% endif %}
 {% endblock %}
 {% block extrastyle %}
-<link rel="stylesheet" href="{% static 'assets/plugins/datepicker/datepicker.min.css' %}">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
 {% endblock extrastyle %}
 {% block context %}
 <div class="content">
@@ -200,7 +203,11 @@
 </div>
 {% endblock context %}
 {% block extrascript %}
-<script src="{% static 'assets/plugins/datepicker/datepicker.min.js' %}" type="text/javascript"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+
 <script type="module">
 import {
     cloneMore,

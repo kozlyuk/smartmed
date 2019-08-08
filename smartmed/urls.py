@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include, url
 from django.views.generic.base import RedirectView
+from django.views.i18n import JavaScriptCatalog
 
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('', include('warehouse.urls')),
     
     url(r'favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
+    url(r'^admin/jsi18n', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 ]
 
 if settings.DEBUG:

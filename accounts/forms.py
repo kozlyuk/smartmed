@@ -59,7 +59,6 @@ class EmployeeCreateForm(forms.ModelForm):
 
 class EmployeeUpdateForm(forms.ModelForm):
     """ EmployeeSelfUpdateForm - form for employees self-creating self-updating """
-    username = forms.CharField(label=_('Username'), max_length=255, required=True)
     email = forms.EmailField(label=_('Email'), max_length=255, required=True)
     x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
@@ -72,9 +71,6 @@ class EmployeeUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].initial = self.instance.user.username
-        self.fields['username'].widget.attrs['disabled'] = True
-        self.fields['username'].required = False
         self.fields['email'].initial = self.instance.user.email
 
     def clean(self):
@@ -117,8 +113,8 @@ class PartnerCreateForm(forms.ModelForm):
     password_confirm = forms.CharField(label=_('Confirm password'), max_length=255, required=True,
                                        widget=forms.PasswordInput)
     email = forms.EmailField(label=_('Email'), max_length=255, required=True)
-    requisites = forms.CharField(widget=forms.Textarea())
-    bank_requisites = forms.CharField(widget=forms.Textarea())
+    requisites = forms.CharField(required=False, widget=forms.Textarea())
+    bank_requisites = forms.CharField(required=False, widget=forms.Textarea() )
 
     class Meta:
         model = Partner
@@ -160,7 +156,6 @@ class PartnerCreateForm(forms.ModelForm):
 
 class PartnerUpdateForm(forms.ModelForm):
     """ PartnerSelfUpdateForm - form for partners self-creating or self-updating """
-    username = forms.CharField(label=_('Username'), max_length=255, required=True)
     email = forms.EmailField(label=_('Email'), max_length=255, required=True)
     x = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
@@ -175,9 +170,6 @@ class PartnerUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].initial = self.instance.user.username
-        self.fields['username'].widget.attrs['disabled'] = True
-        self.fields['username'].required = False
         self.fields['email'].initial = self.instance.user.email
 
     def clean(self):
