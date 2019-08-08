@@ -27,16 +27,6 @@
 						</div>
 						<div class="card-body">
 							<div class="row">
-							<!--email-->
-								<div class="col-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Email" %}</label>
-										{{ form.email | add_class:"form-control" }}
-									</div>
-								</div>
-							<!--/email-->
-							</div>
-							<div class="row">
 								<!--name-->
 								<div class="col-6">
 									<div class="form-group">
@@ -52,35 +42,17 @@
 										{{ form.fullname | add_class:"form-control" }}
 									</div>
 								</div>
-								<!--/fullname-->
+									<!--/fullname-->
 							</div>
 							<div class="row">
-								<!--address-->
-								<div class="col-12">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Address" %}</label>
-										{{ form.legal_address | add_class:"form-control" }}
+								<!--email-->
+									<div class="col-12">
+										<div class="form-group">
+											<label class="bmd-label-floating">{% trans "Email" %}</label>
+											{{ form.email | add_class:"form-control" }}
+										</div>
 									</div>
-								</div>
-								<!--/address-->
-							</div>
-							<div class="row">
-								<!--requisites-->
-								<div class="col-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Requisites" %}</label>
-										{{ form.requisites | add_class:"form-control" }}
-									</div>
-								</div>
-								<!--/requisites-->
-								<!--bank requisites-->
-								<div class="col-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Bank requisites" %}</label>
-										{{ form.bank_requisites | add_class:"form-control" }}
-									</div>
-								</div>
-								<!--/bank requisites-->
+								<!--/email-->
 							</div>
 							
 							<div class="row">
@@ -117,6 +89,24 @@
 										{{ form.theme | append_attr:"class:form-control" }}
 									</div>
 								</div>
+							</div>
+							<div class="row">
+								<!--requisites-->
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Requisites" %}</label>
+										{{ form.requisites | add_class:"form-control" }}
+									</div>
+								</div>
+								<!--/requisites-->
+								<!--bank requisites-->
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Bank requisites" %}</label>
+										{{ form.bank_requisites | add_class:"form-control" }}
+									</div>
+								</div>
+								<!--/bank requisites-->
 							</div>
 							<!--/theme-->
 							<button id="submit" class="btn btn-info btn-block">{% trans "Update information" %}</button>
