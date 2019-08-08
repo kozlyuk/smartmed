@@ -113,8 +113,6 @@ class PartnerCreateForm(forms.ModelForm):
     password_confirm = forms.CharField(label=_('Confirm password'), max_length=255, required=True,
                                        widget=forms.PasswordInput)
     email = forms.EmailField(label=_('Email'), max_length=255, required=True)
-    requisites = forms.CharField(required=False, widget=forms.Textarea())
-    bank_requisites = forms.CharField(required=False, widget=forms.Textarea() )
 
     class Meta:
         model = Partner
@@ -161,7 +159,6 @@ class PartnerUpdateForm(forms.ModelForm):
     y = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     width = forms.FloatField(widget=forms.HiddenInput(), initial=0)
     height = forms.FloatField(widget=forms.HiddenInput())
-    bank_requisites = forms.CharField(widget=forms.Textarea())
 
     class Meta:
         model = Partner

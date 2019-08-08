@@ -50,8 +50,8 @@ class Partner(models.Model):
     name = models.CharField(_('Name'), max_length=45)
     fullname = models.CharField(_('Full name'), max_length=255)
     legal_address = models.CharField(_('Legal address'), max_length=255, blank=True)
-    requisites = models.CharField(_('Requisites'), max_length=255, blank=True)
-    bank_requisites = models.CharField(_('Bank details'), max_length=255, blank=True)
+    requisites = models.TextField(_('Requisites'), max_length=255, blank=True)
+    bank_requisites = models.TextField(_('Bank details'), max_length=255, blank=True)
     chief = models.CharField(_('Chief'), max_length=45, blank=True)
     phone = models.CharField(_('Phone'), max_length=13, blank=True)
     tax_system = models.CharField(_('Tax system'), max_length=5,
