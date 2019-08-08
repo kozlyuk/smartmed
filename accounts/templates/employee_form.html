@@ -17,7 +17,7 @@
 	<form id="EmployeeSelfUpdateForm" enctype="multipart/form-data" method="post">
 		{% csrf_token %}
 		<div class="container-fluid">
-		{% include 'includes/dashboard/form_errors.html' %}
+			{% include 'includes/dashboard/form_errors.html' %}
 			<div class="row">
 				<div class="col-md-8">
 					<div class="card">
@@ -27,60 +27,60 @@
 						</div>
 						<div class="card-body">
 							<div class="row">
-
-							<!--email-->
-								<div class="col-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Email" %}</label>
-										{{ form.email | add_class:"form-control" }}
-									</div>
-								</div>
-							<!--/email-->
-							</div>
-							<div class="row">
 								<!--name-->
-								<div class="col-12">
+								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Name" %}</label>
 										{{ form.name | add_class:"form-control" }}
 									</div>
 								</div>
 								<!--/name-->
+								<!--email-->
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Email" %}</label>
+										{{ form.email | add_class:"form-control" }}
+									</div>
+								</div>
+								<!--/email-->
 							</div>
 							<div class="row">
 								<!--position-->
-								<div class="col-12">
+								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Position" %}</label>
 										{{ form.position | add_class:"form-control" }}
 									</div>
 								</div>
 								<!--/position-->
-							</div>
-							
-							<div class="row">
 								<!--phone-->
-								<div class="col-md-6">
+								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Phone" %}</label>
 										{{ form.phone | add_class:"form-control" }}
 									</div>
 								</div>
 								<!--/phone-->
+							</div>
+
+							<div class="row">
 								<!--birthday-->
-								<div class="col-md-6">
+								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Birthday" %}</label>
 										{{ form.birthday | append_attr:"class:form-control datepicker-here" }}
 									</div>
 								</div>
 								<!--/birthday-->
+								<!--theme-->
+								<div class="col-6">
+									<div class="form-group">
+										<label class="bmd-label-floating">{% trans "Dashboard theme" %}</label>
+										{{ form.theme | append_attr:"class:form-control" }}
+									</div>
+								</div>
+								<!--/theme-->
 							</div>
-							<div class="form-group">
-								<label class="bmd-label-floating">{% trans "Dashboard theme" %}</label>
-								{{ form.theme | append_attr:"class:form-control" }}
-							</div>
-							<!--/theme-->
 							<button id="submit" class="btn btn-info btn-block">{% trans "Update information" %}</button>
 							<div class="clearfix"></div>
 						</div>
@@ -100,7 +100,7 @@
 							<div class="card-body">
 								<h6 class="card-category">{{ employee.position }}</h6>
 								<h4 class="card-title">
-								{{ employee.user.get_username }}
+									{{ employee.user.get_username }}
 								</h4>
 								<p class="card-description">
 									{{ employee.name }} {{ employee.fullname }}
