@@ -31,7 +31,7 @@
 								<div class="col-6">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Username" %}</label>
-										{{ form.username | add_class:"form-control" }}
+										{{ form.username | append_attr:"class:form-control text-muted" | append_attr:"disabled" }}
 									</div>
 								</div>
 							<!--/username-->
@@ -46,21 +46,13 @@
 							</div>
 							<div class="row">
 								<!--name-->
-								<div class="col-6">
+								<div class="col-12">
 									<div class="form-group">
 										<label class="bmd-label-floating">{% trans "Name" %}</label>
 										{{ form.name | add_class:"form-control" }}
 									</div>
 								</div>
 								<!--/name-->
-								<!--fullname-->
-								<div class="col-6">
-									<div class="form-group">
-										<label class="bmd-label-floating">{% trans "Fullname" %}</label>
-										{{ form.fullname | add_class:"form-control" }}
-									</div>
-								</div>
-								<!--/fullname-->
 							</div>
 							<div class="row">
 								<!--position-->
