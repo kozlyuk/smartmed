@@ -49,7 +49,6 @@ class Partner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(_('Name'), max_length=45)
     fullname = models.CharField(_('Full name'), max_length=255)
-    legal_address = models.CharField(_('Legal address'), max_length=255, blank=True)
     requisites = models.TextField(_('Requisites'), max_length=255, blank=True)
     bank_requisites = models.TextField(_('Bank details'), max_length=255, blank=True)
     chief = models.CharField(_('Chief'), max_length=45, blank=True)
