@@ -4,7 +4,6 @@ from django import forms
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 from PIL import Image as Img
-from django.contrib.admin import widgets
 
 from catalogue.models import Product, Category, Group, Brand, Image, PriceRecord, Attribute
 
@@ -80,9 +79,6 @@ class PriceRecordInlineForm(forms.ModelForm):
         model = PriceRecord
         fields = ['from_date', 'regular_price',
                   'discount_price_1', 'discount_price_2', 'discount_price_3']
-        widgets = {
-            'from_date': widgets.AdminDateWidget(),
-        }
 
 
 PRICE_RECORD_FORMSET = inlineformset_factory(Product, PriceRecord,
