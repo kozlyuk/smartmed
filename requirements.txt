@@ -1,5 +1,5 @@
 Django==2.2.3
-Pillow==5.4.1
+Pillow==8.2.0
 progressbar2==3.39.3
 python-utils==2.3.0
 pytz==2018.9
